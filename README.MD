@@ -8,10 +8,10 @@ A clone of the Python Enum with support for `@_missing_` to return a default val
 Search for files in a base folder and get the absolute or relative file name f(base_folder)
 
 ### TS4Folders
-Provides access to the TS4¹/Game, TS4²/Mods and TS4²/mod_data folder.
-* TS4¹ is not TS4².
-* In TS4²: Installed DLC and game files.
-* In TS4²: lastException.txt, GameVersion.txt, Mods, mod_logs, mod_data, ...
+Provides access to the TS4⁽¹⁾/Game, TS4⁽²⁾/Mods and TS4⁽²⁾/mod_data folder.
+* TS4⁽¹⁾ is not TS4⁽²⁾.
+* In TS4¹: Installed DLC and game files.
+* In TS4⁽²⁾: lastException.txt, GameVersion.txt, Mods, mod_logs, mod_data, ...
 
 ### FNV
 FNV uses the TS4 hash methods when available and otherwise a Python implementation.
