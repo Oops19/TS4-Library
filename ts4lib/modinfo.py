@@ -22,10 +22,12 @@ class ModInfo(CommonModInfo):
 
     @property
     def _version(self) -> str:
-        return '0.0.14'
+        return '0.0.15'
 
 
 '''
+v0.0.15
+    Relocate README.md
 v0.0.14
     Cleanup
 v0.0.13
