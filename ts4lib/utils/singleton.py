@@ -6,6 +6,11 @@
 
 
 class Singleton(type):
+    """
+    Usage:
+    from ts4lib.utils.singleton import Singleton
+    Foo(object, metaclass=Singleton):  # old code: 'Foo:'
+    """
     _instances = {}
 
     def __call__(cls, *args, **kwargs):
