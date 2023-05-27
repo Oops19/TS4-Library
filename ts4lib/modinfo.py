@@ -22,10 +22,14 @@ class ModInfo(CommonModInfo):
 
     @property
     def _version(self) -> str:
-        return '0.0.17'
+        return '0.0.19'
 
 
 '''
+v0.0.19
+    Update README and compile.sh
+v0.0.18
+    Update README and compile.sh
 v0.0.17
     Added BasicExtras (from OID)
 v0.0.16
