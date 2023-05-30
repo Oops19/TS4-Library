@@ -10,6 +10,10 @@ A clone of the Python Enum with support for `@_missing_` to return a default val
 ### FileUtils
 Search for files in a base folder and get the absolute or relative file name f(base_folder)
 
+### Outfit Utils
+For now just a method to apply an outfit to a sim.
+If only the previous outfit_index exists and the chosen one is valid and unused a new outfit will be created.  
+
 ### Tuning Helper
 A simple method `get_tuning_ids(manager, tuning)` to access the instanced tuning classes (no longer in XML form).
 The manager is not required and tunings can be the 's' IDs or the 'n' names, wildcards are supported to match multiple tunings.  
