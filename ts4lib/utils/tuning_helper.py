@@ -68,7 +68,7 @@ class TuningHelper(object, metaclass=Singleton):
                 tuning_dict = {**tuning_dict, **self._get_tuning_dict(instance_manager, manager, tuning_names)}
         dt = time.time() - t
         self.dt_sum += dt
-        log.debug(f"Duration: {dt:.3f}s (sum: {self.dt_sum:.3f}s")
+        log.debug(f"get_tuning_dict() duration: {dt:.3f}s (sum: {self.dt_sum:.3f} s)")
         return tuning_dict
 
     def _get_tuning_dict(self, instance_manager, manager, tuning_names: list) -> Dict[int, tuple]:

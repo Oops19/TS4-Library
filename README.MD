@@ -34,8 +34,8 @@ A logger which works without TS4 running, to test parts of Mods locally and late
 # Addendum
 
 ## Game compatibility
-This mod has been tested with `The Sims 4` 1.97.62 (2023-05) and S4CL v2.6 (2023-04).
-It is expected to work with many older and upcoming releases of TS4 and S4CL.
+This mod has been tested with `The Sims 4` 1.98.127, S4CL v2.6, TS4Lib 0.0.19
+It is expected to be compatible with many upcoming releases of TS4, S4CL and TS4Lib.
 
 ## Dependencies
 * S4CL https://github.com/ColonolNutty/Sims4CommunityLibrary/releases/latest

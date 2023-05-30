@@ -110,10 +110,11 @@ class _TS4Folders(object, metaclass=Singleton):
         self._mods_folder = self._set_mods_folder(_home)
         log.info(f"Mods folder: '{self._mods_folder}'.")  # , privacy_filter=True  - privacy_filter not supported by S4CL
 
-        # self._data_folder = os.path.join(os.path.dirname(self._mods_folder), 'mod_data', self.namespace)
-
         self._game_folder = self._set_game_folder(_home)
-        log.info(f"Game folder: '{self._game_folder}' (For most mods 'None' is fine).")  # , privacy_filter=True)
+        if self._game_folder:
+            log.info(f"Game folder: '{self._game_folder}'")
+        else:
+            log.info(f"Game folder: '{self._game_folder}' (For most mods 'None' is fine).")
 
         _TS4Folders._initialized = True
 
@@ -209,46 +210,3 @@ class _TS4Folders(object, metaclass=Singleton):
     def get_folders(self, namespace) -> Tuple[str, str, str]:
         _data_folder = os.path.join(os.path.dirname(self._mods_folder), 'mod_data', namespace)
         return _data_folder, self._mods_folder, self._game_folder
-
-    '''
-    @property
-    def ts4_folder_mods(self) -> Union[str, None]:
-        """
-        :return: The 'The Sims 4' folder which contains mod_logs, mod_data, saves, Tray, Mods, ...
-        """
-        if self._mods_folder:
-            return os.path.dirname(self._mods_folder)   # 'The Sims 4' (usually in HOME)
-        else:
-            return None
-
-    @property
-    def mods_folder(self) -> Union[str, None]:
-        """
-        :return: The 'The Sims 4/Mods' folder with Package files.
-        """
-        return self._mods_folder  # 'The Sims 4/Mods'
-
-    @property
-    def data_folder(self) -> Union[str, None]:
-        """
-        :return: The 'The Sims 4/mod_data/{_namespace}' folder to store configuration data.
-        """
-
-        return self._data_folder  # 'The Sims 4/mod_data/basename(mod)'
-
-    @property
-    def ts4_folder_game(self):
-        """
-        :return: The 'The Sims 4' folder which contains 'Game' and other DLC folders with Package files.
-        """
-        if self._game_folder:
-            return os.path.dirname(self._game_folder)  # 'The Sims 4' (usually in program files)
-        return None
-
-    @property
-    def game_folder(self):
-        """
-        :return: The 'The Sims 4/Game' folder. It contains INI files etc.
-        """
-        return self._game_folder  # 'The Sims 4/Game'
-    '''

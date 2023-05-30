@@ -1,3 +1,9 @@
+#
+# LICENSE https://creativecommons.org/licenses/by/4.0/ https://creativecommons.org/licenses/by/4.0/legalcode
+# © 2023 https://github.com/Oops19
+#
+
+
 from sims4communitylib.mod_support.common_mod_info import CommonModInfo
 
 
@@ -22,10 +28,17 @@ class ModInfo(CommonModInfo):
 
     @property
     def _version(self) -> str:
-        return '0.0.19'
+        return '0.0.22'
 
 
 '''
+v0.0.22
+    Fixed Typo
+    Code cleanup
+v0.0.21
+    Added OutfitUtilities, generate missing outfit
+v0.0.20
+    Added BodyPart(CommonEnum) (last element BodyType.STRETCHMARKS_BACK = 100) 
 v0.0.19
     Update README and compile.sh
 v0.0.18
