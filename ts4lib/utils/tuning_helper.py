@@ -5,7 +5,7 @@
 
 
 import time
-from typing import Dict, Set, Union
+from typing import Dict, Set, Union, List
 
 import services
 import sims4
@@ -27,7 +27,7 @@ class TuningHelper(object, metaclass=Singleton):
         self.manager = None
         self.dt_sum = 0
 
-    def get_tuning_ids(self, manager: Union[None, str], tuning_names: list) -> Set[int]:
+    def get_tuning_ids(self, manager: Union[None, str], tuning_names: List[str]) -> Set[int]:
         """
         :param manager: see @get_tuning_dict
         :param tuning_names: see @get_tuning_dict
@@ -36,7 +36,7 @@ class TuningHelper(object, metaclass=Singleton):
         tuning_dict = self.get_tuning_dict(manager, tuning_names)
         return set(tuning_dict.keys())
 
-    def get_tuning_dict(self, manager: Union[None, str], tuning_names: list) -> Dict[int, tuple]:
+    def get_tuning_dict(self, manager: Union[None, str], tuning_names: List[str]) -> Dict[int, tuple]:
         """
         Interactive usage is fine, monitor times when using it in production and if it is called multiple times.
         This method is slow as it creates a dict and does not only return the tunings.
@@ -71,7 +71,7 @@ class TuningHelper(object, metaclass=Singleton):
         log.debug(f"get_tuning_dict() duration: {dt:.3f}s (sum: {self.dt_sum:.3f} s)")
         return tuning_dict
 
-    def _get_tuning_dict(self, instance_manager, manager, tuning_names: list) -> Dict[int, tuple]:
+    def _get_tuning_dict(self, instance_manager, manager, tuning_names: List[str]) -> Dict[int, tuple]:
         """
         :param instance_manager: An instance_manager.
         :param manager: see @get_tuning_dict

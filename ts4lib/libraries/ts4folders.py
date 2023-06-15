@@ -26,7 +26,7 @@ class TS4Folders:
     The 'The Sims 4' folder containing 'Mods' will also contain 'mod_logs' (rw), 'mod_data' (rw), GameVersion.txt (ro), lastUIException.txt (ro), ...
     The 'The Sims 4' folder containing 'Game' will also contain the DLCs (ro).
     ro/rw = read only / read write from a perspective of script mods.
-    Init with `(None, ModInfo.get_identity().base_namespace)`
+    Init with `TS4Folders(ModInfo.get_identity().base_namespace)`
     """
 
     def __init__(self, namespace: str):

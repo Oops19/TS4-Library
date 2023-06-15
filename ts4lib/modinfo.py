@@ -28,10 +28,12 @@ class ModInfo(CommonModInfo):
 
     @property
     def _version(self) -> str:
-        return '0.0.22'
+        return '0.0.24'
 
 
 '''
+v0.0.24
+    Fix fnv cheat command
 v0.0.22
     Fixed Typo
     Code cleanup

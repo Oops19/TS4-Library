@@ -21,7 +21,7 @@ class TestFnv:
     """Simple code snippet to check the FNV implementation."""
 
     @staticmethod
-    @CommonConsoleCommand(ModInfo.get_identity(), 'o19.fnv.test text', 'Verify FNV key generation.',
+    @CommonConsoleCommand(ModInfo.get_identity(), 'o19.fnv.test', 'Verify FNV key generation.',
                           command_arguments=(
                                   CommonConsoleCommandArgument('text', 'string', 'The text to convert.', is_optional=False),
                           )
