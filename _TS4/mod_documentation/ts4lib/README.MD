@@ -43,7 +43,7 @@ Handler for more `vanill_*.py` files to get human-readable strings. To retrieve 
 Access the world name (Newcrest) and the neighbourhood (Llama Lagoon) with the English description.
 It's meant to be written to configuration files to help the player to customize worlds and/or neighbourhoods.
 To retrieve this information for the active zone use:
-* w, n = WorldsAndNeighbourhoods()..get_world_and_neighbourhood_name(CommonLocationUtils().get_current_world_id())
+* w, n = WorldsAndNeighbourhoods().get_world_and_neighbourhood_name(CommonLocationUtils().get_current_world_id())
 
 
 # Addendum
