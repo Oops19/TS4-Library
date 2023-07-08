@@ -5,7 +5,7 @@
 #
 
 
-from common_enum import CommonEnum
+from ts4lib.common_enums.enum_types.common_enum import CommonEnum
 
 
 class Foo(CommonEnum):

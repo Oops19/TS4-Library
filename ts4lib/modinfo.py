@@ -28,10 +28,18 @@ class ModInfo(CommonModInfo):
 
     @property
     def _version(self) -> str:
-        return '0.0.24'
+        return '0.0.27'
 
 
 '''
+v0.0.27
+    Updated documentations
+v0.0.26
+    Added VanillaNames.get() to get a (more or less) human-readable name of an enum.
+    Added Enums: VanillaVenues and VanillaRegions
+v0.0.25
+    Added WorldsAndNeighbourhoods
+    Fix import in test_enum.py
 v0.0.24
     Fix fnv cheat command
 v0.0.22

@@ -10,9 +10,16 @@ A clone of the Python Enum with support for `@_missing_` to return a default val
 ### FileUtils
 Search for files in a base folder and get the absolute or relative file name f(base_folder)
 
+### FNV
+FNV uses the TS4 hash methods when available and otherwise a Python implementation.
+It supports all kind of FNV32 and FNV64 calculation with custom prime numbers and strings. It supports UTF-8 and mixed lower/upper case.
+
 ### Outfit Utils
 For now just a method to apply an outfit to a sim.
 If only the previous outfit_index exists and the chosen one is valid and unused a new outfit will be created.  
+
+### Singleton
+A random Singleton class for Python. Usage: `Foo(object, metaclass=Singleton):` instead of `Foo:`.
 
 ### Tuning Helper
 A simple method `get_tuning_ids(manager, tuning)` to access the instanced tuning classes (no longer in XML form).
@@ -24,28 +31,34 @@ Provides access to the TS4⁽¹⁾/Game, TS4⁽²⁾/Mods and TS4⁽²⁾/mod_da
 * In TS4⁽¹⁾ are 'Game', 'Data', 'Delta' and Installed DLCs like 'EP01', 'GP01', 'FP01', 'SP01', ...
 * In TS4⁽²⁾ are 'Mods', 'GameVersion.txt', Mods, 'mod_logs', 'mod_data', 'mod_documentation', ...
 
-### FNV
-FNV uses the TS4 hash methods when available and otherwise a Python implementation.
-It supports all kind of FNV32 and FNV64 calculation with custom prime numbers and strings. It supports UTF-8 and mixed lower/upper case.
-
-### Singleton
-A random Singleton class for Python. Usage: `Foo(object, metaclass=Singleton):` instead of `Foo:`.
-
 ### UnCommonLogger
 A logger which works without TS4 running, to test parts of Mods locally and later in-game without changing the code.
+
+### VanillaNames
+Handler for more `vanill_*.py` files to get human-readable strings. To retrieve human-readable, English, descriptions about the active zone use:
+* r = VanillaNames.get(VanillaRegions(getattr(services.current_region()'guid64', 0))) 
+* v = VanillaNames.get(VanillaVenues(getattr(services.get_current_venue(), 'guid64', 0)))
+
+### WorldsAndNeighbourhoods
+Access the world name (Newcrest) and the neighbourhood (Llama Lagoon) with the English description.
+It's meant to be written to configuration files to help the player to customize worlds and/or neighbourhoods.
+To retrieve this information for the active zone use:
+* w, n = WorldsAndNeighbourhoods()..get_world_and_neighbourhood_name(CommonLocationUtils().get_current_world_id())
 
 
 # Addendum
 
 ## Game compatibility
-This mod has been tested with `The Sims 4` 1.98.127, S4CL 2.6, TS4Lib 0.0.23
+This mod has been tested with `The Sims 4` 1.98.158 (2023-06), S4CL 2.7 (2023-06), TS4Lib 0.0.24 (2023-06).
 It is expected to be compatible with many upcoming releases of TS4, S4CL and TS4Lib.
 
 ## Dependencies
+* [The Sims 4](https://www.ea.com/games/the-sims/the-sims-4)
 * [S4CL](https://github.com/ColonolNutty/Sims4CommunityLibrary/releases/latest)
 * [TS4Lib](https://github.com/Oops19/TS4-Library/releases/latest)
 
-If not installed download and install these mods.
+If not installed download and install TS4 and these mods.
+All are available for free.
 
 ## Installation
 * Locate the localized `The Sims 4` folder which contains the `Mods` folder.
@@ -76,12 +89,13 @@ Some log entries in the log file ('mod_logs' folder) may contain the local usern
 This allows you to use this mod and re-use the code even if you don't own The Sims 4.
 Have fun extending this mod and/or integrating it with your mods.
 
-Oops19 is not endorsed by or affiliated with Electronic Arts or its licensors.
+Oops19 / o19 is not endorsed by or affiliated with Electronic Arts or its licensors.
 Game content and materials copyright Electronic Arts Inc. and its licensors. 
 Trademarks are the property of their respective owners.
 
 ### TOS
 * Please don't put it behind a paywall.
 * Please don't create mods which break with every TS4 update.
-* For simple tuning modifications use [Patch-XML](https://github.com/Oops19/TS4-PatchXML) or [LiveXML](https://github.com/Oops19/TS4-LiveXML).
-* To check custom tunings use [VanillaLogs](https://github.com/Oops19/TS4-VanillaLogs).
+* For simple tuning modifications use [Patch-XML](https://github.com/Oops19/TS4-PatchXML) 
+* or [LiveXML](https://github.com/Oops19/TS4-LiveXML).
+* To check the XML structure of custom tunings use [VanillaLogs](https://github.com/Oops19/TS4-VanillaLogs).
