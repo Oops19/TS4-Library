@@ -36,7 +36,7 @@ A logger which works without TS4 running, to test parts of Mods locally and late
 
 ### VanillaNames
 Handler for more `vanill_*.py` files to get human-readable strings. To retrieve human-readable, English, descriptions about the active zone use:
-* r = VanillaNames.get(VanillaRegions(getattr(services.current_region()'guid64', 0))) 
+* r = VanillaNames.get(VanillaRegions(getattr(services.current_region(), 'guid64', 0))) 
 * v = VanillaNames.get(VanillaVenues(getattr(services.get_current_venue(), 'guid64', 0)))
 
 ### WorldsAndNeighbourhoods
