@@ -36,7 +36,7 @@ class TestLocation:
         if sim_object_id == -1:
             sim_object_id, sim_object_name = vn.get_sim_name()
         else:
-            _, sim_object_name = vn.get_object_name(sim_object_id)
+            _, sim_object_name, _ = vn.get_object_name(sim_object_id)
         success, location = vn.get_location(sim_object_id)
         position, position_str = vn.get_position(location)
         orientation, orientation_str = vn.get_orientation(location)

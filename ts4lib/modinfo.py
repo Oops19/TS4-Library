@@ -28,10 +28,14 @@ class ModInfo(CommonModInfo):
 
     @property
     def _version(self) -> str:
-        return '0.1.0'
+        return '0.1.2'
 
 
 '''
+v0.1.2
+    Added RunCommands().run('money 100')
+v0.1.1
+    Added StdEulerAngle, StdQuaternion, StdVector
 v0.1.0
 v0.0.31
     Added LocationIDs() as a temporary class until S4CL offers more _id() functions.

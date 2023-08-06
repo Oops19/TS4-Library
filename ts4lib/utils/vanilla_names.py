@@ -55,24 +55,27 @@ class VanillaNames:
             sim_name = f"({e})"
         return sim_id, sim_name
 
-    def get_object_name(self, sim_object_id: int) -> Tuple[int, str]:
+    def get_object_name(self, sim_object_id: int) -> Tuple[int, str, str]:
+        """
+        return: sim_object_id, sim_object_name, sim_object_nice_name
+        """
         manager = services.object_manager()
         game_object = manager.get(sim_object_id)
+        sim_object_nice_name = ''
         if isinstance(game_object, Sim):
             _, sim_object_name = self.get_sim_name(sim_object_id)
         else:
             try:
-                # 'toddlerObjectName': 'Toilet'
                 sim_object_name = game_object.__class__.__name__  # 'object_bedDoubleCLLeatherAB_01'
-                sim_object_name = re.sub(r'^object_', '', sim_object_name)  # 'bedDoubleCLLeatherAB_01'
-                sim_object_name = re.sub(r'([a-z])([A-Z]*[A-Z][a-z])', r'\g<1>_\g<2>', sim_object_name)  # 'bed_Double_CLLeatherAB_01'
-                sim_object_name = re.sub(r'([A-Z]+)([A-Z][a-z])', r'\g<1>_\g<2>', sim_object_name)  # 'bed_Double_CL_LeatherAB_01'
-                sim_object_name = re.sub(r'([a-z])([A-Z]+)', r'\g<1>_\g<2>', sim_object_name)  # 'bed_Double_CL_Leather_AB_01'
-                sim_object_name = f"{sim_object_name[0].upper()}{sim_object_name[1:]}"  # 'Bed_Double_CL_Leather_AB_01'
-                sim_object_name = sim_object_name.replace('_', ' ')  # 'Bed Double CL Leather AB 01'
+                sim_object_nice_name = re.sub(r'^object_', '', sim_object_name)  # 'bedDoubleCLLeatherAB_01'
+                sim_object_nice_name = re.sub(r'([a-z])([A-Z]*[A-Z][a-z])', r'\g<1>_\g<2>', sim_object_nice_name)  # 'bed_Double_CLLeatherAB_01'
+                sim_object_nice_name = re.sub(r'([A-Z]+)([A-Z][a-z])', r'\g<1>_\g<2>', sim_object_nice_name)  # 'bed_Double_CL_LeatherAB_01'
+                sim_object_nice_name = re.sub(r'([a-z])([A-Z]+)', r'\g<1>_\g<2>', sim_object_nice_name)  # 'bed_Double_CL_Leather_AB_01'
+                sim_object_nice_name = f"{sim_object_nice_name[0].upper()}{sim_object_nice_name[1:]}"  # 'Bed_Double_CL_Leather_AB_01'
+                sim_object_nice_name = sim_object_nice_name.replace('_', ' ')  # 'Bed Double CL Leather AB 01'
             except Exception as e:
                 sim_object_name = f"({e})"
-        return sim_object_id, sim_object_name
+        return sim_object_id, sim_object_name, sim_object_nice_name
 
     @staticmethod
     def get_location(sim_object_id: int = None, use_parent_object: bool = True) -> Tuple[bool, Location]:
@@ -151,6 +154,9 @@ class VanillaNames:
 
     @staticmethod
     def get_world_name(world_id: int = None) -> Tuple[int, str]:
+        """
+        Return the world id and name (e.g. 1902162923, 'Willow Creek' - see worlds_and_neighbourhoods.py)
+        """
         try:
             if world_id is None:
                 world_id = LocationIDs().get_current_world_id()
@@ -163,6 +169,9 @@ class VanillaNames:
 
     @staticmethod
     def get_neighbourhood_name(world_id: int = None) -> Tuple[int, str]:
+        """
+        Return the world id and neighbourhood name (e.g. 1902162923, 'Foundry Cove' - see worlds_and_neighbourhoods.py)
+        """
         try:
             if world_id is None:
                 world_id = LocationIDs().get_current_world_id()
@@ -174,6 +183,9 @@ class VanillaNames:
         return world_id, neighbourhood_name
 
     def get_region_name(self, region_id: int = None) -> Tuple[int, str]:
+        """
+        Return the region id and name (e.g. 108705, 'Career Alien World' - see vanilla_regions.py)
+        """
         try:
             if region_id is None:
                 region_id = LocationIDs.get_current_region_id()
@@ -185,6 +197,9 @@ class VanillaNames:
         return region_id, region_name
 
     def get_venue_name(self, venue_id: int = None) -> Tuple[int, str]:
+        """
+        Return the venue id and name (e.g. 190058, 'Acting Studio' - see vanilla_venues.py)
+        """
         try:
             if venue_id is None:
                 venue_id = LocationIDs.get_current_venue_id()
@@ -197,6 +212,9 @@ class VanillaNames:
 
     @staticmethod
     def get_zone_name(zone_id: int = None) -> Tuple[int, str]:
+        """
+        Return the zone id and '' (zone name)
+        """
         """ TODO: Return zone_name """
         try:
             if zone_id is None:

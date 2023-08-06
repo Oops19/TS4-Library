@@ -3,6 +3,8 @@
 # https://creativecommons.org/licenses/by/4.0/ https://creativecommons.org/licenses/by/4.0/legalcode
 # © 2023 https://github.com/Oops19
 #
+
+
 from typing import Tuple
 
 from sims4communitylib.utils.location.common_location_utils import CommonLocationUtils
@@ -90,6 +92,9 @@ class WorldsAndNeighbourhoods(object, metaclass=Singleton):
         3927353875: ('San Sequoia', 'Anchorpoint Wharf'),  # Growing Together
         2596862512: ('San Sequoia', 'Gilbert Gardens'),  # Growing Together
         3962653297: ('San Sequoia', 'Hopewell Hills'),  # Growing Together
+        -1: ('Chestnut Ridge', 'Galloping Gulch'),  # Horse Ranch, 3 lots
+        -2: ('Chestnut Ridge', 'New Appaloosa'),  # Horse Ranch, 5 lots
+        -3: ('Chestnut Ridge', "Rider’s Glen"),  # Horse Ranch, 5 lots
     }
 
     def __init__(self):

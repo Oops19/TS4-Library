@@ -19,6 +19,22 @@ The cheat command `o19.ts4l.test_fnv foo` outputs the FNV values to the console 
 For now just a method to apply an outfit to a sim.
 If only the previous outfit_index exists and the chosen one is valid and unused a new outfit will be created.  
 
+### RunCommands
+Added the ability to run 'execute' or 'client_cheat' commands.
+This functionality will be removed from [RunCheatCommands](https://github.com/Oops19/TS4-RunCheatCommands) and integrated here.
+
+### StdEulerAngle
+A very basic `StdEulerAngle(roll, pitch, yaw)` implementation to convert the angle to a quaternion.
+The axis rotations may not match the TS4 standard.
+
+### StdQuaternion
+A simple StdQuaternion(w, x, y, z)` implementation to rotate vectors and quaternions.
+The TS4 Quaternion(x, y, z, w) uses a different order of parameters!
+
+### StdVector
+A very basic `StdVector(x, y, z)` implementation. Should be compatible with the TS4 Vector3D. 
+The axis directions may not match the TS4 standard.
+
 ### SimName
 Get the classic 'sim_name' as one string (e.g. 'Ann Lee#Smith' or 'Ann#Lee Smith') with '#' as a separator between the first and the last names.
 
@@ -55,17 +71,22 @@ It's meant to be written to configuration files to help the player to customize 
 To retrieve this information for the active zone use:
 * w, n = WorldsAndNeighbourhoods().get_world_and_neighbourhood_name(CommonLocationUtils().get_current_world_id())
 
+## Updates
+2023-08 RunCommands
+2023-08 StdEulerAngle, StdQuaternion, StdVector
+
+
 
 # Addendum
 
 ## Game compatibility
-This mod has been tested with `The Sims 4` 1.98.158 (2023-06), S4CL 2.7 (2023-06), TS4Lib 0.0.24 (2023-06).
+This mod has been tested with `The Sims 4` 1.99.264 (2023-07), S4CL 2.7 (2023-06), TS4Lib 0.1.0 (2023-06).
 It is expected to be compatible with many upcoming releases of TS4, S4CL and TS4Lib.
 
 ## Dependencies
 * [The Sims 4](https://www.ea.com/games/the-sims/the-sims-4)
 * [S4CL](https://github.com/ColonolNutty/Sims4CommunityLibrary/releases/latest)
-* [TS4Lib](https://github.com/Oops19/TS4-Library/releases/latest)
+* [TS4-Library](https://github.com/Oops19/TS4-Library/releases/latest)
 
 If not installed download and install TS4 and these mods.
 All are available for free.
