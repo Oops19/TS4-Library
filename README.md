@@ -19,6 +19,10 @@ The cheat command `o19.ts4l.test_fnv foo` outputs the FNV values to the console 
 For now just a method to apply an outfit to a sim.
 If only the previous outfit_index exists and the chosen one is valid and unused a new outfit will be created.  
 
+### PrettyDict
+A small utility to write Dict data formatted human-readable.
+It avoids data conversion to JSON. 
+
 ### RunCommands
 Added the ability to run 'execute' or 'client_cheat' commands.
 This functionality will be removed from [RunCheatCommands](https://github.com/Oops19/TS4-RunCheatCommands) and integrated here.

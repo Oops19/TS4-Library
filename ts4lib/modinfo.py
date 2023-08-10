@@ -28,10 +28,12 @@ class ModInfo(CommonModInfo):
 
     @property
     def _version(self) -> str:
-        return '0.1.2'
+        return '0.1.3'
 
 
 '''
+v0.1.3
+    Added PrettyDict().write(file_name, data)
 v0.1.2
     Added RunCommands().run('money 100')
 v0.1.1
