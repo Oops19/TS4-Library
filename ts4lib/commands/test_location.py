@@ -5,8 +5,8 @@
 #
 
 
-
 from ts4lib.modinfo import ModInfo
+from ts4lib.utils.objects.lot_objects import LotObjects
 from ts4lib.utils.vanilla_names import VanillaNames
 
 # noinspection PyUnresolvedReferences
@@ -36,7 +36,7 @@ class TestLocation:
         if sim_object_id == -1:
             sim_object_id, sim_object_name = vn.get_sim_name()
         else:
-            _, sim_object_name, _ = vn.get_object_name(sim_object_id)
+            _, sim_object_name, _ = vn.get_object_name(sim_object_id)  # sim_object_id, sim_object_name, sim_object_nice_name
         success, location = vn.get_location(sim_object_id)
         position, position_str = vn.get_position(location)
         orientation, orientation_str = vn.get_orientation(location)
@@ -66,3 +66,16 @@ class TestLocation:
         log.info(f"Zone: '{zone_name}' ({zone_id})")
         log.info(f"Block: '{block_name}' ({block_id})")
 
+    @staticmethod
+    @CommonConsoleCommand(
+        ModInfo.get_identity(), 'o19.ts4l.log_lot_objects', 'List objects.',
+    )
+    def o19_ts4l_test_object_interaction(output: CommonConsoleCommandOutput):
+        try:
+            log.debug(f"LotObjects.o {LotObjects().objects}")
+            log.debug(f"LotObjects.n {LotObjects().names}")
+            log.debug(f"LotObjects.b {LotObjects().block_ids}")
+            output('ok')
+        except Exception as e:
+            output(f"Oops: {e}")
+            log.error(f"Oops: {e}", throw=True)

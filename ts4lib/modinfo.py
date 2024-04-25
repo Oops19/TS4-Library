@@ -28,10 +28,74 @@ class ModInfo(CommonModInfo):
 
     @property
     def _version(self) -> str:
-        return '0.1.3'
+        return '0.3.14'
 
 
 '''
+v0.3.14
+    Fix vector rotation - don't normalize q
+v0.3.13
+    Fix StdEulerAngle, 
+v0.3.12
+    Refactor fixes
+v0.3.11
+    Refactor fixes
+v0.3.10
+    Added StdVector4() to have a store for invalid quaternions which are used by TS4.
+v0.3.9
+    Moved various CommonEnum classes to 'common_enums' and renamed them.
+v0.3.8
+    Support initialization of angels, quaternions and vectors with Tuple, List.
+v0.3.7
+    Added enums: Age, Gender
+v0.3.6
+    SimpleUINotification().show('title', 'message', UiDialogNotification.UiDialogNotificationUrgency.DEFAULT)
+v0.3.5
+    find_files(include_sub_directories=True) new option to include (default) / exclude sub directories
+v0.3.4
+    Added ctypes
+v0.3.3
+    Added more vector and euler methods
+v0.3.2
+    Fix to normalize invalid (0000) quaternions, return 1000 in such cases
+v0.3.1
+    Added more euler related methods
+v0.3.0
+    Warning: All mods which are using 'ts4lib.classes.math' will no longer work!
+    
+    Renamed 'ts4lib.classes.math' to 'ts4lib.classes.coordinates'
+    Renamed 'std_vector' to 'std_3d_vector'
+    Added 'std_2d_vector'
+    Added some math functions (+, -, *, cross()) to the vector classes
+    Added vector conversions (Quaternion <-> 3DVector <-> 2dVector)
+v0.2.3
+    TuningHelper / BasicExtras:
+    * Added get_tunings() to retun the tunings
+    * Added modify_test_globals() to simplify the modification of test_globals
+    * Not everything within test_globals is yet supported!
+v0.2.2
+    TuningHelper / BasicExtras:
+    * Allow to remove do_commands
+v0.2.1
+    TuningHelper / BasicExtras:
+    * Add disable_gender_check() support to TuningHelper
+v0.2.0
+    Removed support to run `debug.eval()` or `debug.exec()` from scripts.
+v0.1.10
+    Fixed broken list / missing comma
+v0.1.9
+    Minor adjustments
+v0.1.8
+    Minor adjustments
+v0.1.7
+    Updated README for new TS4 version
+    added `o19.ts4l.log_location` cheat command
+v0.1.6
+    Added VanillaObjects. `VanillaObjects.__members__.keys()` is a list with all names to search for objects like 'BAR'
+v0.1.5
+    More code for VanillaNames
+v0.1.4
+    Added ConfigIO() to read and write Dict data.
 v0.1.3
     Added PrettyDict().write(file_name, data)
 v0.1.2
@@ -40,7 +104,7 @@ v0.1.1
     Added StdEulerAngle, StdQuaternion, StdVector
 v0.1.0
 v0.0.31
-    Added LocationIDs() as a temporary class until S4CL offers more _id() functions.
+    Added LocationIDs() as a temporary class until S4.CL offers more _id() functions.
     This class will not be documented. It will be removed in the near future.
 v0.0.30
     Extended VanillaNames to retrieve even more human-readable location strings.
@@ -91,5 +155,5 @@ v0.0.10
 v0.0.9
     Moved class vars to self
 v0.0.8
-    Joined together some code snippets which will 'never' be added to S4CL
+    Joined together some code snippets which will 'never' be added to S4.CL
 '''

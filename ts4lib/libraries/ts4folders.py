@@ -11,11 +11,15 @@ from typing import Union, Tuple
 from ts4lib.modinfo import ModInfo
 from ts4lib.utils.singleton import Singleton
 
-from sims4communitylib.utils.common_log_registry import CommonLog
+try:
+    from sims4communitylib.utils.common_log_registry import CommonLog
+    log: CommonLog = CommonLog(f"{ModInfo.get_identity().name}", ModInfo.get_identity().name)  # TODO
+except:
+    from ts4lib.utils.un_common_log import UnCommonLog
+    log: UnCommonLog = UnCommonLog(f"{ModInfo.get_identity().name}", ModInfo.get_identity().name, custom_file_path=None)
 
 
 mod_name = ModInfo.get_identity().name
-log: CommonLog = CommonLog(f"{ModInfo.get_identity().name}", ModInfo.get_identity().name, custom_file_path=None)
 log.enable()
 
 
@@ -32,6 +36,7 @@ class TS4Folders:
     def __init__(self, namespace: str):
         ts4f = _TS4Folders()
         self._data_folder, self._mods_folder, self._game_folder = ts4f.get_folders(namespace)
+        self._config_folder = os.path.join(self._data_folder, 'config')
 
     @property
     def ts4_folder_mods(self) -> Union[str, None]:
@@ -55,8 +60,14 @@ class TS4Folders:
         """
         :return: The 'The Sims 4/mod_data/{_namespace}' folder to store configuration data.
         """
-
         return self._data_folder  # 'The Sims 4/mod_data/basename(mod)'
+
+    @property
+    def config_folder(self) -> Union[str, None]:
+        """
+        :return: The 'The Sims 4/mod_data/{_namespace}/config' folder to store configuration data.
+        """
+        return self._config_folder  # 'The Sims 4/mod_data/basename(mod)/config'
 
     @property
     def ts4_folder_game(self):
@@ -87,9 +98,10 @@ class _TS4Folders(object, metaclass=Singleton):
         self.env_ts4_game_folder = 'TS4_GAME_FOLDER'  # re: s#^(.*/Game)/.*$#$1#g
 
         self._initialized = False
+        self._game_folder = ''
         self._mods_folder = ''
         self._data_folder = ''
-        self._game_folder = ''
+        self._config_folder = ''
 
         if os.name == 'nt':
             __os = "W10/W11"
@@ -108,7 +120,7 @@ class _TS4Folders(object, metaclass=Singleton):
             _home = "."
 
         self._mods_folder = self._set_mods_folder(_home)
-        log.info(f"Mods folder: '{self._mods_folder}'.")  # , privacy_filter=True  - privacy_filter not supported by S4CL
+        log.info(f"Mods folder: '{self._mods_folder}'.")  # , privacy_filter=True  - privacy_filter not supported by S4.CL
 
         self._game_folder = self._set_game_folder(_home)
         if self._game_folder:

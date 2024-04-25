@@ -1,0 +1,4 @@
+This mods supports the 'The Sims 4' cheat commands:
+* `eval_command foo`
+* `exec_command foo`
+As such it will be detected as really evil and will be blocked

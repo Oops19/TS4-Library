@@ -212,10 +212,10 @@ class VanillaNames:
 
     @staticmethod
     def get_zone_name(zone_id: int = None) -> Tuple[int, str]:
+        """ TODO: Return zone_name """
         """
         Return the zone id and '' (zone name)
         """
-        """ TODO: Return zone_name """
         try:
             if zone_id is None:
                 sim_id = CommonSimUtils.get_active_sim_id()
@@ -233,6 +233,7 @@ class VanillaNames:
 
     def get_block_name(self, sim_object_id, position: Vector3 = None) -> Tuple[int, str]:
         """ TODO: Return block_name """
+        """ ... """
         try:
             if position is None:
                 position, _ = self.get_position()

@@ -6,23 +6,31 @@
 
 
 from typing import Any, List, Dict
-from sims4communitylib.utils.common_log_registry import CommonLog, CommonLogRegistry
 from ts4lib.modinfo import ModInfo
 from ts4lib.utils.singleton import Singleton
 
 
-log: CommonLog = CommonLogRegistry.get().register_log(f"{ModInfo.get_identity().name}", ModInfo.get_identity().name)
+try:
+    from sims4communitylib.utils.common_log_registry import CommonLog
+    log: CommonLog = CommonLog(f"{ModInfo.get_identity().name}", ModInfo.get_identity().name)
+except:
+    from ts4lib.utils.un_common_log import UnCommonLog
+    log: UnCommonLog = UnCommonLog(f"{ModInfo.get_identity().name}", ModInfo.get_identity().name, custom_file_path=None)
+
+
+mod_name = ModInfo.get_identity().name
 log.enable()
 
 
 class PrettyDict(object, metaclass=Singleton):
 
     @staticmethod
-    def write(file_name: str, data: Dict, encoding='UTF-8'):
+    def write(file_name: str, data: Dict, encoding: str = 'UTF-8'):
         """
         No check for ' in keys or values. Elements with ' may lead to corrupt files.
         :param file_name:
         :param data:
+        :param encoding:
         :return:
         """
 
@@ -32,7 +40,6 @@ class PrettyDict(object, metaclass=Singleton):
         _t = '\t'
 
         def _write(fp, _data: dict, indent: int = 0):
-
             def _prepare(parameter: Any) -> Any:
                 if isinstance(parameter, str):
                     return f'"{parameter}"'
@@ -43,11 +50,11 @@ class PrettyDict(object, metaclass=Singleton):
                     return new_list
                 elif isinstance(parameter, int):
                     if parameter < 2 ** 16:
-                        return f"{parameter:04X}"
+                        return f"0x{parameter:04X}"
                     elif parameter < 2 ** 32:
-                        return f"{parameter:08X}"
+                        return f"0x{parameter:08X}"
                     else:
-                        return f"{parameter:016X}"
+                        return f"0x{parameter:016X}"
                 else:
                     return parameter
 

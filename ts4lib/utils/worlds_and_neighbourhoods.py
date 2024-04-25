@@ -5,7 +5,7 @@
 #
 
 
-from typing import Tuple
+from typing import Tuple, Set, List
 
 from sims4communitylib.utils.location.common_location_utils import CommonLocationUtils
 from ts4lib.utils.singleton import Singleton
@@ -113,3 +113,36 @@ class WorldsAndNeighbourhoods(object, metaclass=Singleton):
     def get_neighbourhood_name(self, world_id: int = None) -> str:
         _, neighbourhood_name = self.get_world_and_neighbourhood_name(world_id)
         return neighbourhood_name
+
+    def get_world_ids(self, world_names: List[str]) -> Set:
+        """
+        Return all neighbourhood IDs for the supplied list or world_names. A world contains 1-n neighbourhoods.
+        """
+        rv = set()
+        for world_name in world_names:
+            if f"{world_name}".isdecimal():
+                rv.add(int(world_name))
+                continue
+            for neighbourhood_id, world_neighbourhood in self._data.items():
+                world, neighbourhood = world_neighbourhood
+                if world_name == world:
+                    rv.add(neighbourhood_id)
+                    # don't break, world_name is not unique.
+        return rv
+
+    def get_neighbourhood_ids(self, neighbourhood_names: List[str]) -> Set:
+        """
+        Return all neighbourhood IDs for the supplied list or neighbourhood_names.
+        """
+        rv = set()
+        for neighbourhood_name in neighbourhood_names:
+            if f"{neighbourhood_name}".isdecimal():
+                rv.add(int(neighbourhood_name))
+                continue
+            for neighbourhood_id, world_neighbourhood in self._data.items():
+                world, neighbourhood = world_neighbourhood
+                if neighbourhood_name == neighbourhood:
+                    rv.add(neighbourhood_id)
+                    break  # neighbourhood_name is unique
+        return rv
+

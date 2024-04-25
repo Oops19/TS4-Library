@@ -6,10 +6,23 @@
 
 
 class Singleton(type):
-    """
-    Usage:
-    from ts4lib.utils.singleton import Singleton
-    Foo(object, metaclass=Singleton):  # old code: 'Foo:'
+    """Any instances created using this class will be of a single instance.
+
+
+    :Example usage:
+
+    .. highlight:: python
+    .. code-block:: python
+
+        class Foo(metaclass=BBSingleton):
+            def __init__(self):
+                self.state = 0
+
+        f = Foo()
+        f.state = 3
+        g = Foo()
+        g.state == 3  # True
+
     """
     _instances = {}
 

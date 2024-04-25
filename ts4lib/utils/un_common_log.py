@@ -17,10 +17,10 @@ from ts4lib.utils.un_logger import UnLogger
 
 class UnCommonLog:
     """
-    Class to support logging with either S4CL while TS4 is running or to STDOUT when running the code locally.
+    Class to support logging with either S4.CL while TS4 is running or to STDOUT when running the code locally.
     Usage:
     log: UnCommonLog = UnCommonLog(f"{ModInfo.get_identity().name}", ModInfo.get_identity().name, custom_file_path = None)
-    main() should `import os; os.environ["log_to_stdout"] = "1"` to use print() instead of an S4CL log file.
+    main() should `import os; os.environ["log_to_stdout"] = "1"` to use print() instead of an S4.CL log file.
     """
 
     def __init__(self, mod_identifier: str, log_name: str, custom_file_path: str = None):

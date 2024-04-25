@@ -12,13 +12,17 @@ from ts4lib.utils.singleton import Singleton
 
 class LocationIDs(object, metaclass=Singleton):
     """
-    Temporary class until S4CL offers these 4 methods.
+    Temporary class until S4.CL offers these 4 methods.
 
     This class will not be documented. It will be removed in the near future.
     """
 
     @staticmethod
     def get_current_world_id() -> int:
+        return CommonLocationUtils.get_current_world_id()
+
+    @staticmethod
+    def get_current_neighbourhood_id() -> int:
         return CommonLocationUtils.get_current_world_id()
 
     @staticmethod

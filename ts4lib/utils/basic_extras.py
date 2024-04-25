@@ -4,7 +4,7 @@
 #
 
 
-from typing import Union, Tuple
+from typing import Union, Tuple, List, Set
 
 import sims4
 import sims4.commands
@@ -17,41 +17,64 @@ from interactions import ParticipantType
 
 from sims4communitylib.utils.common_log_registry import CommonLogRegistry, CommonLog
 from ts4lib.modinfo import ModInfo
+from ts4lib.utils.singleton import Singleton
 from ts4lib.utils.tuning_helper import TuningHelper
 
-log: CommonLog = CommonLogRegistry.get().register_log(f"{ModInfo.get_identity().name}", ModInfo.get_identity().name)
+log: CommonLog = CommonLogRegistry.get().register_log(ModInfo.get_identity().name, ModInfo.get_identity().name)
 log.enable()
 
 
-class BasicExtras:
-    @staticmethod
-    def add_do_command(manager: str, tunings: list, command: str, parameter: str, timing: str = 'at_end',
-                       offset_time: Union[None, float] = None, xevt_id: Union[None, int] = None):
-        log.debug(f"add_do_command({manager}, {tunings}, {command}, {parameter}, {timing}, {offset_time}, {xevt_id})")
+class BasicExtras(metaclass=Singleton):
+
+    def add_do_command(self, manager: str, tunings: Union[List[str], Set[int]], command: Union[str, None], parameter: str, timing: str = 'at_end',
+                       offset_time: Union[None, float] = None, xevt_id: Union[None, int] = None,
+                       drop_all_basic_extras: bool = False, drop_basic_extras: List[str] = None, include_target_sim: bool = True, ):
+        """
+        Set command (and parameter) to None to remove only
+        :param drop_all_basic_extras: Set to 'True', to remove all 'basic_extras', whatever their content is.
+        :param drop_basic_extras: Add classes to drop. E.g.:
+            'TunableBuffElementWrapper.factory'
+            'TunableStateChangeWrapper._factory'
+            'TunableDoCommandWrapper.DoCommand'
+            'TunableLootElementWrapper.LootElement'
+            'TunablePregnancyElementWrapper.PregnancyElement'
+            'TunableTunableAudioStingWrapper.TunableAudioSting'
+            'TunableBroadcasterRequestWrapper.BroadcasterRequest'
+            'TunableNotificationElementWrapper.NotificationElement'
+            'TunablePlayVisualEffectElementWrapper.PlayVisualEffectElement'
+        :param include_target_sim: Set to 'False', to have only the actor. Normally the target sim is added as a 3rd parameter.
+        """
+        parameter = parameter.replace(' ', '').strip()
+        log.debug(f"add_do_command({manager}, {tunings}, {command}, {parameter}, {timing}, {offset_time}, {xevt_id}, {drop_all_basic_extras}, {drop_basic_extras}, {include_target_sim}.)")
+        if drop_basic_extras is None:
+            drop_basic_extras = []
         tuning_dict = TuningHelper().get_tuning_dict(manager, tunings)
-        instance_manager = services.get_instance_manager(sims4.resources.Types[manager])
-        for tuning_id, tuning_name in tuning_dict.items():
+        for tuning_id, tuning_data in tuning_dict.items():
+            tuning, manager_name, tuning_name = tuning_data
             log.debug(f"Processing '{tuning_name}({tuning_id})'")
-            tuning = instance_manager.get(tuning_id)
             if tuning:
-                basic_extra = BasicExtras.create_basic_extras(command, f"{tuning_name}+{parameter}", timing, offset_time, xevt_id)
+                # basic_extra = self._create_basic_extras(command, f"id({tuning_id})+{parameter}", timing, offset_time, xevt_id, include_target_sim=include_target_sim)
+                basic_extra = self._create_basic_extras(command, f"id({tuning_id})+{parameter}", timing, offset_time, xevt_id, include_target_sim=include_target_sim)
+
                 basic_extras: Tuple = (basic_extra,)
 
-                if getattr(tuning, 'basic_extras', None):
-                    # Add the new command to 'basic_extras'
-                    for basic_extra in getattr(tuning, 'basic_extras'):
-                        if (getattr(basic_extra, 'command', None) == command) and (getattr(basic_extra, 'argument', None) == parameter):
-                            log.debug(f"Tuning already contains command '{command}({parameter})'")
+                if not drop_all_basic_extras:
+                    # Keep some/all existing basic_extras
+                    for basic_extra in getattr(tuning, 'basic_extras', []):
+                        if f'{basic_extra}' in drop_basic_extras:
+                            log.debug(f"Dropping '{basic_extra}'")
                             continue
-                        basic_extras += (basic_extra,)
+                        # log.debug(f"Adding basic_extra '{basic_extra}: {type(basic_extra)}'")
+                        if command is not None:
+                            basic_extras += (basic_extra,)
 
                 setattr(tuning, 'basic_extras', basic_extras)
                 log.debug(f"New basic_extras: {getattr(tuning, 'basic_extras', None)}")
             else:
                 log.warn(f"Didn't find '{tuning_name}({tuning_id})'")
 
-    @staticmethod
-    def create_basic_extras(command: str, parameter: str = '', timing: str = 'at_end', offset_time: Union[None, float] = None, xevt_id: Union[None, int] = None):
+    # noinspection PyMethodMayBeStatic
+    def _create_basic_extras(self, command: str, parameter: str = '', timing: str = 'at_end', offset_time: Union[None, float] = None, xevt_id: Union[None, int] = None, include_target_sim: bool = True):
         """
         :param xevt_id:
         :param command: Create a local `@Command(command, command_type=CommandType.Live)` method
@@ -75,7 +98,7 @@ class BasicExtras:
                 pass
 
             __tuned_values.update({'command': command})
-            __tuned_values.update({'success_chance': SuccessChance.ONE})
+            __tuned_values.update({'success_chance': SuccessChance.ONE})  # SuccessChance.ONE = SuccessChance(base_chance=1, multipliers=())
 
             __arguments_t1 = dict()
             __arguments_t1.update({'arg_type': CommandArgType.ARG_TYPE_STRING})
@@ -91,18 +114,17 @@ class BasicExtras:
             __arguments_t2_c = make_immutable_slots_class(Slots.__slots__)
             __arguments_t2_is = __arguments_t2_c(__arguments_t2)
 
-            '''
-            __tuned_values.update({'arguments': (__arguments_t1_is, __arguments_t2_is, )})
-            '''
+            if include_target_sim:
+                __arguments_t3 = dict()
+                __arguments_t3.update({'arg_type': CommandArgType.ARG_TYPE_BOOL})
+                __arguments_t3.update({'argument': ParticipantType.TargetSim})
+                Slots.__slots__ = 'arg_type', 'argument'
+                __arguments_t3_c = make_immutable_slots_class(Slots.__slots__)
+                __arguments_t3_is = __arguments_t3_c(__arguments_t3)
 
-            __arguments_t3 = dict()
-            __arguments_t3.update({'arg_type': CommandArgType.ARG_TYPE_BOOL})
-            __arguments_t3.update({'argument': ParticipantType.TargetSim})
-            Slots.__slots__ = 'arg_type', 'argument'
-            __arguments_t3_c = make_immutable_slots_class(Slots.__slots__)
-            __arguments_t3_is = __arguments_t3_c(__arguments_t3)
-
-            __tuned_values.update({'arguments': (__arguments_t1_is, __arguments_t2_is, __arguments_t3_is,)})
+                __tuned_values.update({'arguments': (__arguments_t1_is, __arguments_t2_is, __arguments_t3_is,)})
+            else:
+                __tuned_values.update({'arguments': (__arguments_t1_is, __arguments_t2_is,)})
 
             __timing = dict()
             __timing.update({'criticality': CleanupType.OnCancel})
