@@ -314,7 +314,7 @@ To retrieve this information for the active zone use:
 # Addendum
 
 ## Game compatibility
-This mod has been tested with `The Sims 4` 1.106.148, S4CL 3.3, TS4Lib 0.2.0 (2024-02).
+This mod has been tested with `The Sims 4` 1.106.148, S4CL 3.3, TS4Lib 0.3.14 (2024-04).
 It is expected to be compatible with many upcoming releases of TS4, S4CL and TS4Lib.
 
 ## Dependencies
