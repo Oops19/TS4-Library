@@ -7,24 +7,26 @@
 # I own and reserve all other rights.
 #
 
+
+from ts4lib.modinfo import ModInfo
 from ts4lib.utils.singleton import Singleton
+from ui.ui_dialog_notification import UiDialogNotification
+from sims4communitylib.notifications.common_basic_notification import CommonBasicNotification
+from sims4communitylib.services.commands.common_console_command_output import CommonConsoleCommandOutput
+from sims4communitylib.utils.common_log_registry import CommonLogRegistry, CommonLog
+
+log: CommonLog = CommonLogRegistry.get().register_log(ModInfo.get_identity(), 'SimpleUINotification')
+log.enable()
 
 
 class SimpleUINotification(metaclass=Singleton):
-
     def show(self, title, message, urgency: "UiDialogNotification.UiDialogNotificationUrgency" = None, output: "CommonConsoleCommandOutput" = None):
         try:
-            from o19_hotkeys.modinfo import ModInfo
-            from ts4lib.utils.un_common_log import UnCommonLog
-            log: UnCommonLog = UnCommonLog(ModInfo.get_identity().name, 'SimpleUINotification', custom_file_path=None)
-            log.enable()
             log.debug(f"{title}: '{message}' ({urgency})")
         except Exception as e:
             pass
         try:
-            from ui.ui_dialog_notification import UiDialogNotification
-            from sims4communitylib.notifications.common_basic_notification import CommonBasicNotification
-            from sims4communitylib.services.commands.common_console_command_output import CommonConsoleCommandOutput
+
             if urgency is None:
                 urgency = UiDialogNotification.UiDialogNotificationUrgency.DEFAULT
             basic_notification = CommonBasicNotification(

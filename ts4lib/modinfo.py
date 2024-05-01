@@ -28,10 +28,12 @@ class ModInfo(CommonModInfo):
 
     @property
     def _version(self) -> str:
-        return '0.3.14'
+        return '0.3.15'
 
 
 '''
+v0.3.15
+    Fixed import refering to other mod
 v0.3.14
     Fix vector rotation - don't normalize q
 v0.3.13
