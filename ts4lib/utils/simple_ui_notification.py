@@ -14,7 +14,7 @@ class SimpleUINotification(metaclass=Singleton):
 
     def show(self, title, message, urgency: "UiDialogNotification.UiDialogNotificationUrgency" = None, output: "CommonConsoleCommandOutput" = None):
         try:
-            from hotkeys.modinfo import ModInfo
+            from o19_hotkeys.modinfo import ModInfo
             from ts4lib.utils.un_common_log import UnCommonLog
             log: UnCommonLog = UnCommonLog(ModInfo.get_identity().name, 'SimpleUINotification', custom_file_path=None)
             log.enable()
