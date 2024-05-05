@@ -232,7 +232,7 @@ class VanillaNames:
         return zone_id, zone_name
 
     def get_block_name(self, sim_object_id, position: Vector3 = None) -> Tuple[int, str]:
-        """ TODO: Return block_name """
+        """ TODO: Return block_name based on items """
         """ ... """
         try:
             if position is None:
