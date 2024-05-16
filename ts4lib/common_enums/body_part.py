@@ -109,6 +109,17 @@ class BodyPart(CommonEnum):
     BIRTHMARKLEGS = 98
     STRETCHMARKS_FRONT = 99
     STRETCHMARKS_BACK = 100
+    SADDLE = 101
+    BRIDLE = 102
+    REINS = 103
+    BLANKET = 104
+    SKINDETAIL_HOOF_COLOR = 105
+    HAIR_MANE = 106
+    HAIR_TAIL = 107
+    HAIR_FORELOCK = 108
+    HAIR_FEATHERS = 109
+    HORN = 110
+    TAIL_BASE = 111
 
     @classmethod
     def _missing_(cls, key_value):

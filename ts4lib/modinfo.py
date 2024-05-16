@@ -28,12 +28,17 @@ class ModInfo(CommonModInfo):
 
     @property
     def _version(self) -> str:
-        return '0.3.15'
+        return '0.3.17'
 
 
 '''
+v0.3.17
+    Added 10 new body parts
+    Added exclude_flags/exclude_flags.py for offline usage.
+v0.3.16
+    Logging improvements
 v0.3.15
-    Fixed import refering to other mod
+    Fixed import referring to other mod
 v0.3.14
     Fix vector rotation - don't normalize q
 v0.3.13

@@ -1,4 +1,5 @@
 from collections import defaultdict
+from inspect import isfunction
 from typing import List, Union, Dict
 from xml.etree import ElementTree
 from xml.etree.ElementTree import Element
@@ -7,7 +8,9 @@ from ts4lib.utils.singleton import Singleton
 
 
 class ConvertDictXML(metaclass=Singleton):
-    def etree_to_dict(self, t: Element):
+    def etree_to_dict(self, t: Union[Element, str]):
+        if isinstance(t, str):
+            t = ElementTree.XML(t)
         d: Union[Dict, None] = {t.tag: {} if t.attrib else None}
         children: List[Element] = list(t)
         if children:
