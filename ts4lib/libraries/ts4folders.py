@@ -12,8 +12,8 @@ from ts4lib.modinfo import ModInfo
 from ts4lib.utils.singleton import Singleton
 
 try:
-    from sims4communitylib.utils.common_log_registry import CommonLog
-    log: CommonLog = CommonLog(ModInfo.get_identity(), ModInfo.get_identity().name)  # TODO
+    from sims4communitylib.utils.common_log_registry import CommonLog, CommonLogRegistry
+    log: CommonLog = CommonLogRegistry.get().register_log(ModInfo.get_identity(), ModInfo.get_identity().name)  # TODO
 except:
     from ts4lib.utils.un_common_log import UnCommonLog
     log: UnCommonLog = UnCommonLog(f"{ModInfo.get_identity().name}", ModInfo.get_identity().name, custom_file_path=None)

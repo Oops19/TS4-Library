@@ -22,7 +22,7 @@ from sims4communitylib.events.event_handling.common_event_registry import Common
 from sims4communitylib.events.zone_spin.events.zone_early_load import S4CLZoneEarlyLoadEvent
 from sims4communitylib.events.zone_spin.events.zone_teardown import S4CLZoneTeardownEvent
 from sims4communitylib.utils.location.common_location_utils import CommonLocationUtils
-from sims4communitylib.utils.common_log_registry import CommonLogRegistry, CommonLog
+from sims4communitylib.utils.common_log_registry import CommonLog, CommonLogRegistry
 
 log: CommonLog = CommonLogRegistry.get().register_log(ModInfo.get_identity(), ModInfo.get_identity().name)
 log.enable()

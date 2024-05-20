@@ -11,9 +11,9 @@ from ts4lib.utils.objects.lot_objects import LotObjects
 
 from sims4communitylib.services.commands.common_console_command import CommonConsoleCommand
 from sims4communitylib.services.commands.common_console_command_output import CommonConsoleCommandOutput
-from sims4communitylib.utils.common_log_registry import CommonLogRegistry, CommonLog
+from sims4communitylib.utils.common_log_registry import CommonLog, CommonLogRegistry
 
-log: CommonLog = CommonLogRegistry.get().register_log(ModInfo.get_identity().name, ModInfo.get_identity().name)
+log: CommonLog = CommonLogRegistry.get().register_log(ModInfo.get_identity(), ModInfo.get_identity().name)
 log.enable()
 
 

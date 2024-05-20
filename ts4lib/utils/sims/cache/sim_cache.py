@@ -20,7 +20,7 @@ from ts4lib.utils.singleton import Singleton
 
 from sims4communitylib.events.event_handling.common_event_registry import CommonEventRegistry
 from sims4communitylib.events.zone_spin.events.zone_teardown import S4CLZoneTeardownEvent
-from sims4communitylib.utils.common_log_registry import CommonLogRegistry, CommonLog
+from sims4communitylib.utils.common_log_registry import CommonLog, CommonLogRegistry
 from sims4communitylib.utils.sims.common_age_utils import CommonAgeUtils
 from sims4communitylib.utils.sims.common_gender_utils import CommonGenderUtils
 from sims4communitylib.utils.sims.common_occult_utils import CommonOccultUtils

@@ -14,7 +14,7 @@ from sims4communitylib.utils.common_log_registry import CommonLog, CommonLogRegi
 from ts4lib.modinfo import ModInfo
 from ts4lib.utils.commands.command_type import CommandType
 
-log: CommonLog = CommonLogRegistry.get().register_log(ModInfo.get_identity().name, ModInfo.get_identity().name)
+log: CommonLog = CommonLogRegistry.get().register_log(ModInfo.get_identity(), ModInfo.get_identity().name)
 log.enable()
 
 

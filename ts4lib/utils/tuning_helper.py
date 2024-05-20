@@ -15,11 +15,11 @@ from objects.definition_manager import DefinitionManager
 from server_commands.tuning_commands import get_managers
 from sims.sim_info_tests import TraitTest, BuffTest
 from sims4.resources import get_resource_key
-from sims4communitylib.utils.common_log_registry import CommonLogRegistry, CommonLog
+from sims4communitylib.utils.common_log_registry import CommonLog, CommonLogRegistry
 from ts4lib.modinfo import ModInfo
 from ts4lib.utils.singleton import Singleton
 
-log: CommonLog = CommonLogRegistry.get().register_log(ModInfo.get_identity().name, ModInfo.get_identity().name)
+log: CommonLog = CommonLogRegistry.get().register_log(ModInfo.get_identity(), ModInfo.get_identity().name)
 log.enable()
 
 

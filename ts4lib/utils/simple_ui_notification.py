@@ -13,7 +13,7 @@ from ts4lib.utils.singleton import Singleton
 from ui.ui_dialog_notification import UiDialogNotification
 from sims4communitylib.notifications.common_basic_notification import CommonBasicNotification
 from sims4communitylib.services.commands.common_console_command_output import CommonConsoleCommandOutput
-from sims4communitylib.utils.common_log_registry import CommonLogRegistry, CommonLog
+from sims4communitylib.utils.common_log_registry import CommonLog, CommonLogRegistry
 
 log: CommonLog = CommonLogRegistry.get().register_log(ModInfo.get_identity(), 'SimpleUINotification')
 log.enable()

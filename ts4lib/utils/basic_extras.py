@@ -15,12 +15,12 @@ from interactions.utils.success_chance import SuccessChance
 from interactions.utils.tunable import DoCommand
 from interactions import ParticipantType
 
-from sims4communitylib.utils.common_log_registry import CommonLogRegistry, CommonLog
+from sims4communitylib.utils.common_log_registry import CommonLog, CommonLogRegistry
 from ts4lib.modinfo import ModInfo
 from ts4lib.utils.singleton import Singleton
 from ts4lib.utils.tuning_helper import TuningHelper
 
-log: CommonLog = CommonLogRegistry.get().register_log(ModInfo.get_identity().name, ModInfo.get_identity().name)
+log: CommonLog = CommonLogRegistry.get().register_log(ModInfo.get_identity(), ModInfo.get_identity().name)
 log.enable()
 
 

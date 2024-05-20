@@ -4,19 +4,17 @@
 #
 
 
+# Original in TS4-Library/ts4lib/libraries/file_utils.py
+
+
 import os
 import re
 from typing import Set, Tuple, Union
 
+from sims4communitylib.utils.common_log_registry import CommonLog, CommonLogRegistry
 from ts4lib.modinfo import ModInfo
-
-
-try:
-    from sims4communitylib.utils.common_log_registry import CommonLog
-    log: CommonLog = CommonLog(ModInfo.get_identity(), ModInfo.get_identity().name)  # TODO
-except:
-    from ts4lib.utils.un_common_log import UnCommonLog
-    log: UnCommonLog = UnCommonLog(f"{ModInfo.get_identity().name}", ModInfo.get_identity().name, custom_file_path=None)
+log: CommonLog = CommonLogRegistry.get().register_log(ModInfo.get_identity(), ModInfo.get_identity().name)
+log.enable()
 
 class FileUtils:
     """
@@ -52,11 +50,12 @@ class FileUtils:
                                 filename_path = str(os.path.join(root, filename))
                                 filenames_set.add(filename_path)
                                 filenames_tuple.add((root, filename))
-                log.debug(f"Found {len(filenames_set)} files.")
-            else:
-                log.error(f"Can't read '{self.base_folder}'.", throw=False)
+                # log.debug(f"Found {len(filenames_set)} files.")
+            # else:
+                # log.error(f"Can't read '{self.base_folder}'.", throw=False)
         except Exception as e:
-            log.error(f"Exception '{e}'.", throw=False)
+            # log.error(f"Exception '{e}'.", throw=False)
+            pass
         if joined_or_dir_file_tuple:
             return filenames_set
         else:
