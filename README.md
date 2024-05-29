@@ -49,7 +49,7 @@ A simple class to access the instanced tuning classes.
 ### TS4Folders
 Provides access to the 'The Sims 4' folders.
 
-### UnCommonLogger
+### UnCommonLog
 A logger which works without TS4 running, to test parts of Mods locally and later in-game without changing the code.
 
 ### VanillaNames (Location)
@@ -210,7 +210,7 @@ It supports all kind of FNV32 and FNV64 calculation with custom prime numbers an
 The cheat command `o19.ts4l.test_fnv foo` outputs the FNV values to the console and the log file.
 ```python
 from ts4lib.utils.fnv import FNV
-s = FNV().get(text, ucs2=True, ascii_2_lower=True, set_high_bit=True)
+s = FNV().get(text, 64, ucs2=True, ascii_2_lower=True, set_high_bit=True)
 ```
 ### Outfit Utils
 For now just a method to apply an outfit to a sim.
@@ -290,8 +290,19 @@ Provides access to the TS4⁽¹⁾/Game, TS4⁽²⁾/Mods and TS4⁽²⁾/mod_da
 * In TS4⁽¹⁾ are 'Game', 'Data', 'Delta' and installed DLCs like 'EP01', 'GP01', 'FP01', 'SP01', ...
 * In TS4⁽²⁾ are 'Mods', 'GameVersion.txt', Mods, 'mod_logs', 'mod_data', 'mod_documentation', ...
 
-### UnCommonLogger
+### UnCommonLog
 A logger which works without TS4 running, to test parts of Mods locally and later in-game without changing the code.
+```python
+
+from {TODO_MOD_NAME}.modinfo import ModInfo
+try:
+    from sims4communitylib.utils.common_log_registry import CommonLog, CommonLogRegistry
+    log: CommonLog = CommonLogRegistry.get().register_log(ModInfo.get_identity(), ModInfo.get_identity().name)
+except:
+    from ts4lib.utils.un_common_log import UnCommonLog
+    log: UnCommonLog = UnCommonLog(f"{ModInfo.get_identity().name}", ModInfo.get_identity().name, custom_file_path=None)
+log.enable()
+```
 
 ### VanillaNames (Location)
 Handler for more `vanilla_*.py` files to get human-readable strings. To retrieve human-readable, English, descriptions about the active zone use:
@@ -314,7 +325,7 @@ To retrieve this information for the active zone use:
 # Addendum
 
 ## Game compatibility
-This mod has been tested with `The Sims 4` 1.106.148, S4CL 3.3, TS4Lib 0.3.14 (2024-04).
+This mod has been tested with `The Sims 4` 1.107.112, S4CL 3.4, TS4Lib 0.3.14 (2024-04).
 It is expected to be compatible with many upcoming releases of TS4, S4CL and TS4Lib.
 
 ## Dependencies

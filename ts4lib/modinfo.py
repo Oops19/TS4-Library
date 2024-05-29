@@ -28,10 +28,18 @@ class ModInfo(CommonModInfo):
 
     @property
     def _version(self) -> str:
-        return '0.3.17'
+        return '0.3.20'
 
 
-'''
+r'''
+v0.3.20
+    Tested with TS4 v1.107
+v.0.3.19
+    Add ET (from PatchXML) to format XML
+    Fixed ET to avoid line breaks after comments
+v.0.3.18
+    Add option to exclude files while searching.
+    Return files as sorted list instead of set
 v0.3.17
     Added 10 new body parts
     Added exclude_flags/exclude_flags.py for offline usage.
