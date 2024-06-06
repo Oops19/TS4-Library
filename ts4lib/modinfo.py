@@ -122,7 +122,7 @@ v0.1.1
     Added StdEulerAngle, StdQuaternion, StdVector
 v0.1.0
 v0.0.31
-    Added LocationIDs() as a temporary class until S4.CL offers more _id() functions.
+    Added LocationIDs() as a temporary class until S4CL offers more _id() functions.
     This class will not be documented. It will be removed in the near future.
 v0.0.30
     Extended VanillaNames to retrieve even more human-readable location strings.
@@ -173,5 +173,5 @@ v0.0.10
 v0.0.9
     Moved class vars to self
 v0.0.8
-    Joined together some code snippets which will 'never' be added to S4.CL
+    Joined together some code snippets which will 'never' be added to S4CL
 '''

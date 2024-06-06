@@ -120,7 +120,7 @@ class _TS4Folders(object, metaclass=Singleton):
             _home = "."
 
         self._mods_folder = self._set_mods_folder(_home)
-        log.info(f"Mods folder: '{self._mods_folder}'.")  # , privacy_filter=True  - privacy_filter not supported by S4.CL
+        log.info(f"Mods folder: '{self._mods_folder}'.")  # , privacy_filter=True  - privacy_filter not supported by S4CL
 
         self._game_folder = self._set_game_folder(_home)
         if self._game_folder:
