@@ -210,7 +210,10 @@ It supports all kind of FNV32 and FNV64 calculation with custom prime numbers an
 The cheat command `o19.ts4l.test_fnv foo` outputs the FNV values to the console and the log file.
 ```python
 from ts4lib.utils.fnv import FNV
+text = "𝄞 ♯𝅗𝅥♮𝅘𝅥♭𝅘𝅥𝅮"
 s = FNV().get(text, 64, ucs2=True, ascii_2_lower=True, set_high_bit=True)
+text = b'text'
+s = FNV().get(text, 32)
 ```
 ### Outfit Utils
 For now just a method to apply an outfit to a sim.
@@ -325,7 +328,7 @@ To retrieve this information for the active zone use:
 # Addendum
 
 ## Game compatibility
-This mod has been tested with `The Sims 4` 1.107.112, S4CL 3.4, TS4Lib 0.3.14 (2024-04).
+This mod has been tested with `The Sims 4` 1.107.112, S4CL 3.4, TS4Lib 0.3.20 (2024-05).
 It is expected to be compatible with many upcoming releases of TS4, S4CL and TS4Lib.
 
 ## Dependencies

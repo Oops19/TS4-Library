@@ -35,7 +35,7 @@ class FileUtils:
     def absolute_filename(self, filename: str) -> str:
         return os.path.join(self.base_folder, filename)
 
-    def find_files(self, pattern: str = r'^.*\.bin$', include_sub_directories: bool = True, as_dir_file_tuple: bool = False, exclude: str = None, exclude_dir: str = None, exclude_file: str = None) -> Union[List[str], Set[Tuple[str, str]]]:
+    def find_files(self, pattern: str = r'^.*\.bin$', include_sub_directories: bool = True, as_dir_file_tuple: bool = False, exclude: str = None, exclude_dir: str = None, exclude_file: str = None) -> List[Union[str, Tuple[str, str]]]:
         """
         Scan 'base_folder' and all sub folders for '*.bin' files and return them all.
         @param pattern: A regular expression pattern. The expression will be compiled.
@@ -47,7 +47,7 @@ class FileUtils:
         @return: A set with '{filename, filename, ...}'
         """
         filenames_set: Set[str] = set()
-        filenames_tuple: Set[Tuple[str, str]] = set()
+        filenames_tuple_set: Set[Tuple[str, str]] = set()
         if exclude:
             exclude_dir = exclude
             exclude_file = exclude
@@ -66,13 +66,15 @@ class FileUtils:
                             if re.match(_pattern, filename):
                                 filename_path = str(os.path.join(root, filename))
                                 filenames_set.add(filename_path)
-                                filenames_tuple.add((root, filename))
+                                filenames_tuple_set.add((root, filename))
                 log.debug(f"Found {len(filenames_set)} files.")
             else:
                 log.warn(f"Can't read '{self.base_folder}'.")
         except Exception as e:
             log.warn(f"Oops '{e}'.")
         if as_dir_file_tuple:
+            filenames_tuple = list(filenames_tuple_set)
+            filenames_tuple.sort()
             return filenames_tuple
         else:
             filenames = list(filenames_set)

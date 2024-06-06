@@ -9,7 +9,6 @@ from typing import Any, List, Dict
 from ts4lib.modinfo import ModInfo
 from ts4lib.utils.singleton import Singleton
 
-
 try:
     from sims4communitylib.utils.common_log_registry import CommonLog, CommonLogRegistry
     log: CommonLog = CommonLogRegistry.get().register_log(ModInfo.get_identity(), ModInfo.get_identity().name)
@@ -22,7 +21,7 @@ mod_name = ModInfo.get_identity().name
 log.enable()
 
 
-class PrettyDict(object, metaclass=Singleton):
+class PrettyDict(metaclass=Singleton):
 
     @staticmethod
     def write(file_name: str, data: Dict, encoding: str = 'UTF-8'):
@@ -65,7 +64,10 @@ class PrettyDict(object, metaclass=Singleton):
                     fp.writelines(f"{_t * indent}{_prepare(k)}: ")
                     _write(fp, v, indent)
                 else:
-                    fp.writelines(f"{_t * indent}{_prepare(k)}: {_prepare(v)},{_n}")
+                    if isinstance(v, int):
+                        fp.writelines(f"{_t * indent}{_prepare(k)}: {_prepare(v)},  # {v}{_n}")
+                    else:
+                        fp.writelines(f"{_t * indent}{_prepare(k)}: {_prepare(v)},{_n}")
             indent -= 1
             if indent > 0:
                 fp.writelines(f"{_t * indent}{_c},{_n}")

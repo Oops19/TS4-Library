@@ -12,5 +12,6 @@ class UnCommonMessageType(CommonEnum):
     INVALID: 'UnCommonMessageType' = 0
     ERROR: 'UnCommonMessageType' = 1
     WARN: 'UnCommonMessageType' = 2
-    DEBUG: 'UnCommonMessageType' = 3
-    INFO: 'UnCommonMessageType' = 4
+    INFO: 'UnCommonMessageType' = 3
+    DEBUG: 'UnCommonMessageType' = 4
+    TRACE: 'UnCommonMessageType' = 5

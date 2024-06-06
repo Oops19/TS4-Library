@@ -28,10 +28,13 @@ class ModInfo(CommonModInfo):
 
     @property
     def _version(self) -> str:
-        return '0.3.20'
+        return '0.3.21'
 
 
 r'''
+v0.3.21
+    Add option to supply bytes to FNV().get(btext, ...)
+    Useful when reading package files as bytes. 
 v0.3.20
     Tested with TS4 v1.107
 v.0.3.19

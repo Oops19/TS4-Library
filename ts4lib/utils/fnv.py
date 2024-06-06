@@ -4,7 +4,7 @@
 #
 
 
-from typing import Dict
+from typing import Dict, Union
 
 from ts4lib.utils.singleton import Singleton
 
@@ -83,15 +83,15 @@ class FNV(object, metaclass=Singleton):
         return cls.get(text, 64, ascii_2_lower=True, ucs2=True, set_high_bit=False)
 
     @classmethod
-    def get(cls, text: str, n: int, ascii_2_lower: bool = False, ucs2: bool = False, set_high_bit: bool = False):
+    def get(cls, text: Union[str, bytes], n: int, ascii_2_lower: bool = False, ucs2: bool = False, set_high_bit: bool = False):
         """
         Use @hash32() and @hash64() when writing code to be executed from within TS4.
         The defaults are for normal FNV operations and are not suitable for TS4.
         For TS4 set ucs2=True and ascii_2_lower=True and often also set_high_bit=True.
-        :param text: The string to get the FNV value for.
+        :param text: The string to get the FNV value for. 'bytes' will be converted to a hash without the options 'ascii_2_lower' and/or 'ucs2'.
         :param n: The exponent for the size of the FNV value (2^n) - 24, 32 and 56, 64 are supported (56 is used for i18n in TS4).
-        :param ascii_2_lower: ASCII characters in strings may be converted to lower case.
-        :param ucs2: Strings are converted to UCS-2 (=True) words or UTF8 (=False) bytes to calculate the hash
+        :param ascii_2_lower: ASCII characters in strings may be converted to lower case (not for text: bytes).
+        :param ucs2: Strings are converted to UCS-2 (=True) words or UTF8 (=False) bytes to calculate the hash (not for text: bytes).
         :param set_high_bit: Set the high bit. This is often recommended for FNV values in TS4 mods.
         :return: The fnv value or 0
         """
@@ -103,21 +103,23 @@ class FNV(object, metaclass=Singleton):
         else:
             return hash_value
 
-        if ascii_2_lower:
-            text = text.lower()
-
         max_size = 2 ** m
         prime = cls._fnv_primes.get(m)
         hash_value = cls._fnv_hashes.get(m)
+        if isinstance(text, str):
+            if ascii_2_lower:
+                text = text.lower()
 
-        if ucs2:
-            # € as UCS-2: 0x20AC
-            _words = text.encode(encoding='utf-16be')
-            hash_value = cls._fnv_UTF16(_words, hash_value, prime, max_size)
+            if ucs2:
+                # € as UCS-2: 0x20AC
+                _words = text.encode(encoding='utf-16be')
+                hash_value = cls._fnv_UTF16(_words, hash_value, prime, max_size)
+            else:
+                # € as UTF-8: 0xE2 0x82 0xAC
+                _bytes = text.encode(encoding='utf-8')
+                hash_value = cls._fnv_UTF8(_bytes, hash_value, prime, max_size)
         else:
-            # € as UTF-8: 0xE2 0x82 0xAC
-            _bytes = text.encode(encoding='utf-8')
-            hash_value = cls._fnv_UTF8(_bytes, hash_value, prime, max_size)
+            hash_value = cls._fnv_UTF16(text, hash_value, prime, max_size)
 
         if n != m:
             hash_value = (hash_value >> n) ^ (hash_value & (1 << n) - 1)
