@@ -12,7 +12,7 @@ class ModInfo(CommonModInfo):
 
     @property
     def _name(self) -> str:
-        return 'TS4Lib'
+        return 'Library'
 
     @property
     def _author(self) -> str:
