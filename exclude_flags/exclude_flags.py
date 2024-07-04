@@ -1,7 +1,7 @@
 import re
 from typing import Tuple, Set, List, Union
 
-from ts4lib.common_enums.body_part import BodyPart
+from ts4lib.common_enums.body_type import BodyType
 
 
 class ExcludeFlags:
@@ -11,7 +11,7 @@ class ExcludeFlags:
         Print BB code to be copied to the forum.
         @return:
         """
-        for k, v in BodyPart.__members__.items():
+        for k, v in BodyType.__members__.items():
             value = v.value
             if value == 0:
                 print(f'[font size="4"]ExcludeFlags: Parts List and Enum/Binary Values[/font]')
@@ -52,8 +52,8 @@ class ExcludeFlags:
         exclude_flags_2 = 0
         for value in exclude_items:
             if isinstance(value, str):
-                value = BodyPart[value].value
-            elif isinstance(value, BodyPart):
+                value = BodyType[value].value
+            elif isinstance(value, BodyType):
                 value = value.value
             elif not isinstance(value, int):
                 print(f"Ignoring {value} !")

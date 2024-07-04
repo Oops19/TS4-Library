@@ -1,5 +1,5 @@
-Library v0.3.21 created on 2024-06-09 for The Sims 4 v1.107.151 and S4CL v3.4
-v0.3.21
-    Add option to supply bytes to FNV().get(btext, ...)
-    Useful when reading package files as bytes. 
+Library v0.3.23 for The Sims 4 v1.107.151 and S4CL v3.4
+Created on 2024-07-03
+v0.3.23
+    Renamed BodyPart to BodyType
 

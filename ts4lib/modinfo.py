@@ -28,10 +28,14 @@ class ModInfo(CommonModInfo):
 
     @property
     def _version(self) -> str:
-        return '0.3.21'
+        return '0.3.23'
 
 
 r'''
+v0.3.23
+    Renamed BodyPart to BodyType
+v0.3.22
+    Fixed interaction_id for EnqueueInteraction().run_pose() 
 v0.3.21
     Add option to supply bytes to FNV().get(btext, ...)
     Useful when reading package files as bytes. 

@@ -90,7 +90,7 @@ class LotObjects(object, metaclass=Singleton):
             try:
                 obj: o = manager.get(o.id)
                 obj_location = getattr(obj, 'location', None)
-                log.debug(f"xxxxxxxxx {obj_location}")
+                # log.debug(f"obj_location {obj_location}")
                 obj_level = getattr(obj, 'level', None)
                 obj_zone_id = getattr(obj_location, 'zone_id', None)
                 _obj_transform = getattr(obj_location, 'transform', None)

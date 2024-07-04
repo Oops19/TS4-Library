@@ -8,7 +8,7 @@ from interactions.base.super_interaction import SuperInteraction
 
 
 class TS4LibraryPoseInteraction(SuperInteraction):
-    __qualname__ = 'ScheduleItPoseInteraction'
+    __qualname__ = 'TS4LibraryPoseInteraction'
 
     def __init__(self, *args, pose_name=None, **kwargs):
         super().__init__(*args, **kwargs)

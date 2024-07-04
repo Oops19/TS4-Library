@@ -7,7 +7,7 @@
 from ts4lib.common_enums.enum_types.common_enum import CommonEnum
 
 
-class BodyPart(CommonEnum):
+class BodyType(CommonEnum):
     NONE = 0
     HAT = 1
     HAIR = 2

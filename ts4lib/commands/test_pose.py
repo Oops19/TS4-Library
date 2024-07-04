@@ -7,6 +7,8 @@
 
 import random
 
+from sims.sim import Sim
+from sims4communitylib.utils.common_injection_utils import CommonInjectionUtils
 from sims4communitylib.utils.sims.common_age_utils import CommonAgeUtils
 from sims4communitylib.utils.sims.common_household_utils import CommonHouseholdUtils
 from sims4communitylib.utils.sims.common_sim_utils import CommonSimUtils
@@ -171,3 +173,11 @@ class TestPose:
         except Exception as e:
             output(f"Oops: {e}")
             log.error(f"Oops: {e}", throw=True)
+
+
+r'''
+@CommonInjectionUtils.inject_safely_into(ModInfo.get_identity(), Sim, Sim.push_super_affordance.__name__)
+def o19_sim_psa(original, self, *args, **kwargs):
+    log.debug(f"self={self}; args={args}; kwargs={kwargs}")
+    return original(self, *args, **kwargs)
+'''

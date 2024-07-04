@@ -25,7 +25,7 @@ class EnqueueInteraction:
                                insert_strategy: QueueInsertStrategy = QueueInsertStrategy.FIRST, must_run_next: bool = True, **kwargs) -> bool:
         """
         :param sim: The sim
-        :param sim: The interaction
+        :param interaction: The interaction
         :param target: The target sim or object. Defaults to 'sim'
         :param pose_name: The pose to play, if any.
         :param _connection: None
@@ -45,13 +45,14 @@ class EnqueueInteraction:
         context = InteractionContext(sim, interaction_context, priority, client=client, insert_strategy=insert_strategy, must_run_next=must_run_next, pick=None)
         return sim.push_super_affordance(super_affordance=interaction, target=target, context=context, pose_name=pose_name, **kwargs)
 
-    def run_pose(self, sim: Sim, pose_name: str, **kwargs):
+    def run_pose(self, sim: Sim, pose_name: str, target: Union[Sim, Any] = None, **kwargs):
         log.debug(f"run_pose({sim}, {pose_name}, {kwargs})")
 
+        # <I c="TS4LibraryPoseInteraction" i="interaction" m="ts4lib.anim" n="o19:pose_interaction" s="7355957611031270070"><!-- 66159C79445992B6 -->
+        interaction_id = 7355957611031270070
         interaction_manager = services.get_instance_manager(ResourceType.INTERACTION)
-        interaction_id = 16579329647886045878  # <I c="ScheduleItPoseInteraction" i="interaction" m="schedule_it" n="o19:pose_interaction" s="16579329647886045878"><!-- E6159C79445992B6 -->
         interaction = interaction_manager.get(interaction_id)
-        return self._push_super_affordance(sim, interaction, pose_name=pose_name, **kwargs)
+        return self._push_super_affordance(sim, interaction, target, pose_name, **kwargs)
 
     def run_interaction(self, sim: Sim, interaction_id: int, target: Union[Sim, Any] = None, **kwargs):
         log.debug(f"run_interaction({sim}, {interaction_id}, {target}, {kwargs})")
