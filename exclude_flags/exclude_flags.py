@@ -69,3 +69,11 @@ ef = ExcludeFlags()
 e1, e2 = ef.get_flags(["HAIR", "HEAD", "TEETH", "EARRINGS", "GLASSES", "NECKLACE", "LIP_RING_LEFT", "LIP_RING_RIGHT", "NOSE_RING_LEFT", "NOSE_RING_RIGHT", "BROW_RING_LEFT", "BROW_RING_RIGHT", "FACIAL_HAIR", "EYEBROWS", "EARS", ])
 print(f"exclude_flags_1 = {e1}")
 print(f"exclude_flags_2 = {e2}")
+
+e1 = 0x200004101FC0FD1E  # Esmeralda_yuBody_EP08HumanoidBotBlueRedBlueRedLauren_BlueRed
+print(f"Excluded parts for {e1}:")
+for k, v in BodyType.__members__.items():
+    if v.value & e1:
+        print(f"- {k}")
+    else:
+        print(f"+ {k}")
