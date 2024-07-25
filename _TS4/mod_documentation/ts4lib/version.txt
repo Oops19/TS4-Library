@@ -1,4 +1,4 @@
-Library v0.3.24 for The Sims 4 v1.108.329 and S4CL v3.5
+Library v0.3.24 for The Sims 4 v1.108.329 and S4CL v3.6
 Created on 2024-07-25
 v0.3.24
     Added BodyType(CommonEnum).EYELASHES = 37; MASCARA = 37 is now deprecated
