@@ -1,5 +1,5 @@
-Library v0.3.23 for The Sims 4 v1.107.151 and S4CL v3.4
-Created on 2024-07-04
-v0.3.23
-    Renamed BodyPart to BodyType
+Library v0.3.24 for The Sims 4 v1.108.329 and S4CL v3.5
+Created on 2024-07-25
+v0.3.24
+    Added BodyType(CommonEnum).EYELASHES = 37; MASCARA = 37 is now deprecated
 

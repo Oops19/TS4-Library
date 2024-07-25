@@ -45,7 +45,8 @@ class BodyType(CommonEnum):
     EYEBROWS = 34
     EYECOLOR = 35
     SOCKS = 36
-    MASCARA = 37
+    EYELASHES = 37
+    MASCARA = 37  # deprecated
     SKINDETAIL_CREASE_FOREHEAD = 38
     SKINDETAIL_FRECKLES = 39
     SKINDETAIL_DIMPLE_LEFT = 40

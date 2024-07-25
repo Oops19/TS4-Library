@@ -28,10 +28,12 @@ class ModInfo(CommonModInfo):
 
     @property
     def _version(self) -> str:
-        return '0.3.23'
+        return '0.3.24'
 
 
 r'''
+v0.3.24
+    Added BodyType(CommonEnum).EYELASHES = 37; MASCARA = 37 is now deprecated
 v0.3.23
     Renamed BodyPart to BodyType
 v0.3.22
