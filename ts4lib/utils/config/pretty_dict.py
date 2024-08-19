@@ -3,8 +3,7 @@
 # https://creativecommons.org/licenses/by/4.0/ https://creativecommons.org/licenses/by/4.0/legalcode
 # © 2023 https://github.com/Oops19
 #
-
-
+import os
 from typing import Any, List, Dict
 from ts4lib.modinfo import ModInfo
 from ts4lib.utils.singleton import Singleton
@@ -75,6 +74,7 @@ class PrettyDict(metaclass=Singleton):
                 fp.writelines(f"{_t * indent}{_c}{_n}")
 
         try:
+            os.makedirs(os.path.dirname(file_name), exist_ok=True)
             with open(file_name, 'wt', encoding=encoding) as fp:
                 _write(fp, data)
         except Exception as e:

@@ -12,7 +12,7 @@ class ModInfo(CommonModInfo):
 
     @property
     def _name(self) -> str:
-        return 'Library'
+        return 'TS4-Library'
 
     @property
     def _author(self) -> str:
@@ -28,10 +28,12 @@ class ModInfo(CommonModInfo):
 
     @property
     def _version(self) -> str:
-        return '0.3.24'
+        return '0.3.25'
 
 
 r'''
+v0.3.25
+    Create missing directory before writing PrettyDict
 v0.3.24
     Added BodyType(CommonEnum).EYELASHES = 37; MASCARA = 37 is now deprecated
 v0.3.23
@@ -43,10 +45,10 @@ v0.3.21
     Useful when reading package files as bytes. 
 v0.3.20
     Tested with TS4 v1.107
-v.0.3.19
+v0.3.19
     Add ET (from PatchXML) to format XML
     Fixed ET to avoid line breaks after comments
-v.0.3.18
+v0.3.18
     Add option to exclude files while searching.
     Return files as sorted list instead of set
 v0.3.17
@@ -59,7 +61,7 @@ v0.3.15
 v0.3.14
     Fix vector rotation - don't normalize q
 v0.3.13
-    Fix StdEulerAngle, 
+    Fix StdEulerAngle
 v0.3.12
     Refactor fixes
 v0.3.11
