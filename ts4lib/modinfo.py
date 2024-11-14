@@ -28,10 +28,17 @@ class ModInfo(CommonModInfo):
 
     @property
     def _version(self) -> str:
-        return '0.3.25'
+        return '0.3.28'
 
 
 r'''
+v0.3.28
+    Add OpacityManager to allow mods to check and set the opacity of sims
+    Mods using this functionality: Mystify, OnInteractionDo
+v0.3.27
+    New option to include_target_object within BasicExtras.add_do_command()
+v0.3.26
+    Improve error logging
 v0.3.25
     Create missing directory before writing PrettyDict
 v0.3.24

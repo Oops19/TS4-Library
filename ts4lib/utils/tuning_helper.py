@@ -103,7 +103,7 @@ class TuningHelper(object, metaclass=Singleton):
                     key = get_resource_key(_tuning_id, instance_manager.TYPE)
                     tuning_dict.update(self._dict(instance_manager, manager, key, tuning_name))
                 except:
-                    log.error(f"Could not convert 'int({tuning_name})'", throw=True)
+                    log.error(f"Could not convert '{tuning_name}'", throw=True)
                 continue
 
             if tuning_name.startswith('0x'):
@@ -112,7 +112,7 @@ class TuningHelper(object, metaclass=Singleton):
                     key = get_resource_key(_tuning_id, instance_manager.TYPE)
                     tuning_dict.update(self._dict(instance_manager, manager, key, tuning_name))
                 except:
-                    log.error(f"Could not convert 'int({tuning_name}, 16)'", throw=False)
+                    log.error(f"Could not convert '{tuning_name}'", throw=False)
                 continue
 
             tuning_name = tuning_name.lower().strip()

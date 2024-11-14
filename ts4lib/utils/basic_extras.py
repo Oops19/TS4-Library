@@ -28,21 +28,25 @@ class BasicExtras(metaclass=Singleton):
 
     def add_do_command(self, manager: str, tunings: Union[List[str], Set[int]], command: Union[str, None], parameter: str, timing: str = 'at_end',
                        offset_time: Union[None, float] = None, xevt_id: Union[None, int] = None,
-                       drop_all_basic_extras: bool = False, drop_basic_extras: List[str] = None, include_target_sim: bool = True, ):
+                       drop_all_basic_extras: bool = False, drop_basic_extras: List[str] = None,
+                       include_target_sim: bool = True, include_target_object: bool = False, ):
         """
         Set command (and parameter) to None to remove only
         :param drop_all_basic_extras: Set to 'True', to remove all 'basic_extras', whatever their content is.
         :param drop_basic_extras: Add classes to drop. E.g.:
-            'TunableBuffElementWrapper.factory'
-            'TunableStateChangeWrapper._factory'
-            'TunableDoCommandWrapper.DoCommand'
-            'TunableLootElementWrapper.LootElement'
-            'TunablePregnancyElementWrapper.PregnancyElement'
-            'TunableTunableAudioStingWrapper.TunableAudioSting'
-            'TunableBroadcasterRequestWrapper.BroadcasterRequest'
-            'TunableNotificationElementWrapper.NotificationElement'
-            'TunablePlayVisualEffectElementWrapper.PlayVisualEffectElement'
+            TunableBroadcasterRequestWrapper.BroadcasterRequest
+            TunableBuffElementWrapper.factory
+            TunableChangeOutfitElementWrapper.ChangeOutfitElement,
+            TunableDoCommandWrapper.DoCommand
+            TunableLootElementWrapper.LootElement
+            TunableNotificationElementWrapper.NotificationElement
+            TunablePlayVisualEffectElementWrapper.PlayVisualEffectElement
+            TunablePregnancyElementWrapper.PregnancyElement
+            TunableStateChangeWrapper._factory
+            TunableTunableAudioStingWrapper.TunableAudioSting
+
         :param include_target_sim: Set to 'False', to have only the actor. Normally the target sim is added as a 3rd parameter.
+        :param include_target_object: Set to 'True' to include the object. include_target_sim will be ignored (include_target_sim===False)
         """
         parameter = parameter.replace(' ', '').strip()
         log.debug(f"add_do_command({manager}, {tunings}, {command}, {parameter}, {timing}, {offset_time}, {xevt_id}, {drop_all_basic_extras}, {drop_basic_extras}, {include_target_sim}.)")
@@ -54,7 +58,7 @@ class BasicExtras(metaclass=Singleton):
             log.debug(f"Processing '{tuning_name}({tuning_id})'")
             if tuning:
                 # basic_extra = self._create_basic_extras(command, f"id({tuning_id})+{parameter}", timing, offset_time, xevt_id, include_target_sim=include_target_sim)
-                basic_extra = self._create_basic_extras(command, f"id({tuning_id})+{parameter}", timing, offset_time, xevt_id, include_target_sim=include_target_sim)
+                basic_extra = self._create_basic_extras(command, f"id({tuning_id})+{parameter}", timing, offset_time, xevt_id, include_target_sim=include_target_sim, include_target_object=include_target_object)
 
                 basic_extras: Tuple = (basic_extra,)
 
@@ -74,7 +78,7 @@ class BasicExtras(metaclass=Singleton):
                 log.warn(f"Didn't find '{tuning_name}({tuning_id})'")
 
     # noinspection PyMethodMayBeStatic
-    def _create_basic_extras(self, command: str, parameter: str = '', timing: str = 'at_end', offset_time: Union[None, float] = None, xevt_id: Union[None, int] = None, include_target_sim: bool = True):
+    def _create_basic_extras(self, command: str, parameter: str = '', timing: str = 'at_end', offset_time: Union[None, float] = None, xevt_id: Union[None, int] = None, include_target_sim: bool = True, include_target_object: bool = False):
         """
         :param xevt_id:
         :param command: Create a local `@Command(command, command_type=CommandType.Live)` method
@@ -83,7 +87,11 @@ class BasicExtras(metaclass=Singleton):
         :param offset_time: valid for 'at_beginning', it is recommended to use 'on_xevt' instead.
         :return:
         """
+        if include_target_object:
+            include_target_sim = False
         basic_extras = None
+        if timing is None:
+            timing = 'at_end'
         if timing != 'at_beginning':
             offset_time = None
         try:
@@ -114,10 +122,13 @@ class BasicExtras(metaclass=Singleton):
             __arguments_t2_c = make_immutable_slots_class(Slots.__slots__)
             __arguments_t2_is = __arguments_t2_c(__arguments_t2)
 
-            if include_target_sim:
+            if include_target_sim or include_target_object:
                 __arguments_t3 = dict()
                 __arguments_t3.update({'arg_type': CommandArgType.ARG_TYPE_BOOL})
-                __arguments_t3.update({'argument': ParticipantType.TargetSim})
+                if include_target_object:
+                    __arguments_t3.update({'argument': ParticipantType.Object})
+                else:
+                    __arguments_t3.update({'argument': ParticipantType.TargetSim})
                 Slots.__slots__ = 'arg_type', 'argument'
                 __arguments_t3_c = make_immutable_slots_class(Slots.__slots__)
                 __arguments_t3_is = __arguments_t3_c(__arguments_t3)
@@ -157,29 +168,29 @@ class BasicExtras(metaclass=Singleton):
 '''
 create_basic_extras() creates this 'basic_extras' object:
 _tuned_values = ImmutableSlots({
-    'arguments': (
-        ImmutableSlots({
-            'arg_type': <CommandArgType.ARG_TYPE_STRING = 1>,
-            'argument': '{parameter}'
-        }),
-        ImmutableSlots({
-            'arg_type': <CommandArgType.ARG_TYPE_BOOL = 0>,
-            'argument': <ParticipantType.Actor = 1>
-        }),
-        ImmutableSlots({
-            'arg_type': <CommandArgType.ARG_TYPE_BOOL = 0>,
-            'argument': <ParticipantType.TargetSim = 1>
+        'arguments': (
+            ImmutableSlots({
+                'arg_type': <CommandArgType.ARG_TYPE_STRING = 1>,
+                'argument': '{parameter}'
+            }),
+            ImmutableSlots({
+                'arg_type': <CommandArgType.ARG_TYPE_BOOL = 0>,
+                'argument': <ParticipantType.Actor = 1>
+            }),
+            ImmutableSlots({
+                'arg_type': <CommandArgType.ARG_TYPE_BOOL = 0>,
+                'argument': <ParticipantType.TargetSim = 1>
+            })
+        ),
+        'command': '{command}',
+        'success_chance': SuccessChance(base_chance=1.0, multipliers=()),
+        'timing': ImmutableSlots({
+            'criticality': <CleanupType.OnCancel = 1>,
+            'offset_time': {offset_time},
+            'supports_failsafe': None,
+            'timing': '{timing}',
+            'xevt_id': {xevt_id}
         })
-    ),
-    'command': '{command}',
-    'success_chance': SuccessChance(base_chance=1.0, multipliers=()),
-    'timing': ImmutableSlots({
-        'criticality': <CleanupType.OnCancel = 1>,
-        'offset_time': {offset_time},
-        'supports_failsafe': None,
-        'timing': '{timing}',
-        'xevt_id': {xevt_id}
-    })
 })
 basic_extras = TunableFactory.TunableFactoryWrapper(_tuned_values, 'TunableDoCommand', interactions.utils.tunable.DoCommand)
 '''
