@@ -10,12 +10,14 @@ from typing import Dict, Set, Union, List, Tuple, Any
 import services
 import sims4
 import sims4.commands
+from event_testing.tests import CompoundTestList, TestList
 from interactions import ParticipantType
 from objects.definition_manager import DefinitionManager
 from server_commands.tuning_commands import get_managers
-from sims.sim_info_tests import TraitTest, BuffTest
+from sims.sim_info_tests import TraitTest, BuffTest, SimInfoTest
 from sims4.resources import get_resource_key
 from sims4communitylib.utils.common_log_registry import CommonLog, CommonLogRegistry
+from statistics.skill_tests import SkillRangeTest
 from ts4lib.modinfo import ModInfo
 from ts4lib.utils.singleton import Singleton
 
@@ -186,6 +188,12 @@ class TuningHelper(object, metaclass=Singleton):
 
     # noinspection PyMethodMayBeStatic
     def disable_gender_check(self, _manager: str, tuning_ids: set):
+        """
+        Deprecated, call `modify_test_globals(tuning_dict, no_gender_check=True)` instead
+        @param _manager:
+        @param tuning_ids:
+        @return:
+        """
         instance_manager = services.get_instance_manager(sims4.resources.Types[_manager])
         for tuning_id in tuning_ids:
             try:
@@ -198,7 +206,6 @@ class TuningHelper(object, metaclass=Singleton):
             except Exception as e:
                 log.debug(f"Fail tuning_id '{tuning_id}': '{e}'")
 
-
     def remove_privacy(self, tuning_dict: Dict):
         """
         Removes the 'privacy' property from tunings.
@@ -208,100 +215,200 @@ class TuningHelper(object, metaclass=Singleton):
                 tuning, _manager, tuning_name = tuning_data
                 setattr(tuning, 'privacy', None)
 
-
-    def modify_test_globals(self, tuning_dict: Dict, no_gender_check: bool = False,  gender: Union[str, None] = None, who: ParticipantType = ParticipantType.Actor,
-                            add_whitelist_traits: Union[Set, None] = None, remove_whitelist_traits: Union[Set, bool] = False,
-                            add_blacklist_traits: Union[Set, None] = None, remove_blacklist_traits: Union[Set, bool] = False,
-                            add_whitelist_buffs: Union[Set, None] = None, remove_whitelist_buffs: Union[Set, bool] = False,
-                            add_blacklist_buffs: Union[Set, None] = None, remove_blacklist_buffs: Union[Set, bool] = False):
-        """
-        @param no_gender_check: True: Remove gender check, don't specify gender in this case
-        @param gender: 'MALE', 'FEMALE', None
-        @param who: ParticipantType.Actor / .TargetSim
-        @param remove_blacklist_buffs: Set to True to remove all blacklist buffs
-        @param remove_whitelist_traits: Set to True to remove all whitelist traits
-
-        not yet implemented: SimInfoTest(ages=frozenset({<Age.TEEN = 8>, <Age.YOUNGADULT = 16>, <Age.ADULT = 32>, <Age.ELDER = 64>}), can_age_up=None, gender=Gender.FEMALE, has_been_played=None, is_active_sim=None, match_type=MatchType.MATCH_ALL, npc=None, species=_SpeciesTestSpecies(species=frozenset({<Species.HUMAN = 1>})), tooltip=None, who=ParticipantType.Actor)
-        not yet implemented: BuffTest:whitelist
-        not yet implemented: TraitTest:blacklist_traits
-        """
+    def remove_skill_test(self, tuning_dict: Dict):
+        """ TODO add to modify_test_globals"""
+        if self.verbose:
+            log.debug(f"remove_skill_test({tuning_dict})")
         for tuning_id, data in tuning_dict.items():
             tuning, _, tuning_name = data
             try:
                 test_globals = getattr(tuning, 'test_globals', None)
                 if self.verbose:
-                    log.debug(f"modify_test_globals({tuning_name} ({tuning_id}) -> test_globals: {(type(test_globals))} = {test_globals}")
+                    log.debug(f"test_globals: {(type(test_globals))} = {test_globals}")
+                if isinstance(test_globals, TestList):
+                    delete_tests: List = []
+                    for test_class in test_globals:
+                        if self.verbose:
+                            log.debug(f"test_globals.test_class: '{type(test_class)}' = '{test_class}'")
+                        if isinstance(test_class, SkillRangeTest):
+                            delete_tests.append(test_class)
+                    for delete_test in delete_tests:
+                        test_globals.remove(delete_test)
+
+            except Exception as e:
+                log.warn(f"remove_skill_test({tuning_name} ({tuning_id}) failed altering tuning: '{e}'")
+
+    def modify_test(self, tuning_dict: Dict,
+                            add_whitelist_traits: Union[Set, None] = None, remove_whitelist_traits: Union[Set, bool] = False,
+                            add_blacklist_traits: Union[Set, None] = None, remove_blacklist_traits: Union[Set, bool] = False,
+                            add_whitelist_buffs: Union[Set, None] = None, remove_whitelist_buffs: Union[Set, bool] = False,
+                            add_blacklist_buffs: Union[Set, None] = None, remove_blacklist_buffs: Union[Set, bool] = False):
+        """
+        whatever
+        @param tuning_dict: Dict with Tuning values
+
+        @param add_whitelist_traits: Specify a 'Set' to add traits
+        @param remove_whitelist_traits: Specify a 'Set' to remove individual traits. Set to True to remove all traits
+        @param add_blacklist_traits: see above
+        @param remove_blacklist_traits: see above
+        @param add_whitelist_buffs: see above
+        @param remove_whitelist_buffs: see above
+        @param add_blacklist_buffs: see above
+        @param remove_blacklist_buffs: see above
+        """
+        if self.verbose:
+            log.debug(f"modify_test({tuning_dict}, "
+                      f"add_whitelist_traits={add_whitelist_traits}, remove_whitelist_traits={remove_whitelist_traits}, "
+                      f"add_blacklist_traits={add_blacklist_traits}, remove_blacklist_traits={remove_blacklist_traits}, "
+                      f"add_whitelist_buffs={add_whitelist_buffs}, remove_whitelist_buffs={remove_whitelist_buffs}, "
+                      f"add_blacklist_buffs={add_blacklist_buffs}, remove_blacklist_buffs={remove_blacklist_buffs})")
+
+        for tuning_id, data in tuning_dict.items():
+            tuning, _, tuning_name = data
+            try:
+                tests = getattr(tuning, 'test', None)
+                if self.verbose:
+                    log.debug(f"tests: '{type(tests)}' = '{tests}' (? CompoundTestList)")
+                if not tests:
+                    continue
+                if isinstance(tests, CompoundTestList):
+                    for test in tests:
+                        if self.verbose:
+                            log.debug(f"tests.test: '{type(test)}' = '{test}' (? Tuple)")
+                        for _test in test:
+                            if self.verbose:
+                                log.debug(f"tests.test._test: '{type(_test)}' = '{_test}' (? BuffTest or TraitTest)")
+                            if not _test:
+                                continue
+
+                            if isinstance(_test, TraitTest) and (add_whitelist_traits or remove_whitelist_traits):
+                                values = getattr(_test, 'whitelist_traits', set())
+                                new_values = self._modify_values(values, add_whitelist_traits, remove_whitelist_traits)
+                                if self.verbose:
+                                    log.debug(f"whitelist_traits: {values}")
+                                    log.debug(f"              >>> {new_values}")
+                                setattr(_test, 'whitelist_traits', tuple(new_values))
+
+                            if isinstance(_test, TraitTest) and (add_blacklist_traits or remove_blacklist_traits):
+                                values = getattr(_test, 'blacklist_traits', set())
+                                new_values = self._modify_values(values, add_blacklist_traits, remove_blacklist_traits)
+                                if self.verbose:
+                                    log.debug(f"blacklist_traits: {values}")
+                                    log.debug(f"              >>> {new_values}")
+                                setattr(_test, 'blacklist_traits', tuple(new_values))
+
+                            if isinstance(tests, BuffTest) and (add_whitelist_buffs or remove_whitelist_buffs):
+                                values = getattr(_test, 'whitelist', set())
+                                new_values = self._modify_values(values, add_whitelist_buffs, remove_whitelist_buffs)
+                                if self.verbose:
+                                    log.debug(f"whitelist_buffs: {values}")
+                                    log.debug(f"             >>> {new_values}")
+                                setattr(_test, 'whitelist', tuple(new_values))
+
+                            if isinstance(tests, BuffTest) and (add_blacklist_buffs or remove_blacklist_buffs):
+                                values = getattr(_test, 'blacklist', set())
+                                new_values = self._modify_values(values, add_blacklist_buffs, remove_blacklist_buffs)
+                                if self.verbose:
+                                    log.debug(f"blacklist_buffs: {values}")
+                                    log.debug(f"             >>> {new_values}")
+                                setattr(_test, 'blacklist', tuple(new_values))
+            except Exception as e:
+                log.warn(f"modify_test({tuning_name} ({tuning_id}) failed altering tuning: '{e}'")
+
+    def _modify_values(self, values: Set, add_values: Union[Set, None] = None, remove_values: Union[Set, bool] = False) -> Set:
+        """
+        @param values: The values to be modified
+        @param add_values: Add items to 'Set' to add them to 'values'
+        @param remove_values: Set to True to remove all values. Add items to 'Set' to remove them from 'values'
+        @return:
+        """
+        new_values = set(values)
+        if isinstance(remove_values, set):
+            for rm_value in remove_values:
+                try:
+                    new_values.remove(rm_value)  # Try to remove traits
+                except:
+                    pass
+        elif remove_values is True:
+            new_values = set()
+        if add_values:
+            for add_value in add_values:
+                new_values.add(add_value)
+        return new_values
+
+    def modify_test_globals(self, tuning_dict: Dict, no_gender_check: bool = False,
+                            gender: Union[str, None] = None, actor: Union[ParticipantType, None] = None ,
+                            add_whitelist_traits: Union[Set, None] = None, remove_whitelist_traits: Union[Set, bool] = False,
+                            add_blacklist_traits: Union[Set, None] = None, remove_blacklist_traits: Union[Set, bool] = False,
+                            add_whitelist_buffs: Union[Set, None] = None, remove_whitelist_buffs: Union[Set, bool] = False,
+                            add_blacklist_buffs: Union[Set, None] = None, remove_blacklist_buffs: Union[Set, bool] = False):
+        """
+        @param tuning_dict: Dict with Tuning values
+
+        @param no_gender_check: True: Remove gender check, don't specify gender or actor in this case
+        @param gender: None, 'MALE', 'FEMALE' - Change the gender check to 'gender'
+        @param actor: None, ParticipantType.Actor, ParticipantType.TargetSim - Change the gender check for 'actor'
+
+        @param add_whitelist_traits: Specify a 'Set' to add traits
+        @param remove_whitelist_traits: Specify a 'Set' to remove individual traits. Set to True to remove all traits
+        @param add_blacklist_traits: see above
+        @param remove_blacklist_traits: see above
+        @param add_whitelist_buffs: see above
+        @param remove_whitelist_buffs: see above
+        @param add_blacklist_buffs: see above
+        @param remove_blacklist_buffs: see above
+
+        # Could be added: SimInfoTest(ages=frozenset({<Age.TEEN = 8>, <Age.YOUNGADULT = 16>, <Age.ADULT = 32>, <Age.ELDER = 64>}), can_age_up=None, gender=Gender.FEMALE, has_been_played=None, is_active_sim=None, match_type=MatchType.MATCH_ALL, npc=None, species=_SpeciesTestSpecies(species=frozenset({<Species.HUMAN = 1>})), tooltip=None, who=ParticipantType.Actor)
+        """
+
+        if self.verbose:
+            log.debug(f"modify_test_globals({tuning_dict}, "
+                      f"add_whitelist_traits={add_whitelist_traits}, remove_whitelist_traits={remove_whitelist_traits}, "
+                      f"add_blacklist_traits={add_blacklist_traits}, remove_blacklist_traits={remove_blacklist_traits}, "
+                      f"add_whitelist_buffs={add_whitelist_buffs}, remove_whitelist_buffs={remove_whitelist_buffs}, "
+                      f"add_blacklist_buffs={add_blacklist_buffs}, remove_blacklist_buffs={remove_blacklist_buffs})")
+
+        for tuning_id, data in tuning_dict.items():
+            tuning, _, tuning_name = data
+            try:
+                test_globals = getattr(tuning, 'test_globals', None)
+                if self.verbose:
+                    log.debug(f"test_globals: {(type(test_globals))} = {test_globals}")
                 for test_class in test_globals:
                     if self.verbose:
                         log.debug(f"test_class: '{type(test_class)}' = '{test_class}'")
 
-                    if isinstance(test_class, TraitTest):
-                        if add_whitelist_traits or remove_whitelist_traits:
-                            whitelist_traits = getattr(test_class, 'whitelist_traits', set())
-                            if self.verbose:
-                                log.debug(f"whitelist_traits {whitelist_traits}")
-                            new_whitelist_traits = add_whitelist_traits if add_whitelist_traits else set()
-                            if remove_whitelist_traits is False:
-                                new_whitelist_traits.update(set(whitelist_traits))  # default: keep all traits
-                            elif isinstance(new_whitelist_traits, set):  # remove the tunings in this Set[tunings]
-                                for whitelist_trait in whitelist_traits:
-                                    # Keep whitelist buffs unless they are in remove_whitelist_traits
-                                    if whitelist_trait not in remove_whitelist_traits:
-                                        new_whitelist_traits.add(whitelist_trait)
-                            # else: pass  # # drop the original whitelist_traits
-                            if self.verbose:
-                                log.debug(f"new_whitelist_traits {new_whitelist_traits}")
-                            setattr(test_class, 'whitelist_traits', tuple(new_whitelist_traits))
-                        if add_blacklist_traits or remove_blacklist_traits:
-                            blacklist_traits = getattr(test_class, 'blacklist_traits', set())
-                            if self.verbose:
-                                log.debug(f"blacklist_traits {blacklist_traits}")
-                            new_blacklist_traits = add_blacklist_traits if add_blacklist_traits else set()
-                            if remove_blacklist_traits is False:
-                                new_blacklist_traits.update(set(blacklist_traits))  # default: keep all traits
-                            elif isinstance(new_blacklist_traits, set):  # remove the tunings in this Set[tunings]
-                                for blacklist_trait in blacklist_traits:
-                                    # Keep blacklist buffs unless they are in remove_blacklist_traits
-                                    if blacklist_trait not in remove_blacklist_traits:
-                                        new_blacklist_traits.add(blacklist_trait)
-                            # else: pass  # # drop the original blacklist_traits
-                            if self.verbose:
-                                log.debug(f"new_blacklist_traits {new_blacklist_traits}")
-                            setattr(test_class, 'blacklist_traits', tuple(new_blacklist_traits))
+                    if isinstance(test_class, TraitTest) and (add_whitelist_traits or remove_whitelist_traits):
+                        values = getattr(test_class, 'whitelist_traits', set())
+                        new_values = self._modify_values(values, add_whitelist_traits, remove_whitelist_traits)
+                        if self.verbose:
+                            log.debug(f"whitelist_traits: {values}")
+                            log.debug(f"              >>> {new_values}")
+                        setattr(test_class, 'whitelist_traits', tuple(new_values))
 
-                    if isinstance(test_class, BuffTest):
-                        if add_whitelist_buffs or remove_whitelist_buffs:
-                            whitelist_buffs = getattr(test_class, 'whitelist', set())
-                            if self.verbose:
-                                log.debug(f"whitelist_buffs {whitelist_buffs}")
-                            new_whitelist_buffs = add_whitelist_buffs if add_whitelist_buffs else set()
-                            if remove_whitelist_buffs is False:
-                                new_whitelist_buffs.update(set(whitelist_buffs))  # default: keep all buffs
-                            elif isinstance(remove_whitelist_buffs, set):  # remove the tunings in this Set[tunings]
-                                for whitelist_buff in whitelist_buffs:
-                                    # Keep whitelist buffs unless they are in remove_whitelist_buffs
-                                    if whitelist_buff not in remove_whitelist_buffs:
-                                        new_whitelist_buffs.add(whitelist_buff)
-                            # else: pass  # drop the original whitelist_buffs
-                            if self.verbose:
-                                log.debug(f"new_whitelist_buffs {new_whitelist_buffs}")
-                            setattr(test_class, 'whitelist', tuple(new_whitelist_buffs))
-                        if add_blacklist_buffs or remove_blacklist_buffs:
-                            blacklist_buffs = getattr(test_class, 'blacklist', set())
-                            if self.verbose:
-                                log.debug(f"blacklist_buffs {blacklist_buffs}")
-                            new_blacklist_buffs = add_blacklist_buffs if add_blacklist_buffs else set()
-                            if remove_blacklist_buffs is False:
-                                new_blacklist_buffs.update(set(blacklist_buffs))  # default: keep all buffs
-                            elif isinstance(remove_blacklist_buffs, set):  # remove the tunings in this Set[tunings]
-                                for blacklist_buff in blacklist_buffs:
-                                    # Keep blacklist buffs unless they are in remove_blacklist_buffs
-                                    if blacklist_buff not in remove_blacklist_buffs:
-                                        new_blacklist_buffs.add(blacklist_buff)
-                            # else: pass  # drop the original blacklist_buffs
-                            if self.verbose:
-                                log.debug(f"new_blacklist_buffs {new_blacklist_buffs}")
-                            setattr(test_class, 'blacklist', tuple(new_blacklist_buffs))
+                    if isinstance(test_class, TraitTest) and (add_blacklist_traits or remove_blacklist_traits):
+                        values = getattr(test_class, 'blacklist_traits', set())
+                        new_values = self._modify_values(values, add_blacklist_traits, remove_blacklist_traits)
+                        if self.verbose:
+                            log.debug(f"blacklist_traits: {values}")
+                            log.debug(f"              >>> {new_values}")
+                        setattr(test_class, 'blacklist_traits', tuple(new_values))
+
+                    if isinstance(test_class, BuffTest) and (add_whitelist_buffs or remove_whitelist_buffs):
+                        values = getattr(test_class, 'whitelist', set())
+                        new_values = self._modify_values(values, add_whitelist_buffs, remove_whitelist_buffs)
+                        if self.verbose:
+                            log.debug(f"whitelist_buffs: {values}")
+                            log.debug(f"             >>> {new_values}")
+                        setattr(test_class, 'whitelist', tuple(new_values))
+
+                    if isinstance(test_class, BuffTest) and (add_blacklist_buffs or remove_blacklist_buffs):
+                        values = getattr(test_class, 'blacklist', set())
+                        new_values = self._modify_values(values, add_blacklist_buffs, remove_blacklist_buffs)
+                        if self.verbose:
+                            log.debug(f"blacklist_buffs: {values}")
+                            log.debug(f"             >>> {new_values}")
+                        setattr(test_class, 'blacklist', tuple(new_values))
 
                     if no_gender_check or gender:
                         _who = getattr(test_class, 'who', None)
@@ -310,7 +417,7 @@ class TuningHelper(object, metaclass=Singleton):
                             log.debug(f"who {_who}: {type(_who)}; gender {_gender}: {type(_gender)}")
                         setattr(test_class, 'gender', gender)
                         if not _who:
-                            setattr(test_class, 'who', who)
+                            setattr(test_class, 'who', actor)
 
             except Exception as e:
                 log.warn(f"modify_test_globals({tuning_name} ({tuning_id}) failed altering tuning: '{e}'")

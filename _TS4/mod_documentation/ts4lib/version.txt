@@ -1,6 +1,5 @@
-TS4-Library v0.3.28 for The Sims 4 v1.110.311 and S4CL v3.9
-Created on 2024-11-14
-v0.3.28
-    Add OpacityManager to allow mods to check and set the opacity of sims
-    Mods using this functionality: Mystify, OnInteractionDo
+TS4-Library v0.3.31 for The Sims 4 v1.110.311 and S4CL v3.9
+Created on 2024-11-19
+v0.3.31
+    Added TuningHelper.remove_skill_test() to fix broken tests, will later be integrated in modify_test_globals()
 

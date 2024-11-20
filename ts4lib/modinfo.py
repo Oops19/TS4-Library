@@ -28,10 +28,16 @@ class ModInfo(CommonModInfo):
 
     @property
     def _version(self) -> str:
-        return '0.3.28'
+        return '0.3.31'
 
 
 r'''
+v0.3.31
+    Added TuningHelper.remove_skill_test() to fix broken tests, will later be integrated in modify_test_globals()
+v0.3.30
+    Simplify TuningHelper.modify_test_globals()
+v0.3.29
+    Add TuningHelper.modify_test() to modify event_testing.tests.TestSetInstance tunings.
 v0.3.28
     Add OpacityManager to allow mods to check and set the opacity of sims
     Mods using this functionality: Mystify, OnInteractionDo
