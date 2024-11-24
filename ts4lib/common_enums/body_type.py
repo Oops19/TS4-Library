@@ -121,6 +121,7 @@ class BodyType(CommonEnum):
     HAIR_FEATHERS = 109
     HORN = 110
     TAIL_BASE = 111
+    BIRTHMARKOCCULT = 112
 
     @classmethod
     def _missing_(cls, key_value):

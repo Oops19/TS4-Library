@@ -14,10 +14,15 @@ from event_testing.tests import CompoundTestList, TestList
 from interactions import ParticipantType
 from objects.definition_manager import DefinitionManager
 from server_commands.tuning_commands import get_managers
+
+from statistics.skill_tests import SkillRangeTest
 from sims.sim_info_tests import TraitTest, BuffTest, SimInfoTest
+from event_testing.test_variants import CareerGigTest
+from event_testing.statistic_tests import CommodityAdvertisedTest
+
 from sims4.resources import get_resource_key
 from sims4communitylib.utils.common_log_registry import CommonLog, CommonLogRegistry
-from statistics.skill_tests import SkillRangeTest
+
 from ts4lib.modinfo import ModInfo
 from ts4lib.utils.singleton import Singleton
 
@@ -215,7 +220,52 @@ class TuningHelper(object, metaclass=Singleton):
                 tuning, _manager, tuning_name = tuning_data
                 setattr(tuning, 'privacy', None)
 
+    def remove_test_globals_test(self, tuning_dict: Dict, remove_test: str):
+        """
+        Calling this function can cause issues in case further tests require the result of the test itself.
+        It removes a complete test class from test_globals for the specified tunings.
+        @param tuning_dict:
+        @param remove_test: Supported tests: SkillRangeTest, TraitTest, BuffTest, SimInfoTest, CareerGigTest, CommodityAdvertisedTest
+        @return:
+        """
+        _map = {
+            'SkillRangeTest': SkillRangeTest,
+            'TraitTest': TraitTest,
+            'BuffTest': BuffTest,
+            'SimInfoTest': SimInfoTest,
+            'CareerGigTest': CareerGigTest,
+            'CommodityAdvertisedTest': CommodityAdvertisedTest,
+        }
+        if self.verbose:
+            log.debug(f"remove_test_globals_test({tuning_dict}, remove_tests={remove_test})")
+        if remove_test in _map.keys():
+            rm_test = _map.get(remove_test)
+        else:
+            log.warn(f"remove_test_globals_test() - Can't remove test '{remove_test}'")
+            return
+        for tuning_id, data in tuning_dict.items():
+            tuning, _, tuning_name = data
+            try:
+                test_globals = getattr(tuning, 'test_globals', None)
+                if self.verbose:
+                    log.debug(f"test_globals: {(type(test_globals))} = {test_globals}")
+                if isinstance(test_globals, TestList):
+
+                    delete_tests: List = []
+                    for test_class in test_globals:
+                        if self.verbose:
+                            log.debug(f"test_globals.test_class: '{type(test_class)}' = '{test_class}'")
+                        if isinstance(test_class, rm_test):
+                            delete_tests.append(test_class)
+                    for delete_test in delete_tests:
+                        test_globals.remove(delete_test)
+                if self.verbose:
+                    log.debug(f"test_globals: {(type(test_globals))} = {test_globals} <<< NOW")
+            except Exception as e:
+                log.warn(f"remove_test_globals_test({tuning_name} ({tuning_id}) failed altering tuning: '{e}'")
+
     def remove_skill_test(self, tuning_dict: Dict):
+        """ deprecated, call remove_test_globals_test(tuning_dict, 'SkillRangeTest') """
         """ TODO add to modify_test_globals"""
         if self.verbose:
             log.debug(f"remove_skill_test({tuning_dict})")
@@ -363,6 +413,7 @@ class TuningHelper(object, metaclass=Singleton):
 
         if self.verbose:
             log.debug(f"modify_test_globals({tuning_dict}, "
+                      f"no_gender_check={no_gender_check}, gender={gender}, actor={actor}, "
                       f"add_whitelist_traits={add_whitelist_traits}, remove_whitelist_traits={remove_whitelist_traits}, "
                       f"add_blacklist_traits={add_blacklist_traits}, remove_blacklist_traits={remove_blacklist_traits}, "
                       f"add_whitelist_buffs={add_whitelist_buffs}, remove_whitelist_buffs={remove_whitelist_buffs}, "

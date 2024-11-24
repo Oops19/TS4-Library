@@ -1,5 +1,6 @@
-TS4-Library v0.3.31 for The Sims 4 v1.110.311 and S4CL v3.9
-Created on 2024-11-19
-v0.3.31
-    Added TuningHelper.remove_skill_test() to fix broken tests, will later be integrated in modify_test_globals()
+TS4-Library v0.3.32 for The Sims 4 v1.110.311 and S4CL v3.9
+Created on 2024-11-21
+v0.3.32
+    Add BodyType.BIRTHMARKOCCULT = 112
+    TuningHelper refactoring
 

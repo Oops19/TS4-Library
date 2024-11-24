@@ -28,10 +28,13 @@ class ModInfo(CommonModInfo):
 
     @property
     def _version(self) -> str:
-        return '0.3.31'
+        return '0.3.32'
 
 
 r'''
+v0.3.32
+    Add BodyType.BIRTHMARKOCCULT = 112
+    TuningHelper refactoring
 v0.3.31
     Added TuningHelper.remove_skill_test() to fix broken tests, will later be integrated in modify_test_globals()
 v0.3.30
