@@ -28,10 +28,13 @@ class ModInfo(CommonModInfo):
 
     @property
     def _version(self) -> str:
-        return '0.3.32'
+        return '0.3.33'
 
 
 r'''
+v0.3.33
+    fnv: Return UTF8 also for bytes if ucs2=False
+    fnv: Set high-bit properly for n=24 (0x00Hx_xxxx instead of 0xH0xx_xxxx) and n=56
 v0.3.32
     Add BodyType.BIRTHMARKOCCULT = 112
     TuningHelper refactoring

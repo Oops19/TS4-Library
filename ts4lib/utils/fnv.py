@@ -106,26 +106,30 @@ class FNV(object, metaclass=Singleton):
         max_size = 2 ** m
         prime = cls._fnv_primes.get(m)
         hash_value = cls._fnv_hashes.get(m)
-        if isinstance(text, str):
-            if ascii_2_lower:
-                text = text.lower()
 
-            if ucs2:
+        if ascii_2_lower:
+            text = text.lower()
+
+        if ucs2:
+            if isinstance(text, str):
                 # € as UCS-2: 0x20AC
                 _words = text.encode(encoding='utf-16be')
-                hash_value = cls._fnv_UTF16(_words, hash_value, prime, max_size)
             else:
+                _words = text
+            hash_value = cls._fnv_UTF16(_words, hash_value, prime, max_size)
+        else:
+            if isinstance(text, str):
                 # € as UTF-8: 0xE2 0x82 0xAC
                 _bytes = text.encode(encoding='utf-8')
-                hash_value = cls._fnv_UTF8(_bytes, hash_value, prime, max_size)
-        else:
-            hash_value = cls._fnv_UTF16(text, hash_value, prime, max_size)
+            else:
+                _bytes = text
+            hash_value = cls._fnv_UTF8(_bytes, hash_value, prime, max_size)
 
         if n != m:
             hash_value = (hash_value >> n) ^ (hash_value & (1 << n) - 1)
 
         if set_high_bit:
-            high_value = 1 << (m - 1)
+            high_value = 1 << (n - 1)
             hash_value = hash_value | high_value
 
         return hash_value
