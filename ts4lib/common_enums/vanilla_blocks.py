@@ -10,6 +10,7 @@ from ts4lib.common_enums.enum_types.common_enum import CommonEnum
 
 
 class VanillaBlocks(CommonEnum):
+    """ Deprecated, will be removed in future """
     """ Identifiers for vanilla 'venues'. """
 
     INVALID: 'VanillaBlocks' = -1

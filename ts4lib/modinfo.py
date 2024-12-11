@@ -28,12 +28,28 @@ class ModInfo(CommonModInfo):
 
     @property
     def _version(self) -> str:
-        return '0.3.33'
+        return '0.3.36'
 
 
 r'''
+TODO for v0.4.0
+    Remove VanillaBlocks, VanillaObjects, VanillaRegions, also from README
+    
+v0.3.36
+    Deprecated: 3 CustomEnums: VanillaBlocks, VanillaObjects, VanillaRegions - To be removed in a 0.4.0
+    New: 3 Enums: VanillaObjects, VanillaRegions, VanillaVenues. They use the currently available data.
+    VanillaNames returns now the tuning names as strings.
+    VanillaNames.nice_name() added
+    These changes should affect only 'ScheduleIt'.
+v0.3.35
+    Added SliderName.deformer_map, .hotspot_control, .sim_modifier and .cas_preset to lookup vanilla sliders by ID.
+    SliderName.deformer_map.get(9654546428105407903) == 'cuBody_Bony_Normals'
+v0.3.34
+    Moving CommonEnum to CustomEnum to make sure these can't be mixed up with EA enums
+    Add CustomOutfitCategory, CustomBodyType enums
+    Add OutfitUtilities.get_maximum_outfits_for_category() 
 v0.3.33
-    fnv: Return UTF8 also for bytes if ucs2=False
+    fnv: Return UTF-8 fnv also for bytes if ucs2==False
     fnv: Set high-bit properly for n=24 (0x00Hx_xxxx instead of 0xH0xx_xxxx) and n=56
 v0.3.32
     Add BodyType.BIRTHMARKOCCULT = 112

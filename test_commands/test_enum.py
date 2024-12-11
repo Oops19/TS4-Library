@@ -38,7 +38,7 @@ if __name__ == '__main__':
     print(f"Items `Foo.__members__.items()` = {Foo.__members__.items()}")
     # odict_items([('A', <Foo.A: 1>), ('B', <Foo.B: 2>), ('C', <Foo.C: 3>), ('D', <Foo.A: 1>)])
 
-    print(f"for k,v in Foo.__members__.items():")
+    print(f"for k, v in Foo.__members__.items():")
     print(f"\tk: v     with v.name: v.value")
     for k, v in Foo.__members__.items():
         print(f"\t{k}: {v} with      {v.name}: {v.value:}")

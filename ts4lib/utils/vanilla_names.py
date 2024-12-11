@@ -8,8 +8,8 @@
 import re
 from typing import Tuple, Any
 
-from ts4lib.common_enums.vanilla_regions import VanillaRegions
-from ts4lib.common_enums.vanilla_venues import VanillaVenues
+from ts4lib.enums.vanilla_regions import VanillaRegions
+from ts4lib.enums.vanilla_venues import VanillaVenues
 from ts4lib.utils.location_ids import LocationIDs
 from ts4lib.utils.worlds_and_neighbourhoods import WorldsAndNeighbourhoods
 from ts4lib.common_enums.enum_types.common_enum import CommonEnum
@@ -30,10 +30,13 @@ class VanillaNames:
 
     @staticmethod
     def from_enum(enum: CommonEnum) -> str:
+        """ deprecated, to e removed with 0.4.0 """
         return enum.name.title().replace('_', ' ')
+
 
     @staticmethod
     def to_enum(enum_class: Any, enum_name: str) -> Any:
+        """ deprecated, to e removed with 0.4.0 """
         """ Usages:
         * VanillaNames.to_enum(VanillaRegions, 'Career Alien World')
         * VanillaNames.to_enum('ts4lib.common_enums.vanilla_regions.VanillaRegions', 'Career Alien World')
@@ -43,6 +46,18 @@ class VanillaNames:
             _module = __import__(_class, globals(), locals(), [class_name])
             enum_class = getattr(_module, class_name)
         return enum_class[enum_name.replace(' ', '_').upper()]
+
+    @staticmethod
+    def nice_name(name: str) -> str:
+        name = re.sub(r'^(?:venue|subVenue|Venue)_', r'', name)  # no easy way to revert this (3x venues)
+        name = re.sub(r'^(?:region|career)_', r'', name)  # (2x regions)
+        name = re.sub(r'^(?:gameObject|obejct|objcet|object|Object|objectDrink)_', r'', name)  # (6x objects + 170x not replaced) 'bedDoubleCLLeatherAB_01'
+        name = re.sub(r'([a-z])([A-Z]*[A-Z][a-z])', r'\g<1>_\g<2>', name)  # 'bed_Double_CLLeatherAB_01'
+        name = re.sub(r'([A-Z]+)([A-Z][a-z])', r'\g<1>_\g<2>', name)  # 'bed_Double_CL_LeatherAB_01'
+        name = re.sub(r'([a-z])([A-Z]+)', r'\g<1>_\g<2>', name)  # 'bed_Double_CL_Leather_AB_01'
+        name = f"{name[0].upper()}{name[1:]}"  # 'Bed_Double_CL_Leather_AB_01'
+        name = name.replace('_', ' ')  # 'Bed Double CL Leather AB 01'
+        return name
 
     @staticmethod
     def get_sim_name(sim_id: int = None) -> Tuple[int, str]:
@@ -67,12 +82,7 @@ class VanillaNames:
         else:
             try:
                 sim_object_name = game_object.__class__.__name__  # 'object_bedDoubleCLLeatherAB_01'
-                sim_object_nice_name = re.sub(r'^object_', '', sim_object_name)  # 'bedDoubleCLLeatherAB_01'
-                sim_object_nice_name = re.sub(r'([a-z])([A-Z]*[A-Z][a-z])', r'\g<1>_\g<2>', sim_object_nice_name)  # 'bed_Double_CLLeatherAB_01'
-                sim_object_nice_name = re.sub(r'([A-Z]+)([A-Z][a-z])', r'\g<1>_\g<2>', sim_object_nice_name)  # 'bed_Double_CL_LeatherAB_01'
-                sim_object_nice_name = re.sub(r'([a-z])([A-Z]+)', r'\g<1>_\g<2>', sim_object_nice_name)  # 'bed_Double_CL_Leather_AB_01'
-                sim_object_nice_name = f"{sim_object_nice_name[0].upper()}{sim_object_nice_name[1:]}"  # 'Bed_Double_CL_Leather_AB_01'
-                sim_object_nice_name = sim_object_nice_name.replace('_', ' ')  # 'Bed Double CL Leather AB 01'
+                sim_object_name = self.nice_name(sim_object_name)  # 'Bed Double CL Leather AB 01'
             except Exception as e:
                 sim_object_name = f"({e})"
         return sim_object_id, sim_object_name, sim_object_nice_name
@@ -189,8 +199,8 @@ class VanillaNames:
         try:
             if region_id is None:
                 region_id = LocationIDs.get_current_region_id()
-            region_name = VanillaRegions(region_id)
-            region_name = self.from_enum(region_name)
+            region_name = VanillaRegions().name(region_id)
+            # region_name = self.nice_name(region_name)
         except Exception as e:
             region_id = -1
             region_name = f"({e})"
@@ -203,8 +213,8 @@ class VanillaNames:
         try:
             if venue_id is None:
                 venue_id = LocationIDs.get_current_venue_id()
-            venue_name = VanillaVenues(venue_id)
-            venue_name = self.from_enum(venue_name)
+            venue_name = VanillaVenues().name(venue_id)
+            # venue_name = self.nice_name(venue_name)
         except Exception as e:
             venue_id = -1
             venue_name = f"({e})"

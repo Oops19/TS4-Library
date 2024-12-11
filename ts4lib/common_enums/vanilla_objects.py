@@ -10,6 +10,7 @@ from ts4lib.common_enums.enum_types.common_enum import CommonEnum
 
 
 class VanillaObjects(CommonEnum):
+    """ Deprecated, will be removed in future """
     """ Identifiers for vanilla 'objects'. """
 
     INVALID: 'VanillaObjects' = 0

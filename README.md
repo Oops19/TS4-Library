@@ -53,12 +53,12 @@ Provides access to the 'The Sims 4' folders.
 A logger which works without TS4 running, to test parts of Mods locally and later in-game without changing the code.
 
 ### VanillaNames (Location)
+Deprecated, do not use.
 Handler for more files to get human-readable names.
 
 ### WorldsAndNeighbourhoods
-Access the world name (Newcrest) and the neighbourhood (Llama Lagoon) with the English description.
-
-
+Access the world name (e.g. Newcrest) and the neighbourhood (e.g. Llama Lagoon) with the English description.
+Locations of new DLC may be missing.
 
 ## Details and Examples
 
@@ -308,6 +308,7 @@ log.enable()
 ```
 
 ### VanillaNames (Location)
+Deprecated, do not use.
 Handler for more `vanilla_*.py` files to get human-readable strings. To retrieve human-readable, English, descriptions about the active zone use:
 * r = VanillaNames.from_enum(VanillaRegions(getattr(services.current_region(), 'guid64', 0))) 
 * v = VanillaNames.from_enum(VanillaVenues(getattr(services.get_current_venue(), 'guid64', 0)))
@@ -317,6 +318,17 @@ To convert such a string back to an enum use the enum class and the string and c
 * enum = VanillaNames.to_enum('ts4lib.common_enums.vanilla_regions.VanillaRegions', 'Career Alien World')
 
 The command `o19.ts4l.log_location` makes use of many functions added to this class to retrieve friendly names.
+
+### VanillaNames (Location)
+New!
+The methods return the tuning name as is.
+* `r = VanillaRegions().name(getattr(services.current_region(), 'guid64', 0))`
+* `v = VanillaVenues().name(getattr(services.current_region(), 'guid64', 0))`
+* `nice_name = VanillaNames().nice_name(r)` - Create a human-readable throw-away name. There is no reverse method available.
+E.g. 'venue_MagicHQ' --> 'Magic HQ'
+
+The command `o19.ts4l.log_location` makes use of many functions added to this class to retrieve the tuning names.
+
 
 ### WorldsAndNeighbourhoods
 Access the world name (Newcrest) and the neighbourhood (Llama Lagoon) with the English description.
@@ -328,7 +340,7 @@ To retrieve this information for the active zone use:
 # Addendum
 
 ## Game compatibility
-This mod has been tested with `The Sims 4` 1.110.311, S4CL 3.9, TS4Lib 0.3.32.
+This mod has been tested with `The Sims 4` 1.111.102, S4CL 3.9, TS4Lib 0.3.36.
 It is expected to be compatible with many upcoming releases of TS4, S4CL and TS4Lib.
 
 ## Dependencies
