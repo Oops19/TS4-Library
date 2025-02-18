@@ -36,7 +36,7 @@ class BasicExtras(metaclass=Singleton):
         :param drop_basic_extras: Add classes to drop. E.g.:
             TunableBroadcasterRequestWrapper.BroadcasterRequest
             TunableBuffElementWrapper.factory
-            TunableChangeOutfitElementWrapper.ChangeOutfitElement,
+            TunableChangeOutfitElementWrapper.ChangeOutfitElement
             TunableDoCommandWrapper.DoCommand
             TunableLootElementWrapper.LootElement
             TunableNotificationElementWrapper.NotificationElement

@@ -28,7 +28,7 @@ class OpacityManager:
     1 is solid, 0.5 is 50% see-through, and 0 is transparent.
     """
 
-    def __init__(self):
+    def __init__(self, opacity_store = None):
         self.os = OpacityStore()
 
     def fade_to(self, item: Union[Sim, GameObject], opacity: float, fade_duration: float = 2):
