@@ -59,16 +59,18 @@ class OpacityManager:
     @staticmethod
     @CommonInjectionUtils.inject_safely_into(ModInfo.get_identity(), ClientObjectMixin, ClientObjectMixin.fade_opacity.__name__)
     def o19_fade_opacity(original, self, opacity: float, duration: float, *args, **kwargs):
-        found, opacity, fade_duration = OpacityStore().get_opacity_and_fade_duration(self)
+        found, _opacity, _duration = OpacityStore().get_opacity_and_fade_duration(self)
         if found:
-            log.debug(f"Fading '{self}' to {opacity} in {fade_duration:.2}s")
-        original(self, opacity, fade_duration, *args, **kwargs)
+            log.debug(f"Fading '{self}' to {opacity} in {_duration:.2}s")
+            opacity = _opacity
+            duration = _duration
+        original(self, opacity, duration, *args, **kwargs)
 
     # def reset(self, reset_reason, source=None, cause=None):
     @staticmethod
     @CommonInjectionUtils.inject_safely_into(ModInfo.get_identity(), BaseObject, BaseObject.reset.__name__)
     def o19_opacity_hard_reset(original, self, reset_reason: ResetReason = ResetReason.RESET_EXPECTED, source=None, cause=None, *args, **kwargs):
-        found, opacity, fade_duration = OpacityStore().get_opacity_and_fade_duration(self)
+        found, _, _ = OpacityStore().get_opacity_and_fade_duration(self)
         if found:
             log.debug(f'hard_reset({self}, {reset_reason}, {source}, {cause})')
             OpacityManager().reset_item(self)

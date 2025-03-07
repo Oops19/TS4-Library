@@ -1,9 +1,5 @@
-TS4-Library v0.3.36 for The Sims 4 v1.111.102 and S4CL v3.9
-Created on 2024-12-11
-v0.3.36
-    Deprecated: 3 CustomEnums: VanillaBlocks, VanillaObjects, VanillaRegions - To be removed in a 0.4.0
-    New: 3 Enums: VanillaObjects, VanillaRegions, VanillaVenues. They use the currently available data.
-    VanillaNames returns now the tuning names as strings.
-    VanillaNames.nice_name() adeed
-    No functional changes
+TS4-Library v0.3.37 for The Sims 4 v1.113.291 and S4CL v3.10
+Created on 2025-03-07
+v0.3.37
+    Fix OpacityManager - Don't modify opacity of unmanaged objects
 

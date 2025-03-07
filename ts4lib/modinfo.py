@@ -28,13 +28,15 @@ class ModInfo(CommonModInfo):
 
     @property
     def _version(self) -> str:
-        return '0.3.36'
+        return '0.3.37'
 
 
 r'''
 TODO for v0.4.0
     Remove VanillaBlocks, VanillaObjects, VanillaRegions, also from README
     
+v0.3.37
+    Fix OpacityManager - Don't modify opacity of unmanaged objects
 v0.3.36
     Deprecated: 3 CustomEnums: VanillaBlocks, VanillaObjects, VanillaRegions - To be removed in a 0.4.0
     New: 3 Enums: VanillaObjects, VanillaRegions, VanillaVenues. They use the currently available data.

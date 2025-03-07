@@ -89,6 +89,9 @@ class LotObjects(object, metaclass=Singleton):
 
             try:
                 obj: o = manager.get(o.id)
+                if obj is None:
+                    log.warn(f"Received 'None' for for object '{o.id}'.")
+                    continue
                 obj_location = getattr(obj, 'location', None)
                 # log.debug(f"obj_location {obj_location}")
                 obj_level = getattr(obj, 'level', None)
