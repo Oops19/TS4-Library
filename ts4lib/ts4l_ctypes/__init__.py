@@ -4,20 +4,220 @@ import os as _os, sys as _sys
 
 __version__ = "1.1.0"
 
-from _ctypes import Union, Structure, Array
-from _ctypes import _Pointer
-from _ctypes import CFuncPtr as _CFuncPtr
-from _ctypes import __version__ as _ctypes_version
-from _ctypes import RTLD_LOCAL, RTLD_GLOBAL
-from _ctypes import ArgumentError
+# Create a dummy _ctypes module if it doesn't exist (like in Sims 4)
+# This must be done early to prevent any import failures
+_using_dummy_ctypes = False
+try:
+    import _ctypes
+except ImportError:
+    # Create a minimal dummy _ctypes module
+    import types
+    _ctypes = types.ModuleType("_ctypes")
+    _using_dummy_ctypes = True
 
-from struct import calcsize as _calcsize
+    # Immediately add it to sys.modules to ensure it's available for all imports
+    _sys.modules['_ctypes'] = _ctypes
 
-if __version__ != _ctypes_version:
-    raise Exception("Version number mismatch", __version__, _ctypes_version)
+    # Add basic exception
+    class ArgumentError(Exception):
+        pass
+
+    # Metaclass for _SimpleCData that implements multiplication operators
+    class _SimpleCDataMeta(type):
+        """Metaclass for _SimpleCData that implements multiplication operators"""
+        def __mul__(cls, count):
+            """Create an array type like c_char * 260"""
+            if not isinstance(count, int) or count < 0:
+                raise ValueError("Array size must be a non-negative integer")
+
+            class ArrayType:
+                _type_ = cls
+                _length_ = count
+
+                def __init__(self, *args):
+                    self._items = []
+                    if args and hasattr(args[0], "__iter__") and not isinstance(args[0], (str, bytes)):
+                        # Initialize with iterable
+                        self._items = [cls(item) if not isinstance(item, cls) else item for item in args[0][:count]]
+                    else:
+                        # Initialize with individual values or empty
+                        for i in range(count):
+                            if i < len(args):
+                                self._items.append(cls(args[i]) if not isinstance(args[i], cls) else args[i])
+                            else:
+                                try:
+                                    self._items.append(cls())
+                                except:
+                                    self._items.append(object())  # Fallback
+
+                    # Ensure the array has exactly the right length
+                    while len(self._items) < count:
+                        try:
+                            self._items.append(cls())
+                        except:
+                            self._items.append(object())
+                    self._items = self._items[:count]
+
+                def __getitem__(self, index):
+                    if isinstance(index, slice):
+                        return self._items[index]
+                    return self._items[index] if 0 <= index < len(self._items) else None
+
+                def __setitem__(self, index, value):
+                    if 0 <= index < len(self._items):
+                        self._items[index] = value
+
+                def __len__(self):
+                    return count
+
+            return ArrayType
+
+        def __rmul__(cls, count):
+            """Support count * c_char syntax"""
+            return cls.__mul__(count)
+
+    class _SimpleCData(metaclass=_SimpleCDataMeta):
+        """Base class for simple ctypes data types"""
+        def __new__(cls, value=None):
+            instance = object.__new__(cls)
+            if value is not None:
+                instance.value = value
+            return instance
+
+        def __init__(self, value=None):
+            if value is not None:
+                self.value = value
+
+    # Add basic ctypes classes
+    class Union:
+        """Base union class for ctypes unions"""
+        pass
+
+    class Structure:
+        """Base structure class for ctypes structures"""
+        _fields_ = []
+
+        def __init__(self, *args, **kwargs):
+            # Initialize fields if defined
+            if hasattr(self.__class__, "_fields_"):
+                for i, (name, field_type) in enumerate(self.__class__._fields_):
+                    if i < len(args):
+                        setattr(self, name, args[i])
+                    else:
+                        setattr(self, name, None)
+
+    class _Pointer:
+        def __init__(self, *args, **kwargs):
+            pass
+
+    class CFuncPtr:
+        def __init__(self, *args, **kwargs):
+            pass
+
+        def __call__(self, *args, **kwargs):
+            return self
+
+    class Array:
+        """Base array class for ctypes arrays"""
+        def __init__(self, *args):
+            self._items = []
+
+        def __getitem__(self, index):
+            return self._items[index] if hasattr(self, "_items") and index < len(self._items) else None
+
+        def __setitem__(self, index, value):
+            if hasattr(self, "_items") and index < len(self._items):
+                self._items[index] = value
+
+        def __len__(self):
+            return len(self._items) if hasattr(self, "_items") else 0
+
+    # Add dummy functions and constants that might be needed
+    def sizeof(obj):
+        """Return the size of an object in bytes"""
+        from struct import calcsize
+
+        if hasattr(obj, '_type_'):
+            # It's a ctypes type with a format code
+            try:
+                return calcsize(obj._type_)
+            except:
+                pass
+
+        # Default sizes for common types
+        if hasattr(obj, '__name__'):
+            name = obj.__name__
+            if 'char' in name.lower():
+                return 1
+            elif 'short' in name.lower():
+                return 2
+            elif 'int' in name.lower() or 'long' in name.lower():
+                return 4 if '32' in name or 'int' in name else 8
+            elif 'double' in name.lower():
+                return 8
+            elif 'float' in name.lower():
+                return 4
+            elif 'void_p' in name.lower() or 'pointer' in name.lower() or 'object' in name.lower():
+                return 8  # 64-bit pointer size
+
+        return 8  # Safe default for 64-bit systems
+
+    def byref(obj):
+        return obj
+
+    def addressof(obj):
+        return id(obj)
+
+    def alignment(obj):
+        return 8
+
+    def resize(obj, size):
+        pass
+
+    # Add to _ctypes module
+    _ctypes.ArgumentError = ArgumentError
+    _ctypes._SimpleCData = _SimpleCData
+    _ctypes.Union = Union
+    _ctypes.Structure = Structure
+    _ctypes._Pointer = _Pointer
+    _ctypes.CFuncPtr = CFuncPtr
+    _ctypes.Array = Array
+    _ctypes.sizeof = sizeof
+    _ctypes.byref = byref
+    _ctypes.addressof = addressof
+    _ctypes.alignment = alignment
+    _ctypes.resize = resize
+    _ctypes.__version__ = __version__
+
+# Try to import from the real _ctypes if available, otherwise use our dummy implementations
+try:
+    from _ctypes import Union, Structure, Array
+    from _ctypes import _Pointer
+    from _ctypes import CFuncPtr as _CFuncPtr
+    from _ctypes import __version__ as _ctypes_version
+    from _ctypes import RTLD_LOCAL, RTLD_GLOBAL
+    from _ctypes import ArgumentError
+
+    from struct import calcsize as _calcsize
+
+    if __version__ != _ctypes_version:
+        raise Exception("Version number mismatch", __version__, _ctypes_version)
+except ImportError:
+    # Use our dummy implementations
+    from struct import calcsize as _calcsize
+    # Set default values for missing constants
+    RTLD_LOCAL = 0
+    RTLD_GLOBAL = 1
+    # Set _CFuncPtr to our dummy CFuncPtr
+    _CFuncPtr = CFuncPtr
 
 if _os.name == "nt":
-    from _ctypes import FormatError
+    try:
+        from _ctypes import FormatError
+    except ImportError:
+        # Create a dummy FormatError for Windows when _ctypes is not available
+        class FormatError(Exception):
+            pass
 
 DEFAULT_MODE = RTLD_LOCAL
 if _os.name == "posix" and _sys.platform == "darwin":
@@ -29,10 +229,17 @@ if _os.name == "posix" and _sys.platform == "darwin":
     if int(_os.uname().release.split('.')[0]) < 8:
         DEFAULT_MODE = RTLD_GLOBAL
 
-from _ctypes import FUNCFLAG_CDECL as _FUNCFLAG_CDECL, \
-     FUNCFLAG_PYTHONAPI as _FUNCFLAG_PYTHONAPI, \
-     FUNCFLAG_USE_ERRNO as _FUNCFLAG_USE_ERRNO, \
-     FUNCFLAG_USE_LASTERROR as _FUNCFLAG_USE_LASTERROR
+try:
+    from _ctypes import FUNCFLAG_CDECL as _FUNCFLAG_CDECL, \
+         FUNCFLAG_PYTHONAPI as _FUNCFLAG_PYTHONAPI, \
+         FUNCFLAG_USE_ERRNO as _FUNCFLAG_USE_ERRNO, \
+         FUNCFLAG_USE_LASTERROR as _FUNCFLAG_USE_LASTERROR
+except ImportError:
+    # Create dummy function flags when _ctypes is not available
+    _FUNCFLAG_CDECL = 1
+    _FUNCFLAG_PYTHONAPI = 2
+    _FUNCFLAG_USE_ERRNO = 4
+    _FUNCFLAG_USE_LASTERROR = 8
 
 # WINOLEAPI -> HRESULT
 # WINOLEAPI_(type)
@@ -104,8 +311,14 @@ def CFUNCTYPE(restype, *argtypes, **kw):
         return CFunctionType
 
 if _os.name == "nt":
-    from _ctypes import LoadLibrary as _dlopen
-    from _ctypes import FUNCFLAG_STDCALL as _FUNCFLAG_STDCALL
+    try:
+        from _ctypes import LoadLibrary as _dlopen
+        from _ctypes import FUNCFLAG_STDCALL as _FUNCFLAG_STDCALL
+    except ImportError:
+        # Create dummy implementations when _ctypes is not available
+        def _dlopen(name):
+            return None
+        _FUNCFLAG_STDCALL = 1
 
     _win_functype_cache = {}
     def WINFUNCTYPE(restype, *argtypes, **kw):
@@ -130,23 +343,42 @@ if _os.name == "nt":
         WINFUNCTYPE.__doc__ = CFUNCTYPE.__doc__.replace("CFUNCTYPE", "WINFUNCTYPE")
 
 elif _os.name == "posix":
-    from _ctypes import dlopen as _dlopen
+    try:
+        from _ctypes import dlopen as _dlopen
+    except ImportError:
+        # Create dummy dlopen when _ctypes is not available
+        def _dlopen(name, flag=0):
+            return None
 
-from _ctypes import sizeof, byref, addressof, alignment, resize
-from _ctypes import get_errno, set_errno
-from _ctypes import _SimpleCData
+try:
+    from _ctypes import sizeof, byref, addressof, alignment, resize
+    from _ctypes import get_errno, set_errno
+    from _ctypes import _SimpleCData
+except ImportError:
+    # Use our dummy implementations from earlier
+    def get_errno():
+        return 0
+    def set_errno(value):
+        pass
 
 def _check_size(typ, typecode=None):
+    # Skip size checking if we're using the dummy _ctypes implementation
+    if _using_dummy_ctypes:
+        return
     # Check if sizeof(ctypes_type) against struct.calcsize.  This
     # should protect somewhat against a misconfigured libffi.
-    from struct import calcsize
-    if typecode is None:
-        # Most _type_ codes are the same as used in struct
-        typecode = typ._type_
-    actual, required = sizeof(typ), calcsize(typecode)
-    if actual != required:
-        raise SystemError("sizeof(%s) wrong: %d instead of %d" % \
-                          (typ, actual, required))
+    try:
+        from struct import calcsize
+        if typecode is None:
+            # Most _type_ codes are the same as used in struct
+            typecode = typ._type_
+        actual, required = sizeof(typ), calcsize(typecode)
+        if actual != required:
+            raise SystemError("sizeof(%s) wrong: %d instead of %d" % \
+                              (typ, actual, required))
+    except (ImportError, AttributeError):
+        # Either struct or _ctypes not available, skip check
+        pass
 
 class py_object(_SimpleCData):
     _type_ = "O"
@@ -236,6 +468,15 @@ class c_char_p(_SimpleCData):
     _type_ = "z"
     def __repr__(self):
         return "%s(%s)" % (self.__class__.__name__, c_void_p.from_buffer(self).value)
+
+    @classmethod
+    def from_param(cls, val):
+        """Create instance from parameter value"""
+        if val is None:
+            return cls()
+        if isinstance(val, (str, bytes)):
+            return cls(val)
+        return cls(val)
 _check_size(c_char_p, "P")
 
 class c_void_p(_SimpleCData):
@@ -246,12 +487,46 @@ _check_size(c_void_p)
 class c_bool(_SimpleCData):
     _type_ = "?"
 
-from _ctypes import POINTER, pointer, _pointer_type_cache
+try:
+    from _ctypes import POINTER, pointer, _pointer_type_cache
+except ImportError:
+    # Create dummy implementations when _ctypes is not available
+    def POINTER(cls):
+        """Create a pointer type for the given class"""
+        class PointerType:
+            _type_ = cls
+            def __init__(self, value=None):
+                self._value = value
+            def contents(self):
+                return self._value
+
+            @classmethod
+            def from_param(cls, val):
+                """Create instance from parameter value"""
+                if val is None:
+                    return cls()
+                return cls(val)
+        return PointerType
+
+    def pointer(obj):
+        """Create a pointer to the given object"""
+        return obj
+
+    _pointer_type_cache = {}
 
 class c_wchar_p(_SimpleCData):
     _type_ = "Z"
     def __repr__(self):
         return "%s(%s)" % (self.__class__.__name__, c_void_p.from_buffer(self).value)
+
+    @classmethod
+    def from_param(cls, val):
+        """Create instance from parameter value"""
+        if val is None:
+            return cls()
+        if isinstance(val, (str, bytes)):
+            return cls(val)
+        return cls(val)
 
 class c_wchar(_SimpleCData):
     _type_ = "u"
@@ -401,7 +676,12 @@ if _os.name == "nt":
 
     # XXX Hm, what about HRESULT as normal parameter?
     # Mustn't it derive from c_long then?
-    from _ctypes import _check_HRESULT, _SimpleCData
+    try:
+        from _ctypes import _check_HRESULT, _SimpleCData
+    except ImportError:
+        # Create dummy _check_HRESULT when _ctypes is not available
+        def _check_HRESULT(result):
+            return result
     class HRESULT(_SimpleCData):
         _type_ = "l"
         # _check_retval_ is called with the function's result when it
@@ -457,7 +737,14 @@ if _os.name == "nt":
     oledll = LibraryLoader(OleDLL)
 
     GetLastError = windll.kernel32.GetLastError
-    from _ctypes import get_last_error, set_last_error
+    try:
+        from _ctypes import get_last_error, set_last_error
+    except ImportError:
+        # Create dummy implementations when _ctypes is not available
+        def get_last_error():
+            return 0
+        def set_last_error(value):
+            pass
 
     def WinError(code=None, descr=None):
         if code is None:
@@ -478,13 +765,24 @@ elif sizeof(c_ulonglong) == sizeof(c_void_p):
 
 # functions
 
-from _ctypes import _memmove_addr, _memset_addr, _string_at_addr, _cast_addr
+try:
+    from _ctypes import _memmove_addr, _memset_addr, _string_at_addr, _cast_addr
 
-## void *memmove(void *, const void *, size_t);
-memmove = CFUNCTYPE(c_void_p, c_void_p, c_void_p, c_size_t)(_memmove_addr)
+    ## void *memmove(void *, const void *, size_t);
+    memmove = CFUNCTYPE(c_void_p, c_void_p, c_void_p, c_size_t)(_memmove_addr)
 
-## void *memset(void *, int, size_t)
-memset = CFUNCTYPE(c_void_p, c_void_p, c_int, c_size_t)(_memset_addr)
+    ## void *memset(void *, int, size_t)
+    memset = CFUNCTYPE(c_void_p, c_void_p, c_int, c_size_t)(_memset_addr)
+except ImportError:
+    # Create dummy implementations when _ctypes is not available
+    def memmove(dest, src, count):
+        return dest
+
+    def memset(dest, value, count):
+        return dest
+
+    _string_at_addr = None
+    _cast_addr = None
 
 def PYFUNCTYPE(restype, *argtypes):
     class CFunctionType(_CFuncPtr):
