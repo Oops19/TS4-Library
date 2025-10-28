@@ -1,5 +1,5 @@
-TS4-Library v0.3.37 for The Sims 4 v1.113.291 and S4CL v3.10
-Created on 2025-03-07
-v0.3.37
-    Fix OpacityManager - Don't modify opacity of unmanaged objects
+TS4-Library v0.3.42 for The Sims 4 v1.118.257 and S4CL v3.15
+Created on 2025-10-28
+v0.3.42
+    Added high_bit=True/False/None also to FNV().get(...)
 

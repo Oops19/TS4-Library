@@ -47,9 +47,8 @@ class TestFnv:
                 output(f"TS4 could not generate hash64! ({e}")
                 ts4_64 = 0
 
-            fnv = FNV()
-            fnv_32 = fnv.get(text, 32, ascii_2_lower=True, ucs2=True, set_high_bit=False)  # !fnv.hash32()
-            fnv64 = fnv.get(text, 64, ascii_2_lower=True, ucs2=True, set_high_bit=False)  # !fnv.hash64()
+            fnv_32 = FNV().get(text, 32, ascii_2_lower=True, ucs2=True, set_high_bit=False)  # !fnv.hash32()
+            fnv64 = FNV().get(text, 64, ascii_2_lower=True, ucs2=True, set_high_bit=False)  # !fnv.hash64()
             if (fnv_32 == ts4_32) and (fnv64 == ts4_64):
                 output(f"32: 0x{fnv_32:08X} - 64: 0x{fnv64:016X}")
                 log.info(f"0x{fnv_32:08X} = {fnv_32} = fnv32('{text}')")
@@ -58,8 +57,8 @@ class TestFnv:
                 output(f"ERROR: fnv32 = 0x{fnv_32:08X} ≠ ts4_32 = 0x{fnv_32:08X}")
                 output(f"ERROR: fnv64 = 0x{fnv64:016X} ≠ ts4_64 = 0x{ts4_64:016X}")
 
-            fnv_24 = fnv.get(text, 24, ascii_2_lower=True, ucs2=True, set_high_bit=False)
-            fnv_56 = fnv.get(text, 56, ascii_2_lower=True, ucs2=True, set_high_bit=False)
+            fnv_24 = FNV().get(text, 24, ascii_2_lower=True, ucs2=True, set_high_bit=False)
+            fnv_56 = FNV().get(text, 56, ascii_2_lower=True, ucs2=True, set_high_bit=False)
             output(f"24: 0x{fnv_24:08X} - 56: 0x{fnv_56:016X}")
             log.info(f"0x{fnv_24:08X} = {fnv_24} = fnv_24('{text}')")
             log.info(f"0x{fnv_56:08X} = {fnv_56} = fnv_56('{text}')")

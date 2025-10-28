@@ -28,13 +28,23 @@ class ModInfo(CommonModInfo):
 
     @property
     def _version(self) -> str:
-        return '0.3.37'
+        return '0.3.42'
 
 
 r'''
 TODO for v0.4.0
     Remove VanillaBlocks, VanillaObjects, VanillaRegions, also from README
     
+v0.3.42
+    Added high_bit=True/False/None also to FNV().get(...)
+v0.3.41
+    FNV().hash56(...) added for English STBL/i18n GUID.
+v0.3.40
+    FNV().hash32(...) and .hash64(...) now support 'high_bit=None/True/False' to set(True) or unset(False) the high bit. The default 'None' doesn't modify it.
+v0.3.39
+    More aggressive _push_super_affordance()
+v0.3.38
+    Rename config folder to cfg. ts4f.config_folder = 'The Sims 4/mod_data/basename(mod)/cfg'
 v0.3.37
     Fix OpacityManager - Don't modify opacity of unmanaged objects
 v0.3.36

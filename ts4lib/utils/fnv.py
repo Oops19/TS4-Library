@@ -18,14 +18,14 @@ except:
     use_sims4_hash_utils = False
 
 
-class FNV(object, metaclass=Singleton):
+class FNV(metaclass=Singleton):
     """
     Simple class to generate Fowler-Noll-Vo (FNV) values.
     The Sims 4 (TS4) uses FNV a lot and this class will calculate it even without running TS4.
-    It supports UCS-2/UTF-16 and UTF-8, conversion to lower case and setting the high bit.
+    It supports UCS-2/UTF-16 and UTF-8, conversion to lower case and clearing or setting the high bit.
     Only FNV24, FNV32, FNV56 and FNV64 are supported.
 
-    It can be initialed exactly one time.
+    It can be initialed exactly one time and should be used with FNV().command
     """
     _fnv_primes: Dict[int, int] = {}
     _fnv_hashes: Dict[int, int] = {}
@@ -60,39 +60,55 @@ class FNV(object, metaclass=Singleton):
             hash_value = hash_value ^ w
         return hash_value
 
-    @classmethod
-    def hash32(cls, text) -> int:
+    def hash32(self, text: str, high_bit: bool = None) -> int:
         """
         Calculate and return the FNV32 hash. If available `sims4.hash_util.hash32(text)` is used, otherwise `@get(text, 32)`
         :param text: The string to get the FNV value for.
+        :param high_bit: Set the high_bit to 0 (False), to 1 (True), or don't touch it (default None)
         :return: fnv value
         """
-        if use_sims4_hash_utils:
-            return sims4.hash_util.hash32(text)
-        return cls.get(text, 32, ascii_2_lower=True, ucs2=True, set_high_bit=False)
+        return self._hash_ts4(text, 32, high_bit)
 
-    @classmethod
-    def hash64(cls, text) -> int:
+    def hash56(self, text: str) -> int:
         """
-        Calculate and return the FNV32 hash. If available `sims4.hash_util.hash64(text)` is used, otherwise `@get(text, 64)`
+        Calculate and return the FNV56 hash for an English STBL (0x00xx_xxx_xxxx_xxxx)
         :param text: The string to get the FNV value for.
         :return: fnv value
         """
-        if use_sims4_hash_utils:
-            return sims4.hash_util.hash64(text)
-        return cls.get(text, 64, ascii_2_lower=True, ucs2=True, set_high_bit=False)
+        return self._hash_ts4(text, 56, None)
 
-    @classmethod
-    def get(cls, text: Union[str, bytes], n: int, ascii_2_lower: bool = False, ucs2: bool = False, set_high_bit: bool = False):
+    def hash64(self, text: str, high_bit: bool = None) -> int:
+        """
+        Calculate and return the FNV64 hash. If available `sims4.hash_util.hash64(text)` is used, otherwise `@get(text, 64)`
+        :param text: The string to get the FNV value for.
+        :param high_bit: Set the high_bit to 0 (False), to 1 (True), or don't touch it (default None)
+        :return: fnv value
+        """
+        return self._hash_ts4(text, 64, high_bit)
+
+    def _hash_ts4(self, text: str, n: int, high_bit: bool = None) -> int:
+        if n not in {32, 64}:
+            return 0
+        if use_sims4_hash_utils:
+            if n == 32:
+                hash_value = sims4.hash_util.hash32(text)
+            else:
+                hash_value = sims4.hash_util.hash64(text)
+        else:
+            hash_value = self.get(text, n, ascii_2_lower=True, ucs2=True, high_bit=high_bit)
+
+        return hash_value
+
+    def get(self, text: Union[str, bytes], n: int, ascii_2_lower: bool = False, ucs2: bool = False, high_bit: bool = None):
         """
         Use @hash32() and @hash64() when writing code to be executed from within TS4.
         The defaults are for normal FNV operations and are not suitable for TS4.
-        For TS4 set ucs2=True and ascii_2_lower=True and often also set_high_bit=True.
+        For TS4 set ucs2=True and ascii_2_lower=True and often also high_bit=True.
         :param text: The string to get the FNV value for. 'bytes' will be converted to a hash without the options 'ascii_2_lower' and/or 'ucs2'.
         :param n: The exponent for the size of the FNV value (2^n) - 24, 32 and 56, 64 are supported (56 is used for i18n in TS4).
         :param ascii_2_lower: ASCII characters in strings may be converted to lower case (not for text: bytes).
         :param ucs2: Strings are converted to UCS-2 (=True) words or UTF8 (=False) bytes to calculate the hash (not for text: bytes).
-        :param set_high_bit: Set the high bit. This is often recommended for FNV values in TS4 mods.
+        :param high_bit: True: Set the high bit. This is often recommended for FNV values in TS4 mods. False: Clear the bit, needed for some TS4 GUIDs.
         :return: The fnv value or 0
         """
         hash_value = 0
@@ -104,8 +120,8 @@ class FNV(object, metaclass=Singleton):
             return hash_value
 
         max_size = 2 ** m
-        prime = cls._fnv_primes.get(m)
-        hash_value = cls._fnv_hashes.get(m)
+        prime = self._fnv_primes.get(m)
+        hash_value = self._fnv_hashes.get(m)
 
         if ascii_2_lower:
             text = text.lower()
@@ -116,20 +132,23 @@ class FNV(object, metaclass=Singleton):
                 _words = text.encode(encoding='utf-16be')
             else:
                 _words = text
-            hash_value = cls._fnv_UTF16(_words, hash_value, prime, max_size)
+            hash_value = self._fnv_UTF16(_words, hash_value, prime, max_size)
         else:
             if isinstance(text, str):
                 # € as UTF-8: 0xE2 0x82 0xAC
                 _bytes = text.encode(encoding='utf-8')
             else:
                 _bytes = text
-            hash_value = cls._fnv_UTF8(_bytes, hash_value, prime, max_size)
+            hash_value = self._fnv_UTF8(_bytes, hash_value, prime, max_size)
 
         if n != m:
             hash_value = (hash_value >> n) ^ (hash_value & (1 << n) - 1)
 
-        if set_high_bit:
+        if high_bit:
             high_value = 1 << (n - 1)
-            hash_value = hash_value | high_value
+            hash_value = hash_value | high_value  # 0x8000_0000_0000_0000 | 0x8000_0000
+        elif high_bit is False:
+            high_value = ((1 << (n - 1)) - 1)  # 0x7FF_FFFF_FFFF_FFFFF | 0x07FF_FFFF
+            hash_value = hash_value & high_value
 
         return hash_value

@@ -8,7 +8,7 @@
 from typing import Any, Union
 
 import services
-from interactions.context import InteractionContext, QueueInsertStrategy
+from interactions.context import InteractionContext, QueueInsertStrategy, InteractionSource
 from interactions.priority import Priority
 from ts4lib.modinfo import ModInfo
 from sims.sim import Sim
@@ -21,7 +21,7 @@ log.enable()
 
 class EnqueueInteraction:
     def _push_super_affordance(self, sim: Sim, interaction, target: Union[Sim, Any] = None, pose_name: str = None, _connection=None,
-                               priority: Priority = Priority.High, interaction_context: InteractionContext = InteractionContext.SOURCE_SCRIPT,
+                               priority: Priority = Priority.High, interaction_source: InteractionSource = InteractionSource.SCRIPT,
                                insert_strategy: QueueInsertStrategy = QueueInsertStrategy.FIRST, must_run_next: bool = True, **kwargs) -> bool:
         """
         :param sim: The sim
@@ -30,7 +30,7 @@ class EnqueueInteraction:
         :param pose_name: The pose to play, if any.
         :param _connection: None
         :param priority: Priority.Low / High / Critical
-        :param interaction_context: InteractionContext.SOURCE_SCRIPT / SOURCE_REACTION / SOURCE_AUTONOMY / SOURCE_PIE_MENU
+        :param interaction_source: InteractionSource.SCRIPT / REACTION / AUTONOMY / PIE_MENU
 
         def __init__(self, sim, source, priority, run_priority=None, client=None, pick=None, insert_strategy=QueueInsertStrategy.LAST, must_run_next=False,
         continuation_id=None, group_id=None, shift_held=False, carry_target=None, create_target_override=None,
@@ -42,8 +42,8 @@ class EnqueueInteraction:
         if target is None:
             target = sim
         client = services.client_manager().get(_connection)
-        context = InteractionContext(sim, interaction_context, priority, client=client, insert_strategy=insert_strategy, must_run_next=must_run_next, pick=None)
-        return sim.push_super_affordance(super_affordance=interaction, target=target, context=context, pose_name=pose_name, **kwargs)
+        context = InteractionContext(sim, interaction_source, priority, client=client, insert_strategy=insert_strategy, must_run_next=must_run_next, pick=None)
+        return sim.push_super_affordance(super_affordance=interaction, target=target, context=context, pose_name=pose_name, skip_safe_tests=True, skip_test_on_execute=True, **kwargs)
 
     def run_pose(self, sim: Sim, pose_name: str, target: Union[Sim, Any] = None, **kwargs):
         log.debug(f"run_pose({sim}, {pose_name}, {kwargs})")

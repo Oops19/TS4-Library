@@ -16,7 +16,7 @@ class StdQuaternion(VectorInterface):
     Expect the unexpected when using quaternions which are not normalized.
     """
 
-    def __init__(self, w: Union[Union[float, int, Tuple[Union[float, int], Union[float, int], Union[float, int], Union[float, int]], List[Union[float, int]]] , "StdQuaternion", "StdVector3", "StdVector2"] = 1.0, x: Union[float, int] = 0.0, y: Union[float, int] = 0.0, z: Union[float, int] = 0.0):
+    def __init__(self, w: Union[Union[float, int, Tuple[Union[float, int], Union[float, int], Union[float, int], Union[float, int]], List[Union[float, int]]], "StdQuaternion", "StdVector3", "StdVector2"] = 1.0, x: Union[float, int] = 0.0, y: Union[float, int] = 0.0, z: Union[float, int] = 0.0):
         """
         StdQuaternion(w, x, y, z)
         With no parameters supplied (1,0,0,0) 'identity quaternion' will be returned.
@@ -79,7 +79,7 @@ class StdQuaternion(VectorInterface):
 
     def __mul__(self, quaternion: "StdQuaternion") -> "StdQuaternion":
         """
-        Multiplies two quaternions without normalizing the result.  Use `q = q1 * q2` for a normalized result.
+        Multiplies two quaternions without normalizing the result.  Use `q = q1.multiply(q2)` for a normalized result or normalize it with .normalize()
         :param quaternion: The 2nd quaternion or Quaternion(0, 3d-vector)
         :return: Product of  Quaternion, not normalized
         """

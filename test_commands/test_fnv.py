@@ -11,7 +11,7 @@ if __name__ == '__main__':
 
     text = 'Hello'
     ts4_ascii_2_lower = True
-    ts4_ucs2 = False
+    ts4_ucs2 = True
     for n in [24, 32, 56, 64]:
         for ts4_set_high_bit in [False, True]:
 

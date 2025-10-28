@@ -2,6 +2,8 @@
 # LICENSE https://creativecommons.org/licenses/by/4.0/ https://creativecommons.org/licenses/by/4.0/legalcode
 # © 2024 https://github.com/Oops19
 #
+
+
 import math
 from typing import Union, Any, Tuple, List
 from ts4lib.classes.coordinates.vector_interface import VectorInterface

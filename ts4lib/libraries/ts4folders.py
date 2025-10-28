@@ -36,7 +36,7 @@ class TS4Folders:
     def __init__(self, namespace: str):
         ts4f = _TS4Folders()
         self._data_folder, self._mods_folder, self._game_folder = ts4f.get_folders(namespace)
-        self._config_folder = os.path.join(self._data_folder, 'config')
+        self._config_folder = os.path.join(self._data_folder, 'cfg')
 
     @property
     def ts4_folder_mods(self) -> Union[str, None]:
@@ -65,9 +65,9 @@ class TS4Folders:
     @property
     def config_folder(self) -> Union[str, None]:
         """
-        :return: The 'The Sims 4/mod_data/{_namespace}/config' folder to store configuration data.
+        :return: The 'The Sims 4/mod_data/{_namespace}/cfg' folder to store configuration data.
         """
-        return self._config_folder  # 'The Sims 4/mod_data/basename(mod)/config'
+        return self._config_folder  # 'The Sims 4/mod_data/basename(mod)/cfg'
 
     @property
     def ts4_folder_game(self):
