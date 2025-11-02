@@ -28,13 +28,16 @@ class ModInfo(CommonModInfo):
 
     @property
     def _version(self) -> str:
-        return '0.3.42'
+        return '0.3.44'
 
 
 r'''
 TODO for v0.4.0
     Remove VanillaBlocks, VanillaObjects, VanillaRegions, also from README
-    
+v0.3.44
+    Fix: Properly unset the high_bit also when using sims4.hash_util.hashNN(text) (in-game)
+v0.3.43
+    Prevent loading ts4l_ctypes on Mac, remove it from sys.path
 v0.3.42
     Added high_bit=True/False/None also to FNV().get(...)
 v0.3.41

@@ -94,12 +94,22 @@ class FNV(metaclass=Singleton):
                 hash_value = sims4.hash_util.hash32(text)
             else:
                 hash_value = sims4.hash_util.hash64(text)
+            if high_bit is False:
+                high_value = ((1 << (n - 1)) - 1)  # 0x7FF_FFFF_FFFF_FFFFF | 0x07FF_FFFF
+                hash_value = hash_value & high_value
         else:
-            hash_value = self.get(text, n, ascii_2_lower=True, ucs2=True, high_bit=high_bit)
+            hash_value = self.get(text, n, ascii_2_lower=True, ucs2=True)
+
+        if high_bit:
+            high_bit_value = 1 << (n - 1)
+            hash_value = hash_value | high_bit_value  # 0x8000_0000_0000_0000 | 0x8000_0000
+        elif high_bit is False:
+            high_bit_value = ((1 << (n - 1)) - 1)  # 0x7FF_FFFF_FFFF_FFFFF | 0x07FF_FFFF
+            hash_value = hash_value & high_bit_value
 
         return hash_value
 
-    def get(self, text: Union[str, bytes], n: int, ascii_2_lower: bool = False, ucs2: bool = False, high_bit: bool = None):
+    def get(self, text: Union[str, bytes], n: int, ascii_2_lower: bool = False, ucs2: bool = False):
         """
         Use @hash32() and @hash64() when writing code to be executed from within TS4.
         The defaults are for normal FNV operations and are not suitable for TS4.
@@ -108,7 +118,6 @@ class FNV(metaclass=Singleton):
         :param n: The exponent for the size of the FNV value (2^n) - 24, 32 and 56, 64 are supported (56 is used for i18n in TS4).
         :param ascii_2_lower: ASCII characters in strings may be converted to lower case (not for text: bytes).
         :param ucs2: Strings are converted to UCS-2 (=True) words or UTF8 (=False) bytes to calculate the hash (not for text: bytes).
-        :param high_bit: True: Set the high bit. This is often recommended for FNV values in TS4 mods. False: Clear the bit, needed for some TS4 GUIDs.
         :return: The fnv value or 0
         """
         hash_value = 0
@@ -143,12 +152,5 @@ class FNV(metaclass=Singleton):
 
         if n != m:
             hash_value = (hash_value >> n) ^ (hash_value & (1 << n) - 1)
-
-        if high_bit:
-            high_value = 1 << (n - 1)
-            hash_value = hash_value | high_value  # 0x8000_0000_0000_0000 | 0x8000_0000
-        elif high_bit is False:
-            high_value = ((1 << (n - 1)) - 1)  # 0x7FF_FFFF_FFFF_FFFFF | 0x07FF_FFFF
-            hash_value = hash_value & high_value
 
         return hash_value
