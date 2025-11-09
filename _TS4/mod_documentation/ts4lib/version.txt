@@ -1,5 +1,5 @@
-TS4-Library v0.3.42 for The Sims 4 v1.118.257 and S4CL v3.15
-Created on 2025-10-28
-v0.3.42
-    Added high_bit=True/False/None also to FNV().get(...)
+TS4-Library v0.3.46 for The Sims 4 v1.119.109 and S4CL v3.15
+Created on 2025-11-09
+v0.3.46
+    Extended SimpleUINotification() to support also simple STBLs without parameters
 

@@ -6,7 +6,7 @@
 # You may not reverse engineer or attempt to extract or otherwise use source code or other data from my mod, unless expressly authorized.
 # I own and reserve all other rights.
 #
-
+from typing import Union
 
 from ts4lib.modinfo import ModInfo
 from ts4lib.utils.singleton import Singleton
@@ -20,9 +20,9 @@ log.enable()
 
 
 class SimpleUINotification(metaclass=Singleton):
-    def show(self, title, message, urgency: "UiDialogNotification.UiDialogNotificationUrgency" = None, output: "CommonConsoleCommandOutput" = None):
+    def show(self, title: Union[str, int], message: Union[str, int], urgency: int = None, output: "CommonConsoleCommandOutput" = None):
         try:
-            log.debug(f"{title}: '{message}' ({urgency})")
+            log.debug(f"show: {title}: '{message}' ({urgency})")
         except Exception as e:
             pass
         try:

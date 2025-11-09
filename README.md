@@ -1,66 +1,69 @@
-# TS4 Library
-A small library of methods I use often. It doesn't replace S4CL which is still used for logging.
+# 📚 TS4 Library
+A small library of methods I use frequently. It doesn't replace S4CL, which is still used for logging.
+
+## 🧰 Features
 
 ### 3D Stuff
-Generic Euler, 2D, 3D and 4D vector functions.
+Generic Euler, 2D, 3D, and 4D vector functions.
 
 #### Animation
-The `TS4LibraryPoseInteraction` class to support basic animations and poses.
+The `TS4LibraryPoseInteraction` class supports basic animations and poses.
 
 ### BasicExtras
-Generate a 'basic_extras' tuning to be inserted into an instanced tuning object.
+Generates a `basic_extras` tuning to be inserted into an instanced tuning object.
 
 ### CommonEnum
-A clone of the Python Enum with support for `@_missing_` to return a default value.
+A clone of Python’s `Enum` with support for `@_missing_` to return a default value.  
 Supports various TS4 enums.
 
 ### FileUtils
-Search for files in a base folder and get the absolute or relative file name f(base_folder)
+Searches for files in a base folder and returns the absolute or relative file name via `f(base_folder)`.
 
 ### FNV
-FNV uses the TS4 hash methods when available and otherwise a Python implementation.
+Uses TS4’s native hash methods when available; otherwise falls back to a Python implementation which supports UTF-8 / UCS-16.
 
 ### Outfit Utils
-For now just a method to apply an outfit to a sim.
-If only the previous outfit_index exists and the chosen one is valid and unused a new outfit will be created.  
+Currently includes a method to apply an outfit to a Sim.  
+If only the previous `outfit_index` exists and the chosen one is valid and unused, a new outfit will be created.
 
 ### PrettyDict
-A small utility to write Dict data formatted human-readable.
+A small utility to write `dict` data in a human-readable format.
 
 ### RunCommands
-Added the ability to run 'execute' or 'client_cheat' commands.
+Adds the ability to run `execute` or `client_cheat` commands.  
 This functionality will be removed from [RunCheatCommands](https://github.com/Oops19/TS4-RunCheatCommands) and integrated here.
 
 ### SimName
-Get the classic 'sim_name' as one string (e.g. 'Ann Lee#Smith' or 'Ann#Lee Smith') with '#' as a separator between the first and the last names.
+Returns the classic `sim_name` as a single string (e.g., `Ann Lee#Smith` or `Ann#Lee Smith`), using `#` as a separator between first and last names.
 
 ### SimCache
-A cache for all loaded sims. See below.
+A cache for all loaded Sims. See below.
 
 ### Simple Notification
-Display a simple notification.
+Displays a simple notification.
 
 ### Singleton
-A random Singleton class for Python.
+A generic Singleton class for Python.
 
 ### Tuning Helper
-A simple class to access the instanced tuning classes.
+A simple class to access instanced tuning classes.
 
 ### TS4Folders
-Provides access to the 'The Sims 4' folders.
+Provides access to The Sims 4 folder structure.
 
 ### UnCommonLog
-A logger which works without TS4 running, to test parts of Mods locally and later in-game without changing the code.
+A logger that works without TS4 running — useful for testing mod components locally before using them in-game.
 
 ### VanillaNames (Location)
-Deprecated, do not use.
-Handler for more files to get human-readable names.
+**Deprecated — do not use.**  
+Handler for additional files to retrieve human-readable names.
 
 ### WorldsAndNeighbourhoods
-Access the world name (e.g. Newcrest) and the neighbourhood (e.g. Llama Lagoon) with the English description.
-Locations of new DLC may be missing.
+Accesses the world name (e.g., Newcrest) and the neighbourhood (e.g., Llama Lagoon) with English descriptions.  
+Locations from newer DLCs may be missing.
 
-## Details and Examples
+## 🧑‍💻 Usage
+This section contain details and examples.
 
 ### 3D Stuff
 Generic functions which are available for all 3D classes:
@@ -271,7 +274,7 @@ match_sim_ids, equals_sim_ids, starts_sim_ids, ends_sim_ids, contains_sim_ids = 
 # join results with `&` and/or `|`
 ```
 
-#### Cheat Commands
+#### 🧑‍💻 Cheat Commands
 * 'o19.ts4l.sc.search firstname#lastname' - Search for a sim. If the first or last name has a space put in in quotes. Use '#' as a separator between the first and last name. 'Ann Ting#Lee' is not Ann#Ting Lee'!
 * 'o19.ts4l.sc.refresh' - Only newly created sims will be detected when loading into a zone. Use this command to detect name and gender changes without re-starting the games. 
 * 'o19.ts4l.sc.dump' - Dump all data to log.
@@ -337,54 +340,63 @@ To retrieve this information for the active zone use:
 * w, n = WorldsAndNeighbourhoods().get_world_and_neighbourhood_name(CommonLocationUtils().get_current_world_id())
 
 
-# Addendum
+# 📝 Addendum
 
-## Game compatibility
-This mod has been tested with `The Sims 4` 1.118.257, S4CL 3.15, TS4Lib 0.3.42.
-It is expected to be compatible with many upcoming releases of TS4, S4CL and TS4Lib.
+## 🔄 Game compatibility
+This mod has been tested with `The Sims 4` 1.119.109, S4CL 3.15, TS4Lib 0.3.42.
+It is expected to remain compatible with future releases of TS4, S4CL, and TS4Lib.
 
-## Dependencies
-Download the ZIP file, not the sources.
+## 📦 Dependencies
+Download the ZIP file - not the source code.
+Required components:
 * [This Mod](../../releases/latest)
 * [TS4-Library](https://github.com/Oops19/TS4-Library/releases/latest)
 * [S4CL](https://github.com/ColonolNutty/Sims4CommunityLibrary/releases/latest)
 * [The Sims 4](https://www.ea.com/games/the-sims/the-sims-4)
 
-If not installed download and install TS4 and these mods.
-All are available for free.
+If not already installed, download and install TS4 and the listed mods. All are available for free.
 
-## Removal of the mod
-The mod installation with unzip writes to a few directories.
-To remove this mod and all related files locate the files and folders and remove them:
-* `The Sims 4/Mods/_o19_/$mod_name.*`
-* `The Sims 4/mod_data/_o19_/$mod_name/`
-* `The Sims 4/mod_documentation/_o19_/$mod_name/`
-* `The Sims 4/mod_sources/_o19_/$mod_name/`
+## 📥 Installation
+* Locate the localized `The Sims 4` folder (it contains the `Mods` folder).
+* Extract the ZIP file directly into this folder.
 
-To remove all of my mods locate these folders and remove them:
-* `The Sims 4/Mods/_o19_/`
-* `The Sims 4/mod_data/_o19_/`
-* `The Sims 4/mod_documentation/_o19_/`
-* `The Sims 4/mod_sources/_o19_/`
- 
-## Installation
-* Locate the localized `The Sims 4` folder which contains the `Mods` folder.
-* Extract the ZIP file into this `The Sims 4` folder.
-* It will create the directories/files `Mods/_o19_/$mod_name.ts4script`, `Mods/_o19_/$mod_name.package`, `mod_data/$mod_name/*` and/or `mod_documentation/$mod_name/*` and/or `mod_sources/$mod_name/*`
-* CAS and build-buy UGC without scripts will create `Mods/o19/$mod_name.package`.
-* `mod_logs/$mod_name.txt` will be created as soon as data is logged.
-* `mod_documentation/$mod_name/` and/or `mod_sources/$mod_name/` are not required and can be deleted.
+This will create:
+* `Mods/_o19_/$mod_name.ts4script`
+* `Mods/_o19_/$mod_name.package`
+* `mod_data/$mod_name/*`
+* `mod_documentation/$mod_name/*` (optional)
+* `mod_sources/$mod_name/*` (optional)
 
-### Manual Installation
-If you don't want to extract the ZIP file into `The Sims 4` folder you might want to read this.
-You can extract the ZIP file to a temporary directory and copy the folders manually.
-* The files in `ZIP-File/mod_data` are usually required and should be extracted to `The Sims 4/mod_data`.
-* The files in `ZIP-File/mod_documentation` are for you to read it. They are not needed to use this mod.
-* The files in `ZIP-File/mod_sources` are not needed to use this mod.
-* The `Mods/_o19_/*.ts4script` files can be stored in a random folder within `Mods` or directly in `Mods`. I highly recommend to store it in `_o19_` so you know who created it.
+Additional notes:
+* CAS and Build/Buy UGC without scripts will create `Mods/o19/$mod_name.package`.
+* A log file `mod_logs/$mod_name.txt` will be created once data is logged.
+* You may safely delete `mod_documentation/` and `mod_sources/` folders if not needed.
 
-## Troubleshooting
-When installed properly this is not necessary at all.
+### 📂 Manual Installation
+If you prefer not to extract directly into `The Sims 4`, you can extract to a temporary location and copy files manually:
+* Copy `mod_data/` contents to `The Sims 4/mod_data/` (usually required).
+* `mod_documentation/` is for reference only — not required.
+* `mod_sources/` is not needed to run the mod.
+* `.ts4script` files can be placed in a folder inside `Mods/`, but storing them in `_o19_` is recommended for clarity.
+* `.package` files can be placed in a anywhere inside `Mods/`.
+
+## 🛠️ Troubleshooting
+If installed correctly, no troubleshooting should be necessary.
+For manual installs, verify the following:
+* Does your localized `The Sims 4` folder exist? (e.g. localized to Die Sims 4, Les Sims 4, Los Sims 4, The Sims 4, ...)
+  * Does it contain a `Mods/` folder?
+    * Does Mods/_o19_/ contain:
+      * `ts4lib.ts4script` and `ts4lib.package`?
+      * `{mod_name}.ts4script` and/or `{mod_name}.package`
+* Does `mod_data/` contain `{mod_name}/` with files?
+* Does `mod_logs/` contain:
+  * `Sims4CommunityLib_*_Messages.txt`?
+  * `TS4-Library_*_Messages.txt`?
+  * `{mod_name}_*_Messages.txt`?
+* Are there any `last_exception.txt` or `last_exception*.txt` files in `The Sims 4`?
+
+
+* When installed properly this is not necessary at all.
 For manual installations check these things and make sure each question can be answered with 'yes'.
 * Does 'The Sims 4' (localized to Die Sims 4, Les Sims 4, Los Sims 4, The Sims 4, ...) exist?
   * Does `The Sims 4` contain the folder `Mods`?
@@ -403,30 +415,52 @@ For manual installations check these things and make sure each question can be a
   * Doesn't `The Sims 4` contain the file(s) `last_exception.txt`  and/or `last_exception*.txt` ?
 * Share the `The Sims 4/mod_logs/Sims4CommunityLib_*_Messages.txt` and `The Sims 4/mod_logs/{mod_name}_*_Messages.txt`  file.
 
-## Usage Tracking / Privacy
-This mod does not send any data to tracking servers. The code is open source, not obfuscated, and can be reviewed.
+If issues persist, share:
+`mod_logs/Sims4CommunityLib_*_Messages.txt`
+`mod_logs/{mod_name}_*_Messages.txt`
 
-Some log entries in the log file ('mod_logs' folder) may contain the local username, especially if files are not found (WARN, ERROR).
+## 🕵️ Usage Tracking / Privacy
+This mod does not send any data to external servers.
+The code is open source, unobfuscated, and fully reviewable.
 
-## External Links
+Note: Some log entries (especially warnings or errors) may include your local username if file paths are involved.
+Share such logs with care.
+
+## 🔗 External Links
 [Sources](https://github.com/Oops19/)
 [Support](https://discord.gg/d8X9aQ3jbm)
 [Donations](https://www.patreon.com/o19)
 
-## Copyright and License
+## ⚖️ Copyright and License
 * © 2020-2025 [Oops19](https://github.com/Oops19)
-* License for '.package' files: [Electronic Arts TOS for UGC](https://tos.ea.com/legalapp/WEBTERMS/US/en/PC/)  
-* License for other media unless specified differently: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) unless the Electronic Arts TOS for UGC overrides it.
-This allows you to use this mod and re-use the code even if you don't own The Sims 4.
-Have fun extending this mod and/or integrating it with your mods.
+* `.package` files: [Electronic Arts TOS for UGC](https://tos.ea.com/legalapp/WEBTERMS/US/en/PC/)  
+* All other content (unless otherwise noted): [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) 
 
-Oops19 / o19 is not endorsed by or affiliated with Electronic Arts or its licensors.
-Game content and materials copyright Electronic Arts Inc. and its licensors. 
-Trademarks are the property of their respective owners.
+You may use and adapt this mod and its code — even without owning The Sims 4.
+Have fun extending or integrating it into your own mods!
 
-### TOS
-* Please don't put it behind a paywall.
-* Please don't create mods which break with every TS4 update.
-* For simple tuning modifications use [Patch-XML](https://github.com/Oops19/TS4-PatchXML) 
-* or [LiveXML](https://github.com/Oops19/TS4-LiveXML).
-* To check the XML structure of custom tunings use [VanillaLogs](https://github.com/Oops19/TS4-VanillaLogs).
+Oops19 / o19 is not affiliated with or endorsed by Electronic Arts or its licensors.
+Game content and materials © Electronic Arts Inc. and its licensors.
+All trademarks are the property of their respective owners.
+
+## 🧾 Terms of Service
+* Do not place this mod behind a paywall.
+* Avoid creating mods that break with every TS4 update.
+* For simple tuning mods, consider using:
+  * [Patch-XML](https://github.com/Oops19/TS4-PatchXML) 
+  * [LiveXML](https://github.com/Oops19/TS4-LiveXML).
+* To verify custom tuning structures, use:
+  * [VanillaLogs](https://github.com/Oops19/TS4-VanillaLogs).
+
+## 🗑️ Removing the Mod
+Installing this mod creates files in several directories. To fully remove it, delete:
+* `The Sims 4/Mods/_o19_/$mod_name.*`
+* `The Sims 4/mod_data/_o19_/$mod_name/`
+* `The Sims 4/mod_documentation/_o19_/$mod_name/`
+* `The Sims 4/mod_sources/_o19_/$mod_name/`
+
+To remove all of my mods, delete the following folders:
+* `The Sims 4/Mods/_o19_/`
+* `The Sims 4/mod_data/_o19_/`
+* `The Sims 4/mod_documentation/_o19_/`
+* `The Sims 4/mod_sources/_o19_/`

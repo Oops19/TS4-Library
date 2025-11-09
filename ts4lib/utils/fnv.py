@@ -60,6 +60,15 @@ class FNV(metaclass=Singleton):
             hash_value = hash_value ^ w
         return hash_value
 
+    def hash24(self, text: str, high_bit: bool = None) -> int:
+        """
+        Calculate and return the FNV32 hash. If available `sims4.hash_util.hash32(text)` is used, otherwise `@get(text, 32)`
+        :param text: The string to get the FNV value for.
+        :param high_bit: Set the high_bit to 0 (False), to 1 (True), or don't touch it (default None)
+        :return: fnv value
+        """
+        return self._hash_ts4(text, 24, high_bit)
+
     def hash32(self, text: str, high_bit: bool = None) -> int:
         """
         Calculate and return the FNV32 hash. If available `sims4.hash_util.hash32(text)` is used, otherwise `@get(text, 32)`
@@ -87,9 +96,7 @@ class FNV(metaclass=Singleton):
         return self._hash_ts4(text, 64, high_bit)
 
     def _hash_ts4(self, text: str, n: int, high_bit: bool = None) -> int:
-        if n not in {32, 64}:
-            return 0
-        if use_sims4_hash_utils:
+        if use_sims4_hash_utils and n in {32, 64}:
             if n == 32:
                 hash_value = sims4.hash_util.hash32(text)
             else:

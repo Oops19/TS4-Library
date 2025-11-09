@@ -34,7 +34,8 @@ class StdVector3(VectorInterface):
             self.z = float(z)
         else:
             for i in ['x', 'y', 'z']:
-                setattr(self, i, 0.0 if getattr(x, i, None) is None else getattr(x, i))  # don't copy None
+                setattr(self, i, getattr(x, i, 0.0))
+                # setattr(self, i, 0.0 if getattr(x, i, None) is None else getattr(x, i))  # don't copy None
         super().__init__([self.x, self.y, self.z])
 
     @staticmethod

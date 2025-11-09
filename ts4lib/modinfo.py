@@ -28,12 +28,16 @@ class ModInfo(CommonModInfo):
 
     @property
     def _version(self) -> str:
-        return '0.3.44'
+        return '0.3.46'
 
 
 r'''
 TODO for v0.4.0
     Remove VanillaBlocks, VanillaObjects, VanillaRegions, also from README
+v0.3.46
+    Extended SimpleUINotification() to support also simple STBLs without parameters
+v0.3.45
+    Add hash24() to create short TS4 hashes
 v0.3.44
     Fix: Properly unset the high_bit also when using sims4.hash_util.hashNN(text) (in-game)
 v0.3.43
