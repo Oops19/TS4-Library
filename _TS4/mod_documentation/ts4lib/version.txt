@@ -1,5 +1,5 @@
-TS4-Library v0.3.46 for The Sims 4 v1.119.109 and S4CL v3.15
-Created on 2025-11-09
+TS4-Library v0.3.46 for The Sims 4 v1.119.109 and S4CL v3.17
+Created on 2025-11-12
 v0.3.46
     Extended SimpleUINotification() to support also simple STBLs without parameters
 
