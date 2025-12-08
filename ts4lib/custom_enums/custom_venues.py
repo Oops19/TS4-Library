@@ -42,6 +42,7 @@ class CustomVenues(CustomEnum):
     MAKER_SPACE: 'CustomVenues' = 231465
     MARKET: 'CustomVenues' = 223945
     MOUNTAIN_EXCURSION: 'CustomVenues' = 247118
+    MULTI_UNIT: 'CustomVenues' = 341299
     MUSEUM: 'CustomVenues' = 16876
     MYSHUNO_MEADOWS: 'CustomVenues' = 138380
     NATURAL_POOL: 'CustomVenues' = 175123
@@ -50,14 +51,17 @@ class CustomVenues(CustomEnum):
     ONSEN: 'CustomVenues' = 247473
     PARK: 'CustomVenues' = 25847
     PENTHOUSE: 'CustomVenues' = 149495
+    PLAYGROUND: 'CustomVenues' = 468880
     POLICE_STATION: 'CustomVenues' = 109774
     POOL: 'CustomVenues' = 123794
+    REC_CENTER: 'CustomVenues' = 314133
     RELAXATION_CENTER: 'CustomVenues' = 118135
     RENTABLE_CABIN: 'CustomVenues' = 103675
     RENTABLE_JUNGLE: 'CustomVenues' = 173833
     RENTABLE_UNIVERSITY_HOUSING: 'CustomVenues' = 208182
     RENTABLE_VACATION_GENERIC: 'CustomVenues' = 239458
     RESIDENTIAL: 'CustomVenues' = 28614
+    RESIDENTIAL_HAUNTED_HOUSE: 'CustomVenues' = 252380
     RESIDENTIAL_TINYHOME: 'CustomVenues' = 229251
     RESISTANCE_CAMP: 'CustomVenues' = 231965
     RESTAURANT: 'CustomVenues' = 130713

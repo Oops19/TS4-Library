@@ -384,12 +384,14 @@ class CDLL(object):
             func.__name__ = name_or_ordinal
         return func
 
+
 class PyDLL(CDLL):
     """This class represents the Python library itself.  It allows
     accessing Python API functions.  The GIL is not released, and
     Python exceptions are handled correctly.
     """
     _func_flags_ = _FUNCFLAG_CDECL | _FUNCFLAG_PYTHONAPI
+
 
 if _os.name == "nt":
 

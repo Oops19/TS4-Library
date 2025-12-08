@@ -20,7 +20,7 @@ class ConvertDictXML(metaclass=Singleton):
                     dd[k].append(v)
             d = {t.tag: {k: v[0] if len(v) == 1 else v for k, v in dd.items()}}
         if t.attrib:
-            d[t.tag].reset_motives(('@' + k, v) for k, v in t.attrib.items())
+            d[t.tag].update(('@' + k, v) for k, v in t.attrib.items())
         if t.text:
             text = t.text.strip()
             if children or t.attrib:

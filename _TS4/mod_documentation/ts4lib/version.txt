@@ -1,5 +1,5 @@
-TS4-Library v0.3.46 for The Sims 4 v1.119.109 and S4CL v3.17
-Created on 2025-11-12
-v0.3.46
-    Extended SimpleUINotification() to support also simple STBLs without parameters
+TS4-Library v0.3.49 for The Sims 4 v1.119.109 and S4CL v3.17
+Created on 2025-11-19
+v0.3.49
+    Added SimpleUiPopupOkCancel().show() to show a popup. Static strings and/or STBLs are supported.
 

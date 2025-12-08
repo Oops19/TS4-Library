@@ -28,12 +28,18 @@ class ModInfo(CommonModInfo):
 
     @property
     def _version(self) -> str:
-        return '0.3.46'
+        return '0.3.49'
 
 
 r'''
 TODO for v0.4.0
     Remove VanillaBlocks, VanillaObjects, VanillaRegions, also from README
+v0.3.49
+    Added SimpleUiPopupOkCancel().show() to show a popup. Static strings and/or STBLs are supported.
+v0.3.48
+    Extended SimpleUINotification().show() to support parameters and icons
+v0.3.47
+    Added more custom venues and regions
 v0.3.46
     Extended SimpleUINotification() to support also simple STBLs without parameters
 v0.3.45

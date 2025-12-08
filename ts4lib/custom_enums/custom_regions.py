@@ -1,4 +1,3 @@
-
 #
 # LICENSE
 # https://creativecommons.org/licenses/by/4.0/ https://creativecommons.org/licenses/by/4.0/legalcode
@@ -31,14 +30,18 @@ class CustomRegions(CustomEnum):
     HIDDEN_FORGOTTEN_GROTTO: 'CustomRegions' = 104062
     HIDDEN_MAGIC_VENUE: 'CustomRegions' = 219134
     HIDDEN_SLYVAN_GLADE: 'CustomRegions' = 104063
+    RESIDENTIAL_BAY_AREA: 'CustomRegions' = 302872
     RESIDENTIAL_CITY_LIFE: 'CustomRegions' = 134252
     RESIDENTIAL_COTTAGE_WORLD: 'CustomRegions' = 257397
     RESIDENTIAL_ECO_WORLD: 'CustomRegions' = 228200
+    RESIDENTIAL_EP14WORLD: 'CustomRegions' = 311185
+    RESIDENTIAL_EP16WORLD: 'CustomRegions' = 362425
     RESIDENTIAL_FAME_WORLD: 'CustomRegions' = 195493
     RESIDENTIAL_HIGH_SCHOOL_WORLD: 'CustomRegions' = 272365
     RESIDENTIAL_ISLAND_WORLD: 'CustomRegions' = 208308
     RESIDENTIAL_MAGIC: 'CustomRegions' = 216626
     RESIDENTIAL_MOUNTAIN_WORLD: 'CustomRegions' = 238454
+    RESIDENTIAL_MULTI_UNIT_WORLD: 'CustomRegions' = 337554
     RESIDENTIAL_NEWCREST: 'CustomRegions' = 119917
     RESIDENTIAL_NORTH_EUROPE: 'CustomRegions' = 123129
     RESIDENTIAL_OASIS_SPRINGS: 'CustomRegions' = 104065
@@ -46,7 +49,9 @@ class CustomRegions(CustomEnum):
     RESIDENTIAL_STRANGETOWN: 'CustomRegions' = 201699
     RESIDENTIAL_UNIVERSITY_WORLD: 'CustomRegions' = 208814
     RESIDENTIAL_VAMPIRE_WORLD: 'CustomRegions' = 152175
+    RESIDENTIAL_WEDDING_WORLD: 'CustomRegions' = 272129
     RESIDENTIAL_WILLOW_CREEK: 'CustomRegions' = 104064
+    RESIDENTIAL_WOLF_TOWN: 'CustomRegions' = 285909
 
     @classmethod
     def _missing_(cls, value):
