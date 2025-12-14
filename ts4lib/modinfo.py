@@ -28,12 +28,18 @@ class ModInfo(CommonModInfo):
 
     @property
     def _version(self) -> str:
-        return '0.3.49'
+        return '0.3.51'
 
 
 r'''
 TODO for v0.4.0
-    Remove VanillaBlocks, VanillaObjects, VanillaRegions, also from README
+    TS4L-3 Remove VanillaBlocks, VanillaObjects, VanillaRegions, also from README
+
+v0.3.51
+    TS4L-4 Fix run_pose()
+v0.3.50
+    TS4L-2 Enqueue interactions aggressively. Update _push_super_affordance() to skip tests and run next
+    TS4L-1 Add run_terrain_interaction() to send sims to a TerrainPoint
 v0.3.49
     Added SimpleUiPopupOkCancel().show() to show a popup. Static strings and/or STBLs are supported.
 v0.3.48
