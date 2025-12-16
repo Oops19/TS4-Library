@@ -29,7 +29,7 @@ class CustomRegions(CustomEnum):
     HIDDEN_ACTING_STUDIO: 'CustomRegions' = 190064
     HIDDEN_FORGOTTEN_GROTTO: 'CustomRegions' = 104062
     HIDDEN_MAGIC_VENUE: 'CustomRegions' = 219134
-    HIDDEN_SLYVAN_GLADE: 'CustomRegions' = 104063
+    HIDDEN_SYLVAN_GLADE: 'CustomRegions' = 104063
     RESIDENTIAL_BAY_AREA: 'CustomRegions' = 302872
     RESIDENTIAL_CITY_LIFE: 'CustomRegions' = 134252
     RESIDENTIAL_COTTAGE_WORLD: 'CustomRegions' = 257397

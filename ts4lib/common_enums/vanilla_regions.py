@@ -31,7 +31,7 @@ class VanillaRegions(CommonEnum):
     HIDDEN_ACTING_STUDIO: 'VanillaRegions' = 190064
     HIDDEN_FORGOTTEN_GROTTO: 'VanillaRegions' = 104062
     HIDDEN_MAGIC_VENUE: 'VanillaRegions' = 219134
-    HIDDEN_SLYVAN_GLADE: 'VanillaRegions' = 104063
+    HIDDEN_SYLVAN_GLADE: 'VanillaRegions' = 104063
     RESIDENTIAL_CITY_LIFE: 'VanillaRegions' = 134252
     RESIDENTIAL_COTTAGE_WORLD: 'VanillaRegions' = 257397
     RESIDENTIAL_ECO_WORLD: 'VanillaRegions' = 228200

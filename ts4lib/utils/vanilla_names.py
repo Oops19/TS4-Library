@@ -8,8 +8,8 @@
 import re
 from typing import Tuple, Any
 
-from ts4lib.enums.vanilla_regions import VanillaRegions
-from ts4lib.enums.vanilla_venues import VanillaVenues
+from ts4lib.custom_enums.custom_regions import CustomRegions
+from ts4lib.custom_enums.custom_venues import CustomVenues
 from ts4lib.utils.location_ids import LocationIDs
 from ts4lib.utils.worlds_and_neighbourhoods import WorldsAndNeighbourhoods
 from ts4lib.common_enums.enum_types.common_enum import CommonEnum
@@ -38,8 +38,8 @@ class VanillaNames:
     def to_enum(enum_class: Any, enum_name: str) -> Any:
         """ deprecated, to e removed with 0.4.0 """
         """ Usages:
-        * VanillaNames.to_enum(VanillaRegions, 'Career Alien World')
-        * VanillaNames.to_enum('ts4lib.common_enums.vanilla_regions.VanillaRegions', 'Career Alien World')
+        * VanillaNames.to_enum(CustomRegions, 'Career Alien World')
+        * VanillaNames.to_enum('ts4lib.common_enums.vanilla_regions.CustomRegions', 'Career Alien World')
         """
         if isinstance(enum_class, str):
             _class, class_name = enum_class.rsplit('.', 1)
@@ -199,8 +199,7 @@ class VanillaNames:
         try:
             if region_id is None:
                 region_id = LocationIDs.get_current_region_id()
-            region_name = VanillaRegions().name(region_id)
-            # region_name = self.nice_name(region_name)
+            region_name = CustomRegions(region_id).name
         except Exception as e:
             region_id = -1
             region_name = f"({e})"
@@ -213,8 +212,7 @@ class VanillaNames:
         try:
             if venue_id is None:
                 venue_id = LocationIDs.get_current_venue_id()
-            venue_name = VanillaVenues().name(venue_id)
-            # venue_name = self.nice_name(venue_name)
+            venue_name = CustomVenues(venue_id).name
         except Exception as e:
             venue_id = -1
             venue_name = f"({e})"

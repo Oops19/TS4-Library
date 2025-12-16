@@ -51,7 +51,8 @@ class EnqueueInteraction:
         preferred_objects=(), preferred_carrying_sim=None, can_derail_if_constraint_invalid=True, continuation_affordance_chain=[], carry_hand=None):
         """
         _connection = kwargs.get('_connection', None)
-        clip_name: Union[str, None] = kwargs.get('clip_name', None)
+        pose_name: Union[str, None] = kwargs.get('clip_name', kwargs.get('pose_name', None))
+        # kwargs.update({'pose_name': pose_name})
         priority: int = kwargs.get('priority', Priority.High)
         interaction_source: int = kwargs.get('interaction_source', InteractionSource.SCRIPT)
         insert_strategy: int = kwargs.get('insert_strategy', QueueInsertStrategy.FIRST)
@@ -67,13 +68,13 @@ class EnqueueInteraction:
         # skip_safe_tests = False
         # skip_test_on_execute = False
 
-        log.debug(f"_push_super_affordance(sim={sim}, sa={interaction}, target={target}, context={context}, pose_name={clip_name}, skip_safe_tests={skip_safe_tests}, skip_test_on_execute={skip_test_on_execute}, {kwargs})")
+        log.debug(f"_push_super_affordance(sim={sim}, sa={interaction}, target={target}, context={context}, pose_name={pose_name}, skip_safe_tests={skip_safe_tests}, skip_test_on_execute={skip_test_on_execute}, {kwargs})")
         if target is None:
             target = sim
         if context is None:
             client = kwargs.get('client', services.client_manager().get(_connection))
             context = InteractionContext(sim, interaction_source, priority, client=client, insert_strategy=insert_strategy, must_run_next=must_run_next, pick=pick)
-        return sim.push_super_affordance(super_affordance=interaction, target=target, context=context, **kwargs)
+        return sim.push_super_affordance(super_affordance=interaction, target=target, context=context, pose_name=pose_name, **kwargs)
 
     def _deprecated_push_super_affordance(self, sim: Sim, interaction, target: Union[Sim, Any] = None, pose_name: str = None, _connection=None,
                                priority: Priority = Priority.High, interaction_source: InteractionSource = InteractionSource.SCRIPT,
@@ -101,13 +102,14 @@ class EnqueueInteraction:
         return sim.push_super_affordance(super_affordance=interaction, target=target, context=context, pose_name=pose_name, skip_safe_tests=True, skip_test_on_execute=True, **kwargs)
 
     def run_pose(self, sim: Sim, clip_name: str, target: Union[Sim, Any] = None, **kwargs):
-        log.debug(f"run_pose({sim}, {clip_name}, {kwargs})")
+        log.debug(f"run_pose({sim}, {clip_name}, {target}, {kwargs})")
 
         # <I c="TS4LibraryPoseInteraction" i="interaction" m="ts4lib.anim" n="o19:pose_interaction" s="7355957611031270070"><!-- 66159C79445992B6 -->
         interaction_id = 7355957611031270070
         interaction_manager = services.get_instance_manager(ResourceType.INTERACTION)
         interaction = interaction_manager.get(interaction_id)
         return self._push_super_affordance(sim, interaction, target, clip_name=clip_name, **kwargs)
+        # return self._deprecated_push_super_affordance(sim, interaction, target, pose_name=clip_name, **kwargs)
 
     def run_interaction(self, sim: Sim, interaction_id: int, target: Union[Sim, Any] = None, **kwargs):
         log.debug(f"run_interaction({sim}, {interaction_id}, {target}, {kwargs})")

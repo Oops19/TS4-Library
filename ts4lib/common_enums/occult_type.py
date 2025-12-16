@@ -15,6 +15,7 @@ class OccultType(CommonEnum):
     MERMAID: 'OccultType' = 8
     WITCH: 'OccultType' = 16
     WEREWOLF: 'OccultType' = 32
+    FAIRY: 'OccultType' = 64
     # Future use 64 = 2 ** 16
     # Future use 128 = 2 ** 17
     # Future use 256 = 2 ** 18

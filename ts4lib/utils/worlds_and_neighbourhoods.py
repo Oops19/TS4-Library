@@ -92,9 +92,43 @@ class WorldsAndNeighbourhoods(object, metaclass=Singleton):
         3927353875: ('San Sequoia', 'Anchorpoint Wharf'),  # Growing Together
         2596862512: ('San Sequoia', 'Gilbert Gardens'),  # Growing Together
         3962653297: ('San Sequoia', 'Hopewell Hills'),  # Growing Together
-        -1: ('Chestnut Ridge', 'Galloping Gulch'),  # Horse Ranch, 3 lots
-        -2: ('Chestnut Ridge', 'New Appaloosa'),  # Horse Ranch, 5 lots
-        -3: ('Chestnut Ridge', "Rider’s Glen"),  # Horse Ranch, 5 lots
+        525851134: ('Chestnut Ridge', 'Galloping Gulch'),  # Horse Ranch, 3 lots 1
+        2808195162: ('Chestnut Ridge', 'New Appaloosa'),  # Horse Ranch, 5 lots
+        657881596: ('Chestnut Ridge', "Rider’s Glen"),  # Horse Ranch, 5 lots
+        4017562985: ('Tomarang', 'Morensong'),  # For Rent, 4 lots
+        934162359: ('Tomarang', 'Koh Sahpa'),  # For Rent, 5 lots
+        2950084182: ('Ciudad Enamorada', 'Vista Hermosa'),  # LovesTruck, 5 lots
+        271937272: ('Ciudad Enamorada', 'Nuevo Corazón'),  # LovesTruck, 4 lots
+        1794983438: ('Ciudad Enamorada', 'Plaza Mariposa'),  # LovesTruck, 4 lots
+        # 17 WorldId: 0x18D53A6A 0x83A3DEAF 0x160307BB
+        # 'World Description' -> WorldName + Name + fnv(Name)
+        # Mourningvale + EP17_Afterlife_01 = 160307BB
+        # HeadlessQuarters + EP17_Grim_01 = F3240686
+        # Whispering Glen + EP17_Countryside_01 = 18D53A6A
+        # Crow's Crossing + EP17_Village_01 = 83A3DEAF
+        0x83A3DEAF: ('Ravenwood', "Crow's Crossing"),  # Life & Death
+        0x18D53A6A: ('Ravenwood', "Whispering Glen"),  # Life & Death
+        0x160307BB: ('Ravenwood', "Mourningvale"),  # Life & Death
+        0xF3240686:  ('Ravenwood', "HeadlessQuarters"),  # Life & Death (hidden)
+        # 18 WorldId: 0x96190C2F 0xED9D6B84
+        # 'World Description' -> WorldName + Name + fnv(Name)
+        # Gammelvik + EP18_OldTown_01 = 96190C2F
+        0x96190C2F: ('Nordhaven', 'Gammelvik'),  # Businesses & Hobbies
+        0xED9D6B84: ('Nordhaven', 'Iverstad'),  # Businesses & Hobbies
+        # 19 WorldId 0x72A3C3B6 0xC76C7956 0x98F181DE
+        # 'World Description' -> WorldName + Name + fnv(Name)
+        # Coast of Adhmor + EP19_Coastal_01 = 72A3C3B6
+        # Sprucederry Grove + EP19_Grove_01 = 98F181DE
+        0x72A3C3B6: ('Innisgreen', 'Coast of Adhmor'),  # Enchanted by Nature
+        0x98F181DE: ('Innisgreen', 'Sprucederry Grove'),  # Enchanted by Nature
+        0xC76C7956: ('Innisgreen', 'Everdew'),  # Enchanted by Nature
+        # 20 'World Map' -> WorldId 0x6B94000A 0x44B02139 0xA5D4ECB3
+        # 'World Description' -> WorldName + Name + fnv(Name)
+        # Wanderwood Wilds + EP20_Wilderness_01 = A5D4ECB3
+        # Crystal Valley + EP20_GoldenRetreat_01 = 44B02139
+        0xA5D4ECB3: ('Gibbi Point', 'Wanderwood Wilds'),  # Adventure Awaits  # 0x6E0490E2
+        0x44B02139: ('Gibbi Point', 'Jellyfish Junction'),  # Adventure Awaits
+        0x6B94000A: ('Gibbi Point', 'Crystal Valley'),  # Adventure Awaits
     }
 
     def __init__(self):

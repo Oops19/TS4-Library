@@ -313,20 +313,20 @@ log.enable()
 ### VanillaNames (Location)
 Deprecated, do not use.
 Handler for more `vanilla_*.py` files to get human-readable strings. To retrieve human-readable, English, descriptions about the active zone use:
-* r = VanillaNames.from_enum(VanillaRegions(getattr(services.current_region(), 'guid64', 0))) 
-* v = VanillaNames.from_enum(VanillaVenues(getattr(services.get_current_venue(), 'guid64', 0)))
+* r = VanillaNames.from_enum(CustomRegions(getattr(services.current_region(), 'guid64', 0))) 
+* v = VanillaNames.from_enum(CustomRegions(getattr(services.get_current_venue(), 'guid64', 0)))
 
 To convert such a string back to an enum use the enum class and the string and call e.g.
-* enum = VanillaNames.to_enum(VanillaRegions, 'Career Alien World')
-* enum = VanillaNames.to_enum('ts4lib.common_enums.vanilla_regions.VanillaRegions', 'Career Alien World')
+* enum = VanillaNames.to_enum(CustomRegions, 'Career Alien World')
+* enum = VanillaNames.to_enum('ts4lib.common_enums.vanilla_regions.CustomRegions', 'Career Alien World')
 
 The command `o19.ts4l.log_location` makes use of many functions added to this class to retrieve friendly names.
 
 ### VanillaNames (Location)
 New!
 The methods return the tuning name as is.
-* `r = VanillaRegions().name(getattr(services.current_region(), 'guid64', 0))`
-* `v = VanillaVenues().name(getattr(services.current_region(), 'guid64', 0))`
+* `r = CustomRegions().name(getattr(services.current_region(), 'guid64', 0))`
+* `v = CustomVenues().name(getattr(services.current_region(), 'guid64', 0))`
 * `nice_name = VanillaNames().nice_name(r)` - Create a human-readable throw-away name. There is no reverse method available.
 E.g. 'venue_MagicHQ' --> 'Magic HQ'
 

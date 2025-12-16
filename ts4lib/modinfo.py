@@ -28,15 +28,26 @@ class ModInfo(CommonModInfo):
 
     @property
     def _version(self) -> str:
-        return '0.3.51'
+        return '0.3.53'
 
 
 r'''
 TODO for v0.4.0
-    TS4L-3 Remove VanillaBlocks, VanillaObjects, VanillaRegions, also from README
+    TS4L-11 Replace CommonEnums with CustomEnums: All, also in README
+    TS4L-3 Replace CommonEnums with CustomEnums: VanillaBlocks, VanillaObjects, VanillaRegions, VanillaVenues, also in README
 
+    
+v0.3.53
+    TS4L-7 Fix VanillaNames.get_world_name()
+    TS4L-8 Fix VanillaNames.get_neighbourhood_name()
+    TS4L-9 Update WorldsAndNeighbourhoods._data = {} with 'Chestnut Ridge', 'Tomarang', 'Ciudad Enamorada', 'Ravenwood', 'Nordhaven', 'Innisgreen', 'Gibbi Point'
+    TS4-10 Add BodyTypes 113-117 to CustomBodyTypes
+    TS4-11 Add OccultType.FAIRY 64 to OccultType
+v0.3.52
+    TS4L-5 Fix typo in CustomRegions.HIDDEN_SYLVAN_GLADE
+    TS4L-4 Fix new _push_super_affordance() and add pose_name as an explicit parameter
 v0.3.51
-    TS4L-4 Fix run_pose()
+    TS4L-3 Fix run_pose()
 v0.3.50
     TS4L-2 Enqueue interactions aggressively. Update _push_super_affordance() to skip tests and run next
     TS4L-1 Add run_terrain_interaction() to send sims to a TerrainPoint
@@ -68,7 +79,7 @@ v0.3.37
     Fix OpacityManager - Don't modify opacity of unmanaged objects
 v0.3.36
     Deprecated: 3 CustomEnums: VanillaBlocks, VanillaObjects, VanillaRegions - To be removed in a 0.4.0
-    New: 3 Enums: VanillaObjects, VanillaRegions, VanillaVenues. They use the currently available data.
+    New: 3 Enums: CustomObjects, CustomRegions, CustomVenues. They use the currently available data.
     VanillaNames returns now the tuning names as strings.
     VanillaNames.nice_name() added
     These changes should affect only 'ScheduleIt'.

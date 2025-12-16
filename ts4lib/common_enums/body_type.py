@@ -123,6 +123,11 @@ class BodyType(CommonEnum):
     HORN = 110
     TAIL_BASE = 111
     BIRTHMARKOCCULT = 112
+    TATTOO_HEAD = 113
+    WINGS = 114
+    HEADDECO = 115
+    SKINSPECULARITY = 116
+    UNUSED = 117
 
     @classmethod
     def _missing_(cls, key_value):
