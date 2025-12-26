@@ -3,8 +3,8 @@ dyld emulation
 """
 
 import os
-from ts4lib.ts4l_ctypes.macholib.framework import framework_info
-from ts4lib.ts4l_ctypes.macholib.dylib import dylib_info
+from ts4l_ctypes.macholib.framework import framework_info
+from ts4l_ctypes.macholib.dylib import dylib_info
 from itertools import *
 
 __all__ = [

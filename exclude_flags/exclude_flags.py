@@ -1,7 +1,7 @@
 import re
 from typing import Tuple, Set, List, Union
 
-from ts4lib.common_enums.body_type import BodyType
+from ts4lib.custom_enums.custom_body_type import CustomBodyType
 
 
 class ExcludeFlags:
@@ -11,7 +11,7 @@ class ExcludeFlags:
         Print BB code to be copied to the forum.
         @return:
         """
-        for k, v in BodyType.__members__.items():
+        for k, v in CustomBodyType.__members__.items():
             value = v.value
             if value == 0:
                 print(f'[font size="4"]ExcludeFlags: Parts List and Enum/Binary Values[/font]')
@@ -52,8 +52,8 @@ class ExcludeFlags:
         exclude_flags_2 = 0
         for value in exclude_items:
             if isinstance(value, str):
-                value = BodyType[value].value
-            elif isinstance(value, BodyType):
+                value = CustomBodyType[value].value
+            elif isinstance(value, CustomBodyType):
                 value = value.value
             elif not isinstance(value, int):
                 print(f"Ignoring {value} !")
@@ -62,6 +62,10 @@ class ExcludeFlags:
             else:
                 exclude_flags_2 += 2 ** value
         return f"{exclude_flags_1:016X}", f"{exclude_flags_2:016X}"
+
+    @property
+    def all_flags(self) -> int:
+        return 2 ** 64 - 1
 
 ef = ExcludeFlags()
 # ef.print_s4s()
@@ -72,8 +76,24 @@ print(f"exclude_flags_2 = {e2}")
 
 e1 = 0x200004101FC0FD1E  # Esmeralda_yuBody_EP08HumanoidBotBlueRedBlueRedLauren_BlueRed
 print(f"Excluded parts for {e1}:")
-for k, v in BodyType.__members__.items():
+for k, v in CustomBodyType.__members__.items():
     if v.value & e1:
         print(f"- {k}")
     else:
         print(f"+ {k}")
+
+# ef.print_s4s()
+
+hide_all2 = ef.all_flags
+hide_all1 = hide_all2 & ~1  # unset this bit, unclear what it does
+show_lower_body = hide_all1 & ~2 ** CustomBodyType.LOWER_BODY.value
+print(f"LOWER_BODY ExcludeFlags1: {show_lower_body:016X} ({show_lower_body:b})")
+print(f"LOWER_BODY ExcludeFlags2: {hide_all2:016X} ({hide_all2:b})")
+
+show_shoes = hide_all1 & ~2 ** CustomBodyType.SHOES.value
+print(f"SHOES ExcludeFlags1: {show_shoes:016X} ({show_shoes:b})")
+print(f"SHOES ExcludeFlags2: {hide_all2:016X} ({hide_all2:b})")
+
+show_socks = hide_all1 & ~2 ** CustomBodyType.SOCKS.value
+print(f"SOCKS ExcludeFlags1: {show_socks:016X} ({show_socks:b})")
+print(f"SOCKS ExcludeFlags2: {hide_all2:016X} ({hide_all2:b})")

@@ -1,9 +1,12 @@
-TS4-Library v0.3.53 for The Sims 4 v1.120.117 and S4CL v3.17
-Created on 2025-12-16
-v0.3.53
-    TS4L-7 Fix VanillaNames.get_world_name()
-    TS4L-8 Fix VanillaNames.get_neighbourhood_name()
-    TS4L-9 Update WorldsAndNeighbourhoods._data = {} with 'Chestnut Ridge', 'Tomarang', 'Ciudad Enamorada', 'Ravenwood', 'Nordhaven', 'Innisgreen', 'Gibbi Point'
-    TS4-10 Add BodyTypes 113-117 to CustomBodyTypes
-    TS4-11 Add OccultType.FAIRY 64 to OccultType
+TS4-Library v1.0.0 for The Sims 4 v1.120.117 and S4CL v3.17
+Created on 2025-12-26
+v1.0.0
+    Breaking changes: Affected mods: Copy Outfits, Crontab, Go Here, GUIDs, Hotkeys, Hotkey Bindings, IL-Tanning, On Interaction Do, Privacy Protector, Schedule It, Whisk Away, ATU, NW,
+      
+    TS4L-3 Replace CommonEnums with CustomEnums: VanillaBlocks, VanillaObjects, VanillaRegions, VanillaVenues, also in README
+    TS4L-11 Replace CommonEnums with CustomEnums: All, also in README
+    TS4L-13 Fix Error 'int() argument must be a string, a bytes-like object or a number, not 'NoneType'' parsing location for '...'.
+    TS4L-14 Move ctypes folder to mod root
+    TS4L-15 Create a Mac build without ctypes
+
 

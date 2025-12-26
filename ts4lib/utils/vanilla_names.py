@@ -12,7 +12,7 @@ from ts4lib.custom_enums.custom_regions import CustomRegions
 from ts4lib.custom_enums.custom_venues import CustomVenues
 from ts4lib.utils.location_ids import LocationIDs
 from ts4lib.utils.worlds_and_neighbourhoods import WorldsAndNeighbourhoods
-from ts4lib.common_enums.enum_types.common_enum import CommonEnum
+from ts4lib.custom_enums.enum_types.custom_enum import CustomEnum
 from ts4lib.utils.sim_name import SimName
 
 import services
@@ -29,7 +29,7 @@ class VanillaNames:
     """ Class to return 'Foo Bar' for enum <EnumName.FOO_BAR: 1> """
 
     @staticmethod
-    def from_enum(enum: CommonEnum) -> str:
+    def from_enum(enum: CustomEnum) -> str:
         """ deprecated, to e removed with 0.4.0 """
         return enum.name.title().replace('_', ' ')
 
@@ -39,7 +39,7 @@ class VanillaNames:
         """ deprecated, to e removed with 0.4.0 """
         """ Usages:
         * VanillaNames.to_enum(CustomRegions, 'Career Alien World')
-        * VanillaNames.to_enum('ts4lib.common_enums.vanilla_regions.CustomRegions', 'Career Alien World')
+        * VanillaNames.to_enum('ts4lib.custom_enums.vanilla_regions.CustomRegions', 'Career Alien World')
         """
         if isinstance(enum_class, str):
             _class, class_name = enum_class.rsplit('.', 1)

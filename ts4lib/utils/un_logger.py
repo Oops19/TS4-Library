@@ -5,10 +5,10 @@
 #
 
 
-from ts4lib.common_enums.enum_types.common_enum import CommonEnum
+from ts4lib.custom_enums.enum_types.custom_enum import CustomEnum
 
 
-class UnLogger(CommonEnum):
+class UnLogger(CustomEnum):
     INVALID: 'UnLogger' = 0
     PRINT: 'UnLogger' = 1
     COMMON_LOG: 'UnLogger' = 2

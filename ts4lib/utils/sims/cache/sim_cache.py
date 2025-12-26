@@ -8,10 +8,10 @@ from typing import Set, Dict, Tuple, List, Union
 
 import services
 from sims.sim_info import SimInfo
-from ts4lib.common_enums.age import Age
-from ts4lib.common_enums.gender import Gender
-from ts4lib.common_enums.occult_type import OccultType
-from ts4lib.common_enums.species import Species
+from ts4lib.custom_enums.custom_age import CustomAge
+from ts4lib.custom_enums.custom_gender import CustomGender
+from ts4lib.custom_enums.custom_occult_type import CustomOccultType
+from ts4lib.custom_enums.custom_species import CustomSpecies
 
 from ts4lib.modinfo import ModInfo
 from ts4lib.utils.sims.cache.const.sim_cache_definition import SimCacheDefinition
@@ -27,10 +27,6 @@ from sims4communitylib.utils.sims.common_occult_utils import CommonOccultUtils
 from sims4communitylib.utils.sims.common_sim_name_utils import CommonSimNameUtils
 from sims4communitylib.utils.sims.common_species_utils import CommonSpeciesUtils
 
-r'''from ts4lib.common_enums.common_enum_age import Age
-from ts4lib.common_enums.common_enum_gender import Gender
-from ts4lib.common_enums.common_enum_occult_type import OccultType
-from ts4lib.common_enums.common_enum_species import Species'''
 mod_name = ModInfo.get_identity().name
 log: CommonLog = CommonLogRegistry.get().register_log(ModInfo.get_identity(), mod_name)
 log.enable()
@@ -325,7 +321,7 @@ class SimCache(object, metaclass=Singleton):
             sim_info: SimInfo = _sim_info
             sim_id = 0
             sim_name = search_name = f'unknown firstname{SimCacheDefinition.SIM_NAMES_SEP}unknown lastname'
-            age: str = f"{Age.INVALID}"
+            age: str = f"{CustomAge.INVALID}"
             gender_types = set()
             occult_types = set()
             species = set()
@@ -369,43 +365,43 @@ class SimCache(object, metaclass=Singleton):
                 # Process the occults which are not handled by TS4 as occults:
                 if CommonOccultUtils.is_alien(sim_info):
                     self._occult_alien.add(sim_id)
-                    occult_types.add(OccultType.ALIEN)
+                    occult_types.add(CustomOccultType.ALIEN)
                 if CommonOccultUtils.is_ghost(sim_info):
                     self._occult_ghost.add(sim_id)
-                    occult_types.add(OccultType.GHOST)
+                    occult_types.add(CustomOccultType.GHOST)
                 if CommonOccultUtils.is_mermaid(sim_info):
                     self._occult_mermaid.add(sim_id)
-                    occult_types.add(OccultType.MERMAID)
+                    occult_types.add(CustomOccultType.MERMAID)
                 if CommonOccultUtils.is_plant_sim(sim_info):
                     self._occult_plant_sim.add(sim_id)
-                    occult_types.add(OccultType.PLANT_SIM)
+                    occult_types.add(CustomOccultType.PLANT_SIM)
                 if CommonOccultUtils.is_robot(sim_info):
                     self._occult_robot.add(sim_id)
-                    occult_types.add(OccultType.ROBOT)
+                    occult_types.add(CustomOccultType.ROBOT)
                 if CommonOccultUtils.is_scarecrow(sim_info):
                     self._occult_scarecrow.add(sim_id)
-                    occult_types.add(OccultType.SCARECROW)
+                    occult_types.add(CustomOccultType.SCARECROW)
                 if CommonOccultUtils.is_skeleton(sim_info):
                     self._occult_skeleton.add(sim_id)
-                    occult_types.add(OccultType.SKELETON)
+                    occult_types.add(CustomOccultType.SKELETON)
                 if CommonOccultUtils.is_vampire(sim_info):
                     self._occult_vampire.add(sim_id)
-                    occult_types.add(OccultType.VAMPIRE)
+                    occult_types.add(CustomOccultType.VAMPIRE)
                 if CommonOccultUtils.is_witch(sim_info):
                     self._occult_witch.add(sim_id)
-                    occult_types.add(OccultType.WITCH)
+                    occult_types.add(CustomOccultType.WITCH)
                 if CommonOccultUtils.is_werewolf(sim_info):
                     self._occult_werewolf.add(sim_id)
-                    occult_types.add(OccultType.WEREWOLF)
+                    occult_types.add(CustomOccultType.WEREWOLF)
 
                 _is_human = True
-                for occult_type in OccultType.__members__.items():
+                for occult_type in CustomOccultType.__members__.items():
                     if occult_type in occult_types:
                         _is_human = False
                         break
                 if _is_human:
                     self._occult_human.add(sim_id)
-                    occult_types.add(OccultType.HUMAN)
+                    occult_types.add(CustomOccultType.HUMAN)
             except Exception as e:
                 log.warn(f"Failed to get occults for sim_id: {sim_id} ({e}")
 
@@ -428,31 +424,31 @@ class SimCache(object, metaclass=Singleton):
                 # Process the species
                 if CommonSpeciesUtils.is_human(sim_info):
                     self._species_human.add(sim_id)
-                    species.add(Species.HUMAN)
+                    species.add(CustomSpecies.HUMAN)
                 if CommonSpeciesUtils.is_animal(sim_info):
                     self._species_animal.add(sim_id)
-                    species.add(Species.ANIMAL)
+                    species.add(CustomSpecies.ANIMAL)
                 if CommonSpeciesUtils.is_cat(sim_info):
                     self._species_cat.add(sim_id)
-                    species.add(Species.CAT)
+                    species.add(CustomSpecies.CAT)
                 if CommonSpeciesUtils.is_dog(sim_info):
                     self._species_dog.add(sim_id)
-                    species.add(Species.DOG)
+                    species.add(CustomSpecies.DOG)
                 if CommonSpeciesUtils.is_fox(sim_info):
                     self._species_fox.add(sim_id)
-                    species.add(Species.FOX)
+                    species.add(CustomSpecies.FOX)
                 if CommonSpeciesUtils.is_human(sim_info):
                     self._species_horse.add(sim_id)
-                    species.add(Species.HORSE)
+                    species.add(CustomSpecies.HORSE)
                 if CommonSpeciesUtils.is_large_dog(sim_info):
                     self._species_large_dog.add(sim_id)
-                    species.add(Species.LARGE_DOG)
+                    species.add(CustomSpecies.LARGE_DOG)
                 if CommonSpeciesUtils.is_pet(sim_info):
                     self._species_pet.add(sim_id)
-                    species.add(Species.PET)
+                    species.add(CustomSpecies.PET)
                 if CommonSpeciesUtils.is_small_dog(sim_info):
                     self._species_small_dog.add(sim_id)
-                    species.add(Species.SMALL_DOG)
+                    species.add(CustomSpecies.SMALL_DOG)
             except Exception as e:
                 log.warn(f"Failed to get species for sim_id: {sim_id} ({e}")
 
@@ -467,7 +463,7 @@ class SimCache(object, metaclass=Singleton):
 
         self.is_ready = True
 
-    def get_sim_ids_by_occult_types(self, occult_types: List[Union[OccultType, str]]) -> Set:
+    def get_sim_ids_by_occult_types(self, occult_types: List[Union[CustomOccultType, str]]) -> Set:
         """
         Return 0-n _sims matching the specified IDs.
         :param occult_types: List with occult_types, eg ['HUMAN', ]
@@ -477,7 +473,7 @@ class SimCache(object, metaclass=Singleton):
         rv: Set = set()
         for occult_type in occult_types:
             try:
-                if isinstance(occult_type, OccultType):
+                if isinstance(occult_type, CustomOccultType):
                     occult_type = occult_type.name
                 occult_attribute_name = f"_occult_{occult_type.lower()}"
                 _sim_ids = getattr(self, occult_attribute_name)
@@ -486,7 +482,7 @@ class SimCache(object, metaclass=Singleton):
                 log.warn(f"Oops: {e}")
         return rv
 
-    def get_sim_ids_by_ages(self, ages: List[Union[Age, str]]) -> Set:
+    def get_sim_ids_by_ages(self, ages: List[Union[CustomAge, str]]) -> Set:
         """
         Return 0-n _sims matching the specified IDs.
         :param ages: List with ages, eg ['TEEN', ]
@@ -496,7 +492,7 @@ class SimCache(object, metaclass=Singleton):
         rv: Set = set()
         for age in ages:
             try:
-                if isinstance(age, Age):
+                if isinstance(age, CustomAge):
                     age = age.name
                 age_attribute_name = f"_age_{age.lower()}"
                 _sim_ids = getattr(self, age_attribute_name)
@@ -518,7 +514,7 @@ class SimCache(object, metaclass=Singleton):
                 rv.add(sim_id)
         return rv
 
-    def get_sim_ids_by_genders(self, genders: List[Union[Gender, str]]) -> Set:
+    def get_sim_ids_by_genders(self, genders: List[Union[CustomGender, str]]) -> Set:
         """
         Return 0-n _sims matching the specified gender.
         :param genders: ...
@@ -528,7 +524,7 @@ class SimCache(object, metaclass=Singleton):
         rv: Set = set()
         for gender in genders:
             try:
-                if isinstance(gender, Gender):
+                if isinstance(gender, CustomGender):
                     gender = gender.name
                 gender_attribute_name = f"_gender_{gender.lower()}"
                 _sim_ids = getattr(self, gender_attribute_name)

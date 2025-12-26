@@ -88,20 +88,23 @@ class LotObjects(object, metaclass=Singleton):
             self.names.update({obj_name: _obj_ids})
 
             try:
-                obj: o = manager.get(o.id)
+                log.debug(f"____ {obj_id}: {type(obj_id)}")
+                obj: o = manager.get(obj_id)
                 if obj is None:
                     log.warn(f"Received 'None' for for object '{o.id}'.")
                     continue
                 obj_location = getattr(obj, 'location', None)
-                # log.debug(f"obj_location {obj_location}")
                 obj_level = getattr(obj, 'level', None)
                 obj_zone_id = getattr(obj_location, 'zone_id', None)
                 _obj_transform = getattr(obj_location, 'transform', None)
                 obj_position = getattr(_obj_transform, 'translation', None)
                 obj_orientation = getattr(_obj_transform, 'orientation', None)
                 _obj_routing_surface = getattr(obj_location, 'routing_surface', None)  # location.routing_surface.type
-                obj_surface_id = int(getattr(_obj_routing_surface, 'type', None))
-                block_id = CommonLocationUtils().get_block_id(obj_zone_id, obj_position, obj_level)
+                obj_surface_id = getattr(_obj_routing_surface, 'type', None)
+                try:
+                    block_id = CommonLocationUtils().get_block_id(obj_zone_id, obj_position, obj_level)
+                except:
+                    block_id = -1
 
                 _obj_ids = self.block_ids.get(block_id, set())
                 _obj_ids.add(obj_id)

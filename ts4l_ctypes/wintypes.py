@@ -1,5 +1,5 @@
 # The most useful windows datatypes
-from ts4lib import ts4l_ctypes
+import ts4l_ctypes
 
 BYTE = ts4l_ctypes.c_byte
 WORD = ts4l_ctypes.c_ushort

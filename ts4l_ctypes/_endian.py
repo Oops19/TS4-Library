@@ -1,5 +1,5 @@
 import sys
-from ts4lib.ts4l_ctypes import *
+from ts4l_ctypes import *
 
 _array_type = type(Array)
 

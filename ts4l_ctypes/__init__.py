@@ -426,6 +426,7 @@ if _os.name == "nt":
         _func_flags_ = _FUNCFLAG_STDCALL
         _func_restype_ = HRESULT
 
+
 class LibraryLoader(object):
     def __init__(self, dlltype):
         self._dlltype = dlltype
@@ -535,7 +536,7 @@ if _os.name == "nt": # COM stuff
             return 0 # S_OK
         return ccom.DllCanUnloadNow()
 
-from ts4lib.ts4l_ctypes._endian import BigEndianStructure, LittleEndianStructure
+from ts4l_ctypes._endian import BigEndianStructure, LittleEndianStructure
 
 # Fill in specifically-sized types
 c_int8 = c_byte

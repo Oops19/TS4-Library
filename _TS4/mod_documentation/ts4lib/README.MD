@@ -12,7 +12,7 @@ The `TS4LibraryPoseInteraction` class supports basic animations and poses.
 ### BasicExtras
 Generates a `basic_extras` tuning to be inserted into an instanced tuning object.
 
-### CommonEnum
+### CustomEnum
 A clone of Python’s `Enum` with support for `@_missing_` to return a default value.  
 Supports various TS4 enums.
 

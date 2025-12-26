@@ -47,7 +47,7 @@ class RunCommands:
         l_command = command.split(' ', 1)[0]
         if l_command in CommandType.execute:
             return self.execute_command(command)
-        elif l_command in CommandType.client_cheat:
+        elif l_command in CommandType.client_cheats:
             return self.client_cheat_command(command)
         else:
             log.debug(f"run_command (execute): '{command}' ...")

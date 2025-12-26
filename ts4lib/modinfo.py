@@ -28,15 +28,20 @@ class ModInfo(CommonModInfo):
 
     @property
     def _version(self) -> str:
-        return '0.3.53'
+        return '1.0.0'
 
 
 r'''
-TODO for v0.4.0
-    TS4L-11 Replace CommonEnums with CustomEnums: All, also in README
-    TS4L-3 Replace CommonEnums with CustomEnums: VanillaBlocks, VanillaObjects, VanillaRegions, VanillaVenues, also in README
 
-    
+v1.0.0
+    Breaking changes: Affected mods: Copy Outfits, Crontab, Go Here, GUIDs, Hotkeys, Hotkey Bindings, IL-Tanning, On Interaction Do, Privacy Protector, Schedule It, Whisk Away, ATU, NW,
+      
+    TS4L-3 Replace CommonEnums with CustomEnums: VanillaBlocks, VanillaObjects, VanillaRegions, VanillaVenues, also in README
+    TS4L-11 Replace CommonEnums with CustomEnums: All, also in README
+    TS4L-13 Fix Error 'int() argument must be a string, a bytes-like object or a number, not 'NoneType'' parsing location for '...'.
+    TS4L-14 Move ctypes folder to mod root
+    TS4L-15 Create a Mac build without ctypes
+
 v0.3.53
     TS4L-7 Fix VanillaNames.get_world_name()
     TS4L-8 Fix VanillaNames.get_neighbourhood_name()
@@ -112,7 +117,7 @@ v0.3.26
 v0.3.25
     Create missing directory before writing PrettyDict
 v0.3.24
-    Added BodyType(CommonEnum).EYELASHES = 37; MASCARA = 37 is now deprecated
+    Added BodyType(CustomEnum).EYELASHES = 37; MASCARA = 37 is now deprecated
 v0.3.23
     Renamed BodyPart to BodyType
 v0.3.22
@@ -183,7 +188,7 @@ v0.2.1
     TuningHelper / BasicExtras:
     * Add disable_gender_check() support to TuningHelper
 v0.2.0
-    Removed support to run `debug.eval()` or `debug.exec()` from scripts.
+    Removed support to run `debug.ev_al()` or `debug.ex_ec()` from scripts.
 v0.1.10
     Fixed broken list / missing comma
 v0.1.9
@@ -233,7 +238,7 @@ v0.0.22
 v0.0.21
     Added OutfitUtilities, generate missing outfit
 v0.0.20
-    Added BodyPart(CommonEnum) (last element BodyType.STRETCHMARKS_BACK = 100) 
+    Added BodyPart(CustomEnum) (last element BodyType.STRETCHMARKS_BACK = 100) 
 v0.0.19
     Update README and compile.sh
 v0.0.18

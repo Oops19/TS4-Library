@@ -5,10 +5,10 @@
 #
 
 
-from ts4lib.common_enums.enum_types.common_enum import CommonEnum
+from ts4lib.custom_enums.enum_types.custom_enum import CustomEnum
 
 
-class UnCommonMessageType(CommonEnum):
+class UnCommonMessageType(CustomEnum):
     INVALID: 'UnCommonMessageType' = 0
     ERROR: 'UnCommonMessageType' = 1
     WARN: 'UnCommonMessageType' = 2

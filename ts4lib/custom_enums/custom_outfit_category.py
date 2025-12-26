@@ -8,17 +8,18 @@ from ts4lib.custom_enums.enum_types.custom_enum import CustomIntEnum
 
 
 class CustomOutfitCategory(CustomIntEnum):
-    CURRENT_OUTFIT = -1
-    EVERYDAY = 0
-    FORMAL = 1
-    ATHLETIC = 2
-    SLEEP = 3
-    PARTY = 4
-    BATHING = 5
-    CAREER = 6
-    SITUATION = 7
-    SPECIAL = 8
-    SWIMWEAR = 9
-    HOTWEATHER = 10
-    COLDWEATHER = 11
-    BATUU = 12
+    CURRENT_OUTFIT: 'CustomOutfitCategory' = -1
+    EVERYDAY: 'CustomOutfitCategory' = 0
+    FORMAL: 'CustomOutfitCategory' = 1
+    ATHLETIC: 'CustomOutfitCategory' = 2
+    SLEEP: 'CustomOutfitCategory' = 3
+    PARTY: 'CustomOutfitCategory' = 4
+    BATHING: 'CustomOutfitCategory' = 5
+    CAREER: 'CustomOutfitCategory' = 6
+    SITUATION: 'CustomOutfitCategory' = 7
+    SPECIAL: 'CustomOutfitCategory' = 8
+    SWIMWEAR: 'CustomOutfitCategory' = 9
+    HOTWEATHER: 'CustomOutfitCategory' = 10
+    COLDWEATHER: 'CustomOutfitCategory' = 11
+    BATUU: 'CustomOutfitCategory' = 12
+    SMALL_BUSINESS: 'CustomOutfitCategory' = 13
