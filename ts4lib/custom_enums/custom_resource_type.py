@@ -193,4 +193,32 @@ class CustomResourceType(CustomIntEnum):
     LOCATOR = 1220708729
     BUILD_LADDER = 3423141965
 
+    VFX = 0xB6C8B6A2
+    # UGC_TUNING_POSE_SNIPPET_V2 = ...  # 2113017500 - PLAIN XML
 
+    IMAGE_PNG_CAS_PART_THUMBNAIL = 0x3C1AF1F2  # 1008398834 Standard JPG, PNG, ... image
+    IMAGE_PNG_CAS_BUILD_THUMBNAIL = 0x3C2A8647
+
+    IMAGE_PNG_2 = 0xA1FF2FC4  # PNG
+    IMAGE_PNG_3 = 0x9C925813  # PNG
+    IMAGE_PNG_4 = 0x5B282D45  # PNG
+    IMAGE_PNG_5 = 0x3C2A8647  # PNG
+    IMAGE_PNG_6 = 0x3BD45407  # HHI
+    IMAGE_PNG_7 = 0x0D338A3A  # PNG
+    IMAGE_PNG_8 = 0x2F7D0004  # 796721156 - Standard JPG, PNG, ... image
+    IMAGE_PNG_9 = 0xCD9DE247  # PNG!
+
+    AVI = 0x376840D7  # 929579223
+    MTBL = 0x81CA1A10
+    LOD = 0x01D10F34
+
+    MISSING_VALUE = 0x00000000
+
+    @classmethod
+    def _missing_(cls, value):
+        return cls.MISSING_VALUE
+
+    @classmethod
+    def get(cls, name: str):
+        r""" Save alternative for CustomResourceType[x] ==> CustomResourceType.get(x) '"""
+        return cls.__members__.get(name, cls.MISSING_VALUE)

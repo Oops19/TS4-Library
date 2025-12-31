@@ -28,11 +28,18 @@ class ModInfo(CommonModInfo):
 
     @property
     def _version(self) -> str:
-        return '1.0.0'
+        return '1.0.1'
 
 
 r'''
 
+v1.0.1
+    Breaking changes: Affected mods: Copy Outfits, Crontab, Go Here, GUIDs, Hotkeys, Hotkey Bindings, IL-Tanning, On Interaction Do, Privacy Protector, Schedule It, Whisk Away, ATU, NW,
+
+    Add more identifiers to CustomResourceType (content: STBL = 0x2205_57DA, ...)
+    Add PackageResourceTypes (content:  STBLS = {CustomResourceType.STBL.value, }, ...)
+    Add PackageResourceFileType (content:  0x220557DA: "stbl",, ...)
+    Add FilenameHelper() to parse 'TS4_1234678_8000000_12347890ABCDEF.filename.stbl' or '1234678_8000000_12347890ABCDEF' into TGI.
 v1.0.0
     Breaking changes: Affected mods: Copy Outfits, Crontab, Go Here, GUIDs, Hotkeys, Hotkey Bindings, IL-Tanning, On Interaction Do, Privacy Protector, Schedule It, Whisk Away, ATU, NW,
       
