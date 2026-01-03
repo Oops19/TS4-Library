@@ -32,17 +32,14 @@ class ModInfo(CommonModInfo):
 
 
 r'''
-
 v1.0.1
     Breaking changes: Affected mods: Copy Outfits, Crontab, Go Here, GUIDs, Hotkeys, Hotkey Bindings, IL-Tanning, On Interaction Do, Privacy Protector, Schedule It, Whisk Away, ATU, NW,
 
-    Add more identifiers to CustomResourceType (content: STBL = 0x2205_57DA, ...)
-    Add PackageResourceTypes (content:  STBLS = {CustomResourceType.STBL.value, }, ...)
-    Add PackageResourceFileType (content:  0x220557DA: "stbl",, ...)
-    Add FilenameHelper() to parse 'TS4_1234678_8000000_12347890ABCDEF.filename.stbl' or '1234678_8000000_12347890ABCDEF' into TGI.
+    TS4L-16 Add more identifiers to CustomResourceType (content: STBL = 0x2205_57DA, ...)
+    TS4L-17 Add PackageResourceTypes (content:  STBLS = {CustomResourceType.STBL.value, }, ...)
+    TS4L-18 Add PackageResourceFileType (content:  0x220557DA: "stbl",, ...)
+    TS4L-19 Add FilenameHelper() to parse 'TS4_1234678_8000000_12347890ABCDEF.filename.stbl' or '1234678_8000000_12347890ABCDEF' into TGI.
 v1.0.0
-    Breaking changes: Affected mods: Copy Outfits, Crontab, Go Here, GUIDs, Hotkeys, Hotkey Bindings, IL-Tanning, On Interaction Do, Privacy Protector, Schedule It, Whisk Away, ATU, NW,
-      
     TS4L-3 Replace CommonEnums with CustomEnums: VanillaBlocks, VanillaObjects, VanillaRegions, VanillaVenues, also in README
     TS4L-11 Replace CommonEnums with CustomEnums: All, also in README
     TS4L-13 Fix Error 'int() argument must be a string, a bytes-like object or a number, not 'NoneType'' parsing location for '...'.

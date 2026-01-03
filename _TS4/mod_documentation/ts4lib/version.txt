@@ -1,12 +1,10 @@
-TS4-Library v1.0.0 for The Sims 4 v1.120.117 and S4CL v3.17
-Created on 2025-12-26
-v1.0.0
+TS4-Library v1.0.1 for The Sims 4 v1.120.117 and S4CL v3.17
+Created on 2025-12-31
+v1.0.1
     Breaking changes: Affected mods: Copy Outfits, Crontab, Go Here, GUIDs, Hotkeys, Hotkey Bindings, IL-Tanning, On Interaction Do, Privacy Protector, Schedule It, Whisk Away, ATU, NW,
-      
-    TS4L-3 Replace CommonEnums with CustomEnums: VanillaBlocks, VanillaObjects, VanillaRegions, VanillaVenues, also in README
-    TS4L-11 Replace CommonEnums with CustomEnums: All, also in README
-    TS4L-13 Fix Error 'int() argument must be a string, a bytes-like object or a number, not 'NoneType'' parsing location for '...'.
-    TS4L-14 Move ctypes folder to mod root
-    TS4L-15 Create a Mac build without ctypes
 
+    Add more identifiers to CustomResourceType (content: STBL = 0x2205_57DA, ...)
+    Add PackageResourceTypes (content:  STBLS = {CustomResourceType.STBL.value, }, ...)
+    Add PackageResourceFileType (content:  0x220557DA: "stbl",, ...)
+    Add FilenameHelper() to parse 'TS4_1234678_8000000_12347890ABCDEF.filename.stbl' or '1234678_8000000_12347890ABCDEF' into TGI.
 
