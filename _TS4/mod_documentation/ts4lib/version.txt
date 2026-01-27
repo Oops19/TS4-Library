@@ -1,10 +1,11 @@
-TS4-Library v1.0.1 for The Sims 4 v1.120.117 and S4CL v3.17
-Created on 2025-12-31
-v1.0.1
-    Breaking changes: Affected mods: Copy Outfits, Crontab, Go Here, GUIDs, Hotkeys, Hotkey Bindings, IL-Tanning, On Interaction Do, Privacy Protector, Schedule It, Whisk Away, ATU, NW,
-
-    Add more identifiers to CustomResourceType (content: STBL = 0x2205_57DA, ...)
-    Add PackageResourceTypes (content:  STBLS = {CustomResourceType.STBL.value, }, ...)
-    Add PackageResourceFileType (content:  0x220557DA: "stbl",, ...)
-    Add FilenameHelper() to parse 'TS4_1234678_8000000_12347890ABCDEF.filename.stbl' or '1234678_8000000_12347890ABCDEF' into TGI.
+TS4-Library v1.0.2 for The Sims 4 v1.120.140 and S4CL v3.17
+Created on 2026-01-15
+v1.0.2
+    Breaking changes (v0.3 -> v1.0): Affected mods: Copy Outfits, Crontab, Go Here, GUIDs, Hotkeys, Hotkey Bindings, IL-Tanning, On Interaction Do, Privacy Protector, Schedule It, Whisk Away, ATU, NW,
+    
+    TS4-20 Add support for sculpts and sliders
+        New Sculpt.MAP with 1000 sculpt names, add SimModifier.MAP with 2000 modifier names
+        New ManageSliders() with update_sculpt(), slide_to() and get_sliders()
+        New cheats: 'o19.ts4l.sliders.dump', 'o19.ts4l.sculpt.set', 'o19.ts4l.slider.set'
+    TSL-6 Remove VanillaBlocks, VanillaObjects, VanillaRegions, also from README
 

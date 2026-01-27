@@ -28,13 +28,25 @@ class ModInfo(CommonModInfo):
 
     @property
     def _version(self) -> str:
-        return '1.0.1'
+        return '1.0.2'
 
 
 r'''
+v1.0.3
+    Breaking changes (v0.3 -> v1.0): Affected mods: Copy Outfits, Crontab, Go Here, GUIDs, Hotkeys, Hotkey Bindings, IL-Tanning, On Interaction Do, Schedule It, Whisk Away, ATU, NW,
+    
+    TSL-21 Add a simple frozendict implementation.
+    TSL-22 Add CustomGamePack mapping.
+    TLS-23 Add WorldsAndNeighbourhoods.get_pack_world_and_neighbourhood()
+v1.0.2
+    Breaking changes (v0.3 -> v1.0): Affected mods: Copy Outfits, Crontab, Go Here, GUIDs, Hotkeys, Hotkey Bindings, IL-Tanning, On Interaction Do, Schedule It, Whisk Away, ATU, NW,
+    
+    TS4-20 Add support for sculpts and sliders
+        New Sculpt.MAP with 1000 sculpt names, add SimModifier.MAP with 2000 modifier names
+        New ManageSliders() with update_sculpt(), slide_to() and get_sliders()
+        New cheats: 'o19.ts4l.sliders.dump', 'o19.ts4l.sculpt.set', 'o19.ts4l.slider.set'
+    TSL-6 Remove VanillaBlocks, VanillaObjects, VanillaRegions, also from README
 v1.0.1
-    Breaking changes: Affected mods: Copy Outfits, Crontab, Go Here, GUIDs, Hotkeys, Hotkey Bindings, IL-Tanning, On Interaction Do, Privacy Protector, Schedule It, Whisk Away, ATU, NW,
-
     TS4L-16 Add more identifiers to CustomResourceType (content: STBL = 0x2205_57DA, ...)
     TS4L-17 Add PackageResourceTypes (content:  STBLS = {CustomResourceType.STBL.value, }, ...)
     TS4L-18 Add PackageResourceFileType (content:  0x220557DA: "stbl",, ...)
@@ -45,7 +57,7 @@ v1.0.0
     TS4L-13 Fix Error 'int() argument must be a string, a bytes-like object or a number, not 'NoneType'' parsing location for '...'.
     TS4L-14 Move ctypes folder to mod root
     TS4L-15 Create a Mac build without ctypes
-
+    
 v0.3.53
     TS4L-7 Fix VanillaNames.get_world_name()
     TS4L-8 Fix VanillaNames.get_neighbourhood_name()
