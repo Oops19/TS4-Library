@@ -38,6 +38,7 @@ v1.0.3
     TSL-21 Add a simple frozendict implementation.
     TSL-22 Add CustomGamePack mapping.
     TLS-23 Add WorldsAndNeighbourhoods.get_pack_world_and_neighbourhood()
+    TSL-24 Add CustomGamePack.EP21_ROYALTY_AND_LEGACY
 v1.0.2
     Breaking changes (v0.3 -> v1.0): Affected mods: Copy Outfits, Crontab, Go Here, GUIDs, Hotkeys, Hotkey Bindings, IL-Tanning, On Interaction Do, Schedule It, Whisk Away, ATU, NW,
     

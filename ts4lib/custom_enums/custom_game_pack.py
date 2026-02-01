@@ -36,6 +36,7 @@ class CustomGamePack(CustomEnum):
         EP18_BUSINESS_AND_HOBBIES: 'CustomGamePack' = _common_types.EP18  # 2025-03-06
         EP19_ENCHANTED_BY_NATURE: 'CustomGamePack' = _common_types.EP19  # 2025-07-10 ---
         EP20_ADVENTURE_AWAITS: 'CustomGamePack' = _common_types.EP20   # 2025-10-02 ---
+        EP21_ROYALTY_AND_LEGACY: 'CustomGamePack' = _common_types.EP21   # 2026-02-12 ---
 
         GP01_OUTDOOR_RETREAT: 'CustomGamePack' = _common_types.GP01
         GP02_SPA_DAY: 'CustomGamePack' = _common_types.GP02
