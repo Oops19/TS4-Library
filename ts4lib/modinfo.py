@@ -28,25 +28,44 @@ class ModInfo(CommonModInfo):
 
     @property
     def _version(self) -> str:
-        return '1.0.2'
+        return '1.0.5'
 
 
 r'''
+v1.0.6 TODO
+    Breaking changes (v0.3 -> v1.0): Affected mods: Copy Outfits, Crontab, Go Here, GUIDs, Hotkeys, Hotkey Bindings, IL-Tanning, On Interaction Do, Schedule It, Whisk Away, ATU, NW,
+    
+    TS4L-25 Add CustomGamePack.SP76_SILVER_SCREEN_STYLE & SP77_TEA_TIME_SOLARIUM
+    TS4L-26 Add CustomService to handle game service events
+    TS4L-27 Add CustomGamePack.SP75_WONDERLAND_PLAYROOM & SP82_YARD_CHARM
+    TS4L-28 Add info when to use hash24, hash32 and hash64 to FNV()
+    TS4L-29 Add new Region and Worlds: Ondarion: Verdemar, Bellacorde, Dambele
+    TS4L-30 Add slider enums SimRegion and SimSubRegion
+v1.0.5
+    Breaking changes (v0.3 -> v1.0): Affected mods: Copy Outfits, Crontab, Go Here, GUIDs, Hotkeys, Hotkey Bindings, IL-Tanning, On Interaction Do, Schedule It, Whisk Away, ATU, NW,
+
+    TS4L-26 Add ArgumentUpdater and InspectionUtility to support Python injections.
+    TS4L-27 Prepare CustomGamePack for the upcoming packs EP22, GP13 and SP82
+    (TS4L-20) fix CustomSlider name
+v1.0.4
+    Breaking changes (v0.3 -> v1.0): Affected mods: Copy Outfits, Crontab, Go Here, GUIDs, Hotkeys, Hotkey Bindings, IL-Tanning, On Interaction Do, Schedule It, Whisk Away, ATU, NW,
+
+    TS4L-25 Rename 'venues, regions, objects' to 'venue, region, object' f(TS4 v1.121)
 v1.0.3
     Breaking changes (v0.3 -> v1.0): Affected mods: Copy Outfits, Crontab, Go Here, GUIDs, Hotkeys, Hotkey Bindings, IL-Tanning, On Interaction Do, Schedule It, Whisk Away, ATU, NW,
     
-    TSL-21 Add a simple frozendict implementation.
-    TSL-22 Add CustomGamePack mapping.
-    TLS-23 Add WorldsAndNeighbourhoods.get_pack_world_and_neighbourhood()
-    TSL-24 Add CustomGamePack.EP21_ROYALTY_AND_LEGACY
+    TS4L-21 Add a simple frozendict implementation.
+    TS4L-22 Add CustomGamePack mapping.
+    TS4L-23 Add WorldsAndNeighbourhoods.get_pack_world_and_neighbourhood()
+    TS4L-24 Add CustomGamePack.EP21_ROYALTY_AND_LEGACY
 v1.0.2
     Breaking changes (v0.3 -> v1.0): Affected mods: Copy Outfits, Crontab, Go Here, GUIDs, Hotkeys, Hotkey Bindings, IL-Tanning, On Interaction Do, Schedule It, Whisk Away, ATU, NW,
     
-    TS4-20 Add support for sculpts and sliders
+    TS4L-20 Add support for sculpts and sliders
         New Sculpt.MAP with 1000 sculpt names, add SimModifier.MAP with 2000 modifier names
         New ManageSliders() with update_sculpt(), slide_to() and get_sliders()
         New cheats: 'o19.ts4l.sliders.dump', 'o19.ts4l.sculpt.set', 'o19.ts4l.slider.set'
-    TSL-6 Remove VanillaBlocks, VanillaObjects, VanillaRegions, also from README
+    TS4L-6 Remove VanillaBlocks, VanillaObjects, VanillaRegions, also from README
 v1.0.1
     TS4L-16 Add more identifiers to CustomResourceType (content: STBL = 0x2205_57DA, ...)
     TS4L-17 Add PackageResourceTypes (content:  STBLS = {CustomResourceType.STBL.value, }, ...)

@@ -18,7 +18,7 @@ class VanillaVenues(metaclass=Singleton):
     _data_rev: Dict[str, int] = {}
 
     def __init__(self):
-        self._manager = 'venues'
+        self._manager = 'venue'
         self.init()
 
     def init(self):

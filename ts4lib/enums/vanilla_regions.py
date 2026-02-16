@@ -18,7 +18,7 @@ class VanillaRegions(metaclass=Singleton):
     _data_rev: Dict[str, int] = {}
 
     def __init__(self):
-        self._manager = 'regions'
+        self._manager = 'region'
         self.init()
 
     def init(self):

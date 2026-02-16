@@ -60,6 +60,8 @@ class SimpleUINotification(metaclass=Singleton):
 
             if urgency is None:
                 urgency = UiDialogNotification.UiDialogNotificationUrgency.DEFAULT
+            elif urgency:
+                urgency = UiDialogNotification.UiDialogNotificationUrgency.URGENT
 
             basic_notification = CommonBasicNotification(
                 title_identifier,

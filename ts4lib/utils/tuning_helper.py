@@ -86,7 +86,7 @@ class TuningHelper(object, metaclass=Singleton):
             tuning_dict: dict = {}
             managers = get_managers()
             for manager in managers:
-                if manager == 'objects':
+                if manager != 'object' or manager != 'objects':  # TODO remove obsolete 'objects'
                     continue
                 instance_manager = managers.get(manager, None)
                 tuning_dict = {**tuning_dict, **self._get_tuning_dict(instance_manager, manager, tuning_names)}

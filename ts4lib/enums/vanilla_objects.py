@@ -18,7 +18,7 @@ class VanillaObjects(metaclass=Singleton):
     _data_rev: Dict[str, int] = {}
 
     def __init__(self):
-        self._manager = 'objects'
+        self._manager = 'object'
         self.init()
 
     def init(self):

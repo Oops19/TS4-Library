@@ -132,8 +132,12 @@ class WorldsAndNeighbourhoods(object, metaclass=Singleton):
         0xA5D4ECB3: (CustomGamePack.EP20_ADVENTURE_AWAITS, 'Gibbi Point', 'Wanderwood Wilds'),  # Adventure Awaits  # 0x6E0490E2
         0x44B02139: (CustomGamePack.EP20_ADVENTURE_AWAITS, 'Gibbi Point', 'Jellyfish Junction'),  # Adventure Awaits
         0x6B94000A: (CustomGamePack.EP20_ADVENTURE_AWAITS, 'Gibbi Point', 'Crystal Valley'),  # Adventure Awaits
+        # EP21 'World Description': WorldName + Name --> fnv32(Name); WorldName=stbl(WorldNameKey)
+        # 'Region Description': stbl(RegionNameKey) -> Ondarion
+        0x76747004: (CustomGamePack.EP21_ROYALTY_AND_LEGACY, 'Ondarion', 'Verdemar'),  # EP21_Coast_01 76747004
+        0xA0C42899: (CustomGamePack.EP21_ROYALTY_AND_LEGACY, 'Ondarion', 'Bellacorde'),  # EP21_Lake_01 A0C42899
+        0x129AABE4: (CustomGamePack.EP21_ROYALTY_AND_LEGACY, 'Ondarion', 'Dambele'),  # EP21_Arid_01 129AABE4
     }
-    
 
     def __init__(self):
         self.clu = CommonLocationUtils()

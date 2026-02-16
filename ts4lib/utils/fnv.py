@@ -26,6 +26,21 @@ class FNV(metaclass=Singleton):
     Only FNV24, FNV32, FNV56 and FNV64 are supported.
 
     It can be initialed exactly one time and should be used with FNV().command
+
+    * hash24()
+        * String Table Values
+    * hash64()
+        * Buff Tunings
+    * hash64(high_bit=False)
+        * Object Catalog & Definition
+    * hash32()
+        * Relationship Bits
+        * Sim Profile
+        * These trait types:
+            * PERSONALITY, LIFESTYLE, LIKE, DISLIKE
+        * Other GUI related tunings (except of buffs)
+    * hash64()
+        * Everything else
     """
     _fnv_primes: Dict[int, int] = {}
     _fnv_hashes: Dict[int, int] = {}
@@ -62,7 +77,7 @@ class FNV(metaclass=Singleton):
 
     def hash24(self, text: str, high_bit: bool = None) -> int:
         """
-        Calculate and return the FNV32 hash. If available `sims4.hash_util.hash32(text)` is used, otherwise `@get(text, 32)`
+        Calculate and return the TS4 FNV32 hash. If available `sims4.hash_util.hash32(text)` is used, otherwise `@get(text, 32)`
         :param text: The string to get the FNV value for.
         :param high_bit: Set the high_bit to 0 (False), to 1 (True), or don't touch it (default None)
         :return: fnv value
@@ -71,7 +86,7 @@ class FNV(metaclass=Singleton):
 
     def hash32(self, text: str, high_bit: bool = None) -> int:
         """
-        Calculate and return the FNV32 hash. If available `sims4.hash_util.hash32(text)` is used, otherwise `@get(text, 32)`
+        Calculate and return the TS4 FNV32 hash. If available `sims4.hash_util.hash32(text)` is used, otherwise `@get(text, 32)`
         :param text: The string to get the FNV value for.
         :param high_bit: Set the high_bit to 0 (False), to 1 (True), or don't touch it (default None)
         :return: fnv value
@@ -80,7 +95,7 @@ class FNV(metaclass=Singleton):
 
     def hash56(self, text: str) -> int:
         """
-        Calculate and return the FNV56 hash for an English STBL (0x00xx_xxx_xxxx_xxxx)
+        Calculate and return the TS4 FNV56 hash for an English STBL (0x00xx_xxx_xxxx_xxxx)
         :param text: The string to get the FNV value for.
         :return: fnv value
         """
@@ -88,7 +103,7 @@ class FNV(metaclass=Singleton):
 
     def hash64(self, text: str, high_bit: bool = None) -> int:
         """
-        Calculate and return the FNV64 hash. If available `sims4.hash_util.hash64(text)` is used, otherwise `@get(text, 64)`
+        Calculate and return the TS4 FNV64 hash. If available `sims4.hash_util.hash64(text)` is used, otherwise `@get(text, 64)`
         :param text: The string to get the FNV value for.
         :param high_bit: Set the high_bit to 0 (False), to 1 (True), or don't touch it (default None)
         :return: fnv value
