@@ -28,19 +28,19 @@ class ModInfo(CommonModInfo):
 
     @property
     def _version(self) -> str:
-        return '1.0.5'
+        return '1.0.6'
 
 
 r'''
 v1.0.6 TODO
     Breaking changes (v0.3 -> v1.0): Affected mods: Copy Outfits, Crontab, Go Here, GUIDs, Hotkeys, Hotkey Bindings, IL-Tanning, On Interaction Do, Schedule It, Whisk Away, ATU, NW,
     
-    TS4L-25 Add CustomGamePack.SP76_SILVER_SCREEN_STYLE & SP77_TEA_TIME_SOLARIUM
-    TS4L-26 Add CustomService to handle game service events
-    TS4L-27 Add CustomGamePack.SP75_WONDERLAND_PLAYROOM & SP82_YARD_CHARM
-    TS4L-28 Add info when to use hash24, hash32 and hash64 to FNV()
-    TS4L-29 Add new Region and Worlds: Ondarion: Verdemar, Bellacorde, Dambele
-    TS4L-30 Add slider enums SimRegion and SimSubRegion
+    TS4L-28 Add CustomGamePack.SP76_SILVER_SCREEN_STYLE & SP77_TEA_TIME_SOLARIUM
+    TS4L-29 Add CustomService to handle game service events
+    TS4L-30 Add CustomGamePack.SP75_WONDERLAND_PLAYROOM & SP82_YARD_CHARM
+    TS4L-31 Add info when to use hash24, hash32 and hash64 to FNV()
+    TS4L-32 Add new Region and Worlds: Ondarion: Verdemar, Bellacorde, Dambele
+    TS4L-33 Add slider enums SimRegion and SimSubRegion
 v1.0.5
     Breaking changes (v0.3 -> v1.0): Affected mods: Copy Outfits, Crontab, Go Here, GUIDs, Hotkeys, Hotkey Bindings, IL-Tanning, On Interaction Do, Schedule It, Whisk Away, ATU, NW,
 
