@@ -32,7 +32,7 @@ class ModInfo(CommonModInfo):
 
 
 r'''
-v1.0.6 TODO
+v1.0.6
     Breaking changes (v0.3 -> v1.0): Affected mods: Copy Outfits, Crontab, Go Here, GUIDs, Hotkeys, Hotkey Bindings, IL-Tanning, On Interaction Do, Schedule It, Whisk Away, ATU, NW,
     
     TS4L-28 Add CustomGamePack.SP76_SILVER_SCREEN_STYLE & SP77_TEA_TIME_SOLARIUM
