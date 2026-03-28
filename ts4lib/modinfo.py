@@ -28,10 +28,15 @@ class ModInfo(CommonModInfo):
 
     @property
     def _version(self) -> str:
-        return '1.0.6'
+        return '1.0.7'
 
 
 r'''
+v1.0.7
+    TS4L-34 Add CustomOutfitIndex (for ModifySimRay)
+
+    Breaking changes when updating from v0.3.x to v1.x affect these mods: Copy Outfits, Crontab, Go Here, GUIDs, Hotkeys, Hotkey Bindings, IL-Tanning, On Interaction Do, Schedule It, Whisk Away, ATU, NW,
+    These mods must be updated if installed.
 v1.0.6
     Breaking changes (v0.3 -> v1.0): Affected mods: Copy Outfits, Crontab, Go Here, GUIDs, Hotkeys, Hotkey Bindings, IL-Tanning, On Interaction Do, Schedule It, Whisk Away, ATU, NW,
     

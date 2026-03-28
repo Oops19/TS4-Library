@@ -108,8 +108,11 @@ class CustomGamePack(CustomEnum):
         SP70_SPONGEBOB_KIDS_ROOM: 'CustomGamePack' = _common_types.SP70  # 2025-12-04
         SP71_GRANGE_MUDROOM: 'CustomGamePack' = _common_types.SP71  # 2025-08-21
         SP81_PRAIRIE_DREAMS: 'CustomGamePack' = _common_types.SP81  # 122 2025-12-11
-        SP82_YARD_CHARM: 'CustomGamePack' = _common_types.SP82  # 123 2026-02-26 **tbr**
-        SP83: 'CustomGamePack' = _common_types.SP82  # 124 2026-tbd
+        SP82_YARD_CHARM: 'CustomGamePack' = _common_types.SP82  # 123 2026-02-26
+        SP83: 'CustomGamePack' = _common_types.SP83  # 124 2026-tbd
+        SP84: 'CustomGamePack' = _common_types.SP84  # 125 2026-tbd
+        SP85: 'CustomGamePack' = _common_types.SP85  # 126 2026-tbd
+        SP86: 'CustomGamePack' = _common_types.SP8  # 127 2026-tbd
         # ... SP99 = 140; SP100 = 1256 ... SP124 = 1280
 
         # Create a Sim Kits
@@ -134,7 +137,7 @@ class CustomGamePack(CustomEnum):
         SP72_ESSENTIAL_GLAM: 'CustomGamePack' = _common_types.SP72
         SP73_MODERN_RETREAT: 'CustomGamePack' = _common_types.SP73  # 2025-11-13
         SP74_GARDEN_TO_TABLE: 'CustomGamePack' = _common_types.SP74  # 2025-11-13
-        SP75_WONDERLAND_PLAYROOM: 'CustomGamePack' = _common_types.SP75  # 116 2026-02-26 **tbr**
+        SP75_WONDERLAND_PLAYROOM: 'CustomGamePack' = _common_types.SP75  # 116 2026-02-26
         SP76_SILVER_SCREEN_STYLE: 'CustomGamePack' = _common_types.SP76  # 117 2026-02-12
         SP77_TEA_TIME_SOLARIUM: 'CustomGamePack' = _common_types.SP77  # 118 2026-02-12
         SP78: 'CustomGamePack' = _common_types.SP78  # 119 2026-tbd

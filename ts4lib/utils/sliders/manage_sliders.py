@@ -4,7 +4,7 @@
 #
 
 
-from typing import Any, Dict, Union, List
+from typing import Any, Dict, Union, List, Tuple
 
 from ts4lib.custom_enums.custom_slider import CustomSlider
 from ts4lib.modinfo import ModInfo
@@ -175,7 +175,7 @@ class ManageSliders:
         return modifiers
 
     def get_sliders(self, sim_info: SimInfo) -> Dict[CustomSlider, Dict]:
-        slider_info: Dict[CustomSlider, Dict] = {}
+        slider_info: Dict[CustomSlider, Dict[int, Tuple[Union[float, None], Tuple[Union[float, None]]]]] = {}
 
         facial_attributes = getattr(sim_info, 'facial_attributes', None)
         if facial_attributes is None:
