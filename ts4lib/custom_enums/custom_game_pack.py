@@ -38,7 +38,7 @@ class CustomGamePack(CustomEnum):
         EP19_ENCHANTED_BY_NATURE: 'CustomGamePack' = _common_types.EP19  # 60 2025-07-10 ---
         EP20_ADVENTURE_AWAITS: 'CustomGamePack' = _common_types.EP20   # 61 2025-10-02 ---
         EP21_ROYALTY_AND_LEGACY: 'CustomGamePack' = _common_types.EP21   # 141 2026-02-12 ---
-        EP22: 'CustomGamePack' = _common_types.EP22  # 142 2026-tbd
+        # EP22: 'CustomGamePack' = _common_types.EP22  # 142 2026-tbd
         # ... EP29 = 149; EP30 = 256 ... EP49 = 275
 
         GP01_OUTDOOR_RETREAT: 'CustomGamePack' = _common_types.GP01  # 2
@@ -53,7 +53,7 @@ class CustomGamePack(CustomEnum):
         GP10_DREAM_HOME_DECORATOR: 'CustomGamePack' = _common_types.GP10  # 23
         GP11_MY_WEDDING_STORIES: 'CustomGamePack' = _common_types.GP11  # 62
         GP12_WEREWOLVES: 'CustomGamePack' = _common_types.GP12  # 63
-        GP13: 'CustomGamePack' = _common_types.GP13  # 64 2026-tbd
+        # GP13: 'CustomGamePack' = _common_types.GP13  # 64 2026-tbd
         # ... GP20 = 71; GP21 = 756 ... GP40 = 775
 
         SP01_LUXURY_PARTY: 'CustomGamePack' = _common_types.SP01  # 1
@@ -107,42 +107,42 @@ class CustomGamePack(CustomEnum):
         SP68_SPONGEBOB_HOUSE: 'CustomGamePack' = _common_types.SP68  # 2025-12-04
         SP70_SPONGEBOB_KIDS_ROOM: 'CustomGamePack' = _common_types.SP70  # 2025-12-04
         SP71_GRANGE_MUDROOM: 'CustomGamePack' = _common_types.SP71  # 2025-08-21
-        SP81_PRAIRIE_DREAMS: 'CustomGamePack' = _common_types.SP81  # 122 2025-12-11
-        SP82_YARD_CHARM: 'CustomGamePack' = _common_types.SP82  # 123 2026-02-26
-        SP83: 'CustomGamePack' = _common_types.SP83  # 124 2026-tbd
-        SP84: 'CustomGamePack' = _common_types.SP84  # 125 2026-tbd
-        SP85: 'CustomGamePack' = _common_types.SP85  # 126 2026-tbd
-        SP86: 'CustomGamePack' = _common_types.SP8  # 127 2026-tbd
-        # ... SP99 = 140; SP100 = 1256 ... SP124 = 1280
-
-        # Create a Sim Kits
-        SP20_THROWBACK_FIT: 'CustomGamePack' = _common_types.SP20
-        SP24_FASHION_STREET: 'CustomGamePack' = _common_types.SP24
-        SP26_INCHEON_ARRIVALS: 'CustomGamePack' = _common_types.SP26
-        SP28_MODERN_MENSWEAR: 'CustomGamePack' = _common_types.SP28
-        SP30_CARNAVAL_STREETWEAR: 'CustomGamePack' = _common_types.SP30  # Spanish name (EA)
-        SP30_CARNIVAL_STREETWEAR: 'CustomGamePack' = _common_types.SP30  # English name (fix)
-        SP32_MOONLIGHT_CHIC: 'CustomGamePack' = _common_types.SP32
-        SP34_FIRST_FITS: 'CustomGamePack' = _common_types.SP34
-        SP38_SIMTIMATES_COLLECTION: 'CustomGamePack' = _common_types.SP38
-        SP42_GRUNGE_REVIVAL: 'CustomGamePack' = _common_types.SP42
-        SP44_POOLSIDE_SPLASH: 'CustomGamePack' = _common_types.SP44
-        SP48_GOTH_GALORE: 'CustomGamePack' = _common_types.SP48
-        SP50_URBAN_HOMAGE: 'CustomGamePack' = _common_types.SP50
-        SP56_SWEET_SLUMBER_PARTY: 'CustomGamePack' = _common_types.SP56
-        SP62_BUSINESS_CHIC: 'CustomGamePack' = _common_types.SP62
-        SP64_SWEET_ALLURE: 'CustomGamePack' = _common_types.SP64
-        SP66_GOLDEN_YEARS: 'CustomGamePack' = _common_types.SP66
-        SP69_AUTUMN_APPAREL: 'CustomGamePack' = _common_types.SP69
-        SP72_ESSENTIAL_GLAM: 'CustomGamePack' = _common_types.SP72
         SP73_MODERN_RETREAT: 'CustomGamePack' = _common_types.SP73  # 2025-11-13
         SP74_GARDEN_TO_TABLE: 'CustomGamePack' = _common_types.SP74  # 2025-11-13
         SP75_WONDERLAND_PLAYROOM: 'CustomGamePack' = _common_types.SP75  # 116 2026-02-26
-        SP76_SILVER_SCREEN_STYLE: 'CustomGamePack' = _common_types.SP76  # 117 2026-02-12
         SP77_TEA_TIME_SOLARIUM: 'CustomGamePack' = _common_types.SP77  # 118 2026-02-12
-        SP78: 'CustomGamePack' = _common_types.SP78  # 119 2026-tbd
-        SP79: 'CustomGamePack' = _common_types.SP79  # 120 2026-tbd
-        SP80: 'CustomGamePack' = _common_types.SP80  # 121 2026-tbd
+        SP82_YARD_CHARM: 'CustomGamePack' = _common_types.SP82  # 123 2026-02-26
+        # SP83: 'CustomGamePack' = _common_types.SP83  # 124 2026-tbd
+        # SP84: 'CustomGamePack' = _common_types.SP84  # 125 2026-tbd
+        # SP85: 'CustomGamePack' = _common_types.SP85  # 126 2026-tbd
+        # SP86: 'CustomGamePack' = _common_types.SP8  # 127 2026-tbd
+        # ... SP99 = 140; SP100 = 1256 ... SP124 = 1280
+
+        # Create a Sim Kits
+        SP20_THROWBACK_FIT: 'CustomGamePack' = _common_types.SP20  # 41
+        SP24_FASHION_STREET: 'CustomGamePack' = _common_types.SP24  # 45
+        SP26_INCHEON_ARRIVALS: 'CustomGamePack' = _common_types.SP26  # 47
+        SP28_MODERN_MENSWEAR: 'CustomGamePack' = _common_types.SP28  # 49
+        SP30_CARNAVAL_STREETWEAR: 'CustomGamePack' = _common_types.SP30  # 51 Spanish name (EA)
+        SP30_CARNIVAL_STREETWEAR: 'CustomGamePack' = _common_types.SP30  # English name (fix)
+        SP32_MOONLIGHT_CHIC: 'CustomGamePack' = _common_types.SP32  # 73
+        SP34_FIRST_FITS: 'CustomGamePack' = _common_types.SP34  # 75
+        SP38_SIMTIMATES_COLLECTION: 'CustomGamePack' = _common_types.SP38  # 79
+        SP42_GRUNGE_REVIVAL: 'CustomGamePack' = _common_types.SP42  # 83
+        SP44_POOLSIDE_SPLASH: 'CustomGamePack' = _common_types.SP44  #  85
+        SP48_GOTH_GALORE: 'CustomGamePack' = _common_types.SP48  # 89
+        SP50_URBAN_HOMAGE: 'CustomGamePack' = _common_types.SP50  # 91
+        SP56_SWEET_SLUMBER_PARTY: 'CustomGamePack' = _common_types.SP56  # 97
+        SP62_BUSINESS_CHIC: 'CustomGamePack' = _common_types.SP62  # 103
+        SP64_SWEET_ALLURE: 'CustomGamePack' = _common_types.SP64  # 105
+        SP66_GOLDEN_YEARS: 'CustomGamePack' = _common_types.SP66  # 107
+        SP69_AUTUMN_APPAREL: 'CustomGamePack' = _common_types.SP69  # 110
+        SP72_ESSENTIAL_GLAM: 'CustomGamePack' = _common_types.SP72  # 113
+        SP81_PRAIRIE_DREAMS: 'CustomGamePack' = _common_types.SP81  # 122 2025-12-11
+        SP76_SILVER_SCREEN_STYLE: 'CustomGamePack' = _common_types.SP76  # 117 2026-02-12
+        # SP78: 'CustomGamePack' = _common_types.SP78  # 119 2026-tbd
+        # SP79: 'CustomGamePack' = _common_types.SP79  # 120 2026-tbd
+        # SP80: 'CustomGamePack' = _common_types.SP80  # 121 2026-tbd
 
         # Other Kits
         SP22_BUST_THE_DUST: 'CustomGamePack' = _common_types.SP22  # 43 2021-02-03 ***
@@ -153,3 +153,5 @@ class CustomGamePack(CustomEnum):
 
     except:
         pass
+
+    # To disable packs edit 'UserSetting.ini' and add there 'packstoskipmount = 1, 2, 3' etc.
