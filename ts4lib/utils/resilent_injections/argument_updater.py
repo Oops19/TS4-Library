@@ -4,7 +4,7 @@
 #
 
 
-from typing import Tuple, Callable, Any, Dict
+from typing import Tuple, Callable, Any, Dict, Union, List
 
 r"""
 from ts4lib.modinfo import ModInfo
@@ -102,3 +102,21 @@ class ArgumentsUpdater:
         elif add_missing_as_kwarg:
             kwargs[kwarg_key] = callback('', None)
         return args, kwargs
+
+    @staticmethod
+    def get_args(items: List[int], args) -> Union[None, List[Any]]:
+        """
+        Returns a list of 1-n items if possible or None
+        :param items: 'args' Index of the items to return, in this order
+        :param args: The 'args'
+        :return:None if there are not enough 'args', else a list with the values of the args.
+        """
+        low = min(items)
+        high = max(items)
+        if low >= 0 and high <= len(args):
+            rv: List[Any] = []
+            for i in items:
+                rv.append(args[i])
+            return rv
+        return None
+

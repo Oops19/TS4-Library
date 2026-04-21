@@ -28,18 +28,19 @@ class ModInfo(CommonModInfo):
 
     @property
     def _version(self) -> str:
-        return '1.0.7'
+        return '1.0.8'
 
 
 r'''
-v1.0.7
-    TS4L-34 Add CustomOutfitIndex (for ModifySimRay)
-
-    Breaking changes when updating from v0.3.x to v1.x affect these mods: Copy Outfits, Crontab, Go Here, GUIDs, Hotkeys, Hotkey Bindings, IL-Tanning, On Interaction Do, Schedule It, Whisk Away, ATU, NW,
-    These mods must be updated if installed.
-v1.0.6
-    Breaking changes (v0.3 -> v1.0): Affected mods: Copy Outfits, Crontab, Go Here, GUIDs, Hotkeys, Hotkey Bindings, IL-Tanning, On Interaction Do, Schedule It, Whisk Away, ATU, NW,
+v1.0.8
+    * Breaking changes when updating from v0.3.x (released in 2025) to v1.x (released in 2025) affect these mods: Copy Outfits, Crontab, Go Here, GUIDs, Hotkeys, Hotkey Bindings, IL-Tanning, On Interaction Do, Schedule It, Whisk Away, ATU, NW,
+    * These mods must be updated if installed.
     
+    * TS4L-35 Add ArgumentsUpdater.get_args() to retrieve argument items in a safe way (for Stupid Drone)
+    * TS4L-36 Add support for classmethods and staticmethods within InjectionUtility.check_signature() 
+v1.0.7
+    TS4L-34 Add CustomOutfitIndex (for SimRay Body Modifications)
+v1.0.6
     TS4L-28 Add CustomGamePack.SP76_SILVER_SCREEN_STYLE & SP77_TEA_TIME_SOLARIUM
     TS4L-29 Add CustomService to handle game service events
     TS4L-30 Add CustomGamePack.SP75_WONDERLAND_PLAYROOM & SP82_YARD_CHARM
@@ -47,25 +48,17 @@ v1.0.6
     TS4L-32 Add new Region and Worlds: Ondarion: Verdemar, Bellacorde, Dambele
     TS4L-33 Add slider enums SimRegion and SimSubRegion
 v1.0.5
-    Breaking changes (v0.3 -> v1.0): Affected mods: Copy Outfits, Crontab, Go Here, GUIDs, Hotkeys, Hotkey Bindings, IL-Tanning, On Interaction Do, Schedule It, Whisk Away, ATU, NW,
-
     TS4L-26 Add ArgumentUpdater and InspectionUtility to support Python injections.
     TS4L-27 Prepare CustomGamePack for the upcoming packs EP22, GP13 and SP82
     (TS4L-20) fix CustomSlider name
 v1.0.4
-    Breaking changes (v0.3 -> v1.0): Affected mods: Copy Outfits, Crontab, Go Here, GUIDs, Hotkeys, Hotkey Bindings, IL-Tanning, On Interaction Do, Schedule It, Whisk Away, ATU, NW,
-
     TS4L-25 Rename 'venues, regions, objects' to 'venue, region, object' f(TS4 v1.121)
 v1.0.3
-    Breaking changes (v0.3 -> v1.0): Affected mods: Copy Outfits, Crontab, Go Here, GUIDs, Hotkeys, Hotkey Bindings, IL-Tanning, On Interaction Do, Schedule It, Whisk Away, ATU, NW,
-    
     TS4L-21 Add a simple frozendict implementation.
     TS4L-22 Add CustomGamePack mapping.
     TS4L-23 Add WorldsAndNeighbourhoods.get_pack_world_and_neighbourhood()
     TS4L-24 Add CustomGamePack.EP21_ROYALTY_AND_LEGACY
 v1.0.2
-    Breaking changes (v0.3 -> v1.0): Affected mods: Copy Outfits, Crontab, Go Here, GUIDs, Hotkeys, Hotkey Bindings, IL-Tanning, On Interaction Do, Schedule It, Whisk Away, ATU, NW,
-    
     TS4L-20 Add support for sculpts and sliders
         New Sculpt.MAP with 1000 sculpt names, add SimModifier.MAP with 2000 modifier names
         New ManageSliders() with update_sculpt(), slide_to() and get_sliders()
@@ -81,8 +74,7 @@ v1.0.0
     TS4L-11 Replace CommonEnums with CustomEnums: All, also in README
     TS4L-13 Fix Error 'int() argument must be a string, a bytes-like object or a number, not 'NoneType'' parsing location for '...'.
     TS4L-14 Move ctypes folder to mod root
-    TS4L-15 Create a Mac build without ctypes
-    
+    TS4L-15 Create a Mac build without ctypes    
 v0.3.53
     TS4L-7 Fix VanillaNames.get_world_name()
     TS4L-8 Fix VanillaNames.get_neighbourhood_name()

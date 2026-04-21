@@ -1,5 +1,8 @@
-TS4-Library v1.0.7 for The Sims 4 v1.122.212 and S4CL v3.20
-Created on 2026-03-21
-v1.0.7
-    TS4L-34 Add CustomOutfitIndex (for SimRay)
+TS4-Library v1.0.8 for The Sims 4 v1.122.218 and S4CL v3.20
+Created on 2026-04-09
+v1.0.8
+    * Breaking changes when updating from v0.3.x (released in 2025) to v1.x (released in 2025) affect these mods: Copy Outfits, Crontab, Go Here, GUIDs, Hotkeys, Hotkey Bindings, IL-Tanning, On Interaction Do, Schedule It, Whisk Away, ATU, NW,
+    * These mods must be updated if installed.
+    
+    * TS4L-35 Add ArgumentsUpdater.get_args() to retrieve argument items in a safe way (for Stupid Drone)    
 

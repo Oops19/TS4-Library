@@ -23,6 +23,23 @@ log.enable()
 class InjectionUtility:
 
     @staticmethod
+    def unwrap_method(method):
+        """Return the underlying function for classmethod, staticmethod, or decorated methods."""
+        # Unwrap classmethod or staticmethod
+        if isinstance(method, (classmethod, staticmethod)):
+            method = method.__func__
+
+        # Unwrap bound methods
+        if hasattr(method, "__func__"):
+            method = method.__func__
+
+        # Unwrap decorated functions (functools.wraps)
+        while hasattr(method, "__wrapped__"):
+            method = method.__wrapped__
+
+        return method
+
+    @staticmethod
     def check_signature(
         mod_identity: CommonModIdentity,
         cls,
@@ -68,7 +85,8 @@ class InjectionUtility:
             return False
 
         method = getattr(cls, method_name)
-        sig = inspect.signature(method)
+        real_method = InjectionUtility.unwrap_method(method)
+        sig = inspect.signature(real_method)
         params = list(sig.parameters.values())
         names = [p.name for p in params]
 
